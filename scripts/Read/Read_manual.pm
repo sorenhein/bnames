@@ -32,7 +32,8 @@ sub read_names_manual
 
     my ($bbono, $rest) = ($1, $2);
 
-    $hash->{$bbono} = $rest;
+    $hash->{$bbono}{LINE} = $rest;
+    @{$hash->{$bbono}{STRINGS}} = split /,/, $rest;
   }
 
   close $fh;

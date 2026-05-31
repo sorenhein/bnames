@@ -264,6 +264,25 @@ sub decorate
 }
 
 
+sub add_tournament_ref_to_bbono
+{
+  # elem is actually a pointer to this tournament.
+  my ($self, $bbono_hash, $elem) = @_;
+
+  for my $bbono (keys %{$self->{LININFO}})
+  {
+    if (! exists $bbono_hash->{$bbono})
+    {
+      warn "$self->{NAMES_DIR}: No BBONO $bbono" 
+        unless exists $BBO_NOWARN{$bbono};
+      next;
+    }
+
+    $bbono_hash->{$bbono} = $elem;
+  }
+}
+
+
 sub write_names_manual
 {
   my ($self, $bbono_hash) = @_;
