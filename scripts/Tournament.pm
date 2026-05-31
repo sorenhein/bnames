@@ -236,9 +236,9 @@ sub match
 }
 
 
-sub write_names_manual
+sub decorate
 {
-  my ($self, $bbono_hash, $prefix, $year_disamb) = @_;
+  my ($self, $prefix, $disamb) = @_;
 
   if (! exists $self->{FIELDS}{TOURNAMENT_NAME})
   {
@@ -252,23 +252,31 @@ sub write_names_manual
     print_hash($self->{FIELDS});
     die "No YEAR";
   }
-  my $year = $self->{FIELDS}{YEAR} . $year_disamb;
+  my $year = $self->{FIELDS}{YEAR} . $disamb;
 
   my $dir1 = "$prefix/$tname";
   my $dir2 = "$dir1/$year";
-  my $fname = "$dir2/names.txt";
 
   mkdir $dir1 unless -d $dir1;
   mkdir $dir2 unless -d $dir2;
 
-  open my $fh, '>:encoding(UTF-8)', $fname or 
-    die "Cannot write $fname: $!";
+  $self->{NAMES_DIR} = "$dir2/names.txt";
+}
+
+
+sub write_names_manual
+{
+  my ($self, $bbono_hash) = @_;
+
+  open my $fh, '>:encoding(UTF-8)', $self->{NAMES_DIR} or 
+    die "Cannot write $self->{NAMES_DIR}: $!";
 
   for my $bbono (sort {$a <=> $b} keys %{$self->{LININFO}})
   {
     if (! exists $bbono_hash->{$bbono})
     {
-      warn "$fname: No BBONO $bbono" unless exists $BBO_NOWARN{$bbono};
+      warn "$self->{NAMES_DIR}: No BBONO $bbono" 
+        unless exists $BBO_NOWARN{$bbono};
       next;
     }
 

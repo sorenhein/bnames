@@ -27,25 +27,44 @@ Read_tournaments::read_tournament_file($tournament_fname, \%tournaments);
 my %names_manual;
 Read_manual::read_names_manual($NAMES1_MANUAL, \%names_manual);
 
+decorate_tournaments(\%tournaments);
+
 for my $tname (sort keys %tournaments)
 {
   for my $year (sort {$a <=> $b} keys %{$tournaments{$tname}})
   {
-    my $list = $tournaments{$tname}{$year};
-    
-    if ($#$list == 0)
-    {
-      $list->[0]->write_names_manual(\%names_manual, $TNAMES_DIR, '');
-    }
-    else
-    {
-      my $disamb = 65; # A
-      for my $elem (@$list)
+      for my $elem (@{$tournaments{$tname}{$year}})
       {
-        $elem->write_names_manual(\%names_manual, $TNAMES_DIR, 
-          chr($disamb));
-        $disamb++;
+        $elem->write_names_manual(\%names_manual);
+      }
+  }
+}
+
+
+sub decorate_tournaments
+{
+  my ($tournaments) = @_;
+
+  for my $tname (sort keys %$tournaments)
+  {
+    for my $year (sort {$a <=> $b} keys %{$tournaments->{$tname}})
+    {
+      my $list = $tournaments->{$tname}{$year};
+    
+      if ($#$list == 0)
+      {
+        $list->[0]->decorate($TNAMES_DIR, '');
+      }
+      else
+      {
+        my $disamb = 65; # A
+        for my $elem (@$list)
+        {
+          $elem->decorate($TNAMES_DIR, chr($disamb));
+          $disamb++;
+        }
       }
     }
   }
 }
+
