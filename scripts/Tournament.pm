@@ -96,6 +96,41 @@ my %BFIELDS_DISCARD =
   COLOR => 1
 );
 
+my %BBO_NOWARN =
+(
+  4549 => 1,
+  4551 => 1,
+  6556 => 1,
+  6559 => 1,
+  6563 => 1,
+  6566 => 1,
+  6569 => 1,
+  6582 => 1,
+  6584 => 1,
+  6596 => 1,
+  6602 => 1,
+  6604 => 1,
+  6609 => 1,
+  6619 => 1,
+  6620 => 1,
+  7640 => 1,
+  7649 => 1,
+  7664 => 1,
+  7665 => 1,
+  8055 => 1,
+  8058 => 1,
+  8415 => 1,
+  8416 => 1,
+  8417 => 1,
+  8422 => 1,
+  8424 => 1,
+  8425 => 1,
+  8798 => 1,
+  8799 => 1,
+  8800 => 1,
+  9002 => 1,
+);
+
 
 sub new
 {
@@ -188,7 +223,7 @@ sub match
     if (! exists $TFIELDS_TEXT{$field})
     {
       print_hash($hash);
-      die "Unexpected field $field\n";
+      die "Unexpected field $field";
     }
 
     if (exists $self->{FIELDS}{$field} &&
@@ -198,6 +233,49 @@ sub match
     }
   }
   return 1;
+}
+
+
+sub write_names_manual
+{
+  my ($self, $bbono_hash, $prefix, $year_disamb) = @_;
+
+  if (! exists $self->{FIELDS}{TOURNAMENT_NAME})
+  {
+    print_hash($self->{FIELDS});
+    die "No TOURNAMENT_NAME";
+  }
+  my $tname = $self->{FIELDS}{TOURNAMENT_NAME};
+
+  if (! exists $self->{FIELDS}{YEAR})
+  {
+    print_hash($self->{FIELDS});
+    die "No YEAR";
+  }
+  my $year = $self->{FIELDS}{YEAR} . $year_disamb;
+
+  my $dir1 = "$prefix/$tname";
+  my $dir2 = "$dir1/$year";
+  my $fname = "$dir2/names.txt";
+
+  mkdir $dir1 unless -d $dir1;
+  mkdir $dir2 unless -d $dir2;
+
+  open my $fh, '>:encoding(UTF-8)', $fname or 
+    die "Cannot write $fname: $!";
+
+  for my $bbono (sort {$a <=> $b} keys %{$self->{LININFO}})
+  {
+    if (! exists $bbono_hash->{$bbono})
+    {
+      warn "$fname: No BBONO $bbono" unless exists $BBO_NOWARN{$bbono};
+      next;
+    }
+
+    print $fh "$bbono $bbono_hash->{$bbono}\n";
+  }
+
+  close $fh;
 }
 
 

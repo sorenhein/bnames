@@ -100,7 +100,7 @@ sub read_tournament_file
         }
 
         $tournament = Tournament->new();
-        push @{$hash->{$chunk{YEAR}}{$chunk{TOURNAMENT_NAME}}},
+        push @{$hash->{$chunk{TOURNAMENT_NAME}}{$chunk{YEAR}}},
           $tournament;
 
         $tournament->set(\%chunk);
