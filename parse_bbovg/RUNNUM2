@@ -1,0 +1,15 @@
+#!/bin/csh
+
+set tags = ( \
+  FRIENDLY \
+  INDIA \
+  INDONESIA )
+
+foreach tag ($tags)
+    echo "Processing tag: $tag"
+    echo "=========="
+    (perl digest.pl t2 $tag > /tmp/d) >& /tmp/e
+    wc /tmp/e
+    echo ""
+end
+

@@ -1,0 +1,372 @@
+#!perl
+
+use v5.10;
+use strict;
+use warnings;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+use lib '.';
+use lib './Tags';
+use lib './Connections';
+
+use LinksT;
+use DateCalc;
+use Tags::Tname;
+use Tags::Meet;
+use Connections::Matrix;
+
+my $MEET_TEMPLATE =
+"  'MNAME' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+
+    EDITIONS =>
+    {
+      '2000' =>
+      {
+        YEAR => 2000,
+        DATE_START => '2000-01-01',
+        DATE_END => '2000-01-01'
+      },
+    }
+  },";
+
+my $TNAME_TEMPLATE =
+"  'TNAME' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2000' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2000,
+            DATE_START => '2000-01-01',
+            DATE_END => '2000-01-01'
+          },
+        }
+      },
+    }
+  },";
+
+
+# Quite duplicative to read the tournaments and meets twice,
+# but it's only checker...
+use ParseT;
+
+use Whole;
+my $whole = Whole->new();
+$whole->init_hashes();
+
+Connections::Matrix::set_matrix($whole);
+$whole->check_static_consistency();
+
+my $debug;
+my $debug_division = '';
+
+my (%links_t, %links_m);
+my (%links_thash, %links_mhash);
+
+my %IGNORE_MEETS = (
+  'Anatolian Club Teams|2012|C0' => 'Assael Festival',
+  'APBF Women Elite Tournament|2006|C2' => 
+    'FISU World University Championships',
+  'APBF Women Elite Tournament|2006|C3' =>
+    'FISU World University Championships',
+  'Bologna Trophy|2014|C0' => 'Italy Cup',
+  'Torneo di Roma|2014|C0' => 'Italy Cup',
+  'Torneo di Roma|2014|C1' => 'Italy Cup',
+  'Torneo di Roma|2014|C2' => 'Italy Cup',
+  'Viareggio Cup|2005|C0' => 'Italian Club Championship',
+  'Pahlawan Cup|2014|SINGLE' => 'Indonesian Student Championship',
+  'Polish Individual Championship|2012A|C0' => 'Polish Championships',
+  # This is true, but too hard to track down other Open Trials.
+  'Polish Open Trials|2004|SINGLE' => 'Luczniczka Meeting',
+  'Polish Premier League|2006|C1' => 'Polish Pairs Championship',
+  'Polish Premier League|2012|C2' => 'Zulawski Congress',
+  'Polish Premier League|2013|C2' => 'Zulawski Congress',
+  'All India Bangur Cement Hindusthan Club|2015|C0' =>
+    'Goa Bridge Festival',
+  'All India Bangur Cement Hindusthan Club|2015|C1' =>
+    'Goa Bridge Festival',
+  'Indonesian Prima Pair Programme|2016|C1' => 
+    'Indonesian University Championship',
+  'Israel Open Teams Cup|2010|SINGLE' => 'Israel Grand Prix',
+  'Italian Mixed Teams|2024|C0' => 'Italy Cup', # For now
+  'Izmir Winter Teams Cup|2016|SINGLE' => 'Sivrioglu Festival',
+  'Portuguese Open Teams|2019|C2' => 'Madeira Internationa Festival',
+  'South Australia Open Teams|2023B|C0' => 'Australian Playoffs',
+  'South Australia Open Teams|2024C|C1' => 'Australian Playoffs',
+  'Turkey Friendly|2018A|SINGLE' => 'Turkey Practice',
+  'Turkish Senior Team Trials|2020|C2' => 'Turkish Winter Championships',
+  'Yeh Bros Cup|2019|C0' => 'YPBF Youth Championships'
+);
+
+
+# Check that tournaments and Tname/Meet have the same primary names.
+# Also check that whether a tournament would have a compatible meet.
+
+die "perl checkT.pl [INDONESIA]" unless ($#ARGV <= 0);
+
+if ($#ARGV == 0)
+{
+  $debug = 1;
+  $debug_division = $ARGV[0];
+}
+else
+{
+  $debug = 0;
+}
+
+my %divisionsT;
+LinksT::init_linksT(\%divisionsT);
+
+my $parseT = ParseT->new();
+$parseT->init_links($debug_division, $debug);
+
+if ($debug)
+{
+  $divisionsT{$debug_division}->(\&set_linksT);
+
+  my (%tname_hash, %meet_hash);
+  Tags::Tname::set_masters(\%tname_hash, $debug_division);
+  Tags::Meet::set_masters(\%meet_hash, $debug_division);
+
+  check_same_hash("Tname", $debug_division,
+    \%links_thash, \%tname_hash);
+  check_same_hash("Meet", $debug_division,
+    \%links_mhash, \%meet_hash);
+  suggest_meets($debug_division);
+  check_field_values($debug_division);
+}
+else
+{
+  while (my ($key, $links_method) = each %divisionsT)
+  {
+    $links_method->(\&set_linksT);
+
+    my (%tname_hash, %meet_hash);
+    Tags::Tname::set_masters(\%tname_hash, $key);
+    Tags::Meet::set_masters(\%meet_hash, $key);
+
+    check_same_hash("Tname", $key,
+      \%links_thash, \%tname_hash);
+    check_same_hash("Meet", $key,
+      \%links_mhash, \%meet_hash);
+    suggest_meets($key);
+    check_field_values($key);
+  }
+}
+
+
+sub set_linksT
+{
+  my ($meets, $tournaments, $key) = @_;
+
+  %links_t = ();
+  %links_m = ();
+  %links_thash = ();
+  %links_mhash = ();
+
+  for my $meet (sort keys %$meets)
+  {
+    $links_mhash{$meet} = 1;
+  }
+  %{$links_m{$key}} = %$meets;
+
+  for my $tournament (sort keys %$tournaments)
+  {
+    $links_thash{$tournament} = 1;
+  }
+  %{$links_t{$key}} = %$tournaments;
+}
+
+
+sub check_same_hash
+{
+  my ($text, $value, $hash1, $hash2) = @_;
+
+  for my $k1 (sort keys %$hash1)
+  {
+    if (! exists $hash2->{$k1})
+    {
+      warn "$text, $value: $k1 not in typo hash";
+    }
+  }
+
+  for my $k2 (sort keys %$hash2)
+  {
+    if (! exists $hash1->{$k2})
+    {
+      warn "$text, $value: $k2 not in structure hash";
+      print_correction($text, $k2);
+    }
+  }
+}
+
+
+sub suggest_meets
+{
+  my ($key) = @_;
+
+  my @keys = sort keys %links_t;
+  return unless $#keys == 0;
+
+  for my $tname (sort keys %{$links_t{$keys[0]}})
+  {
+    my $editions = $links_t{$keys[0]}{$tname}{EDITIONS};
+    for my $tag (sort keys %$editions)
+    {
+      my $edition = $editions->{$tag};
+      next if exists $edition->{MEET};
+
+      for my $ctag (sort keys %{$edition->{CHAPTERS}})
+      {
+        my $chapter = $edition->{CHAPTERS}{$ctag};
+        my $cdate1 = $chapter->{DATE_START};
+        my $cdate2 = $chapter->{DATE_END};
+
+        for my $meet (sort keys %{$links_m{$keys[0]}})
+        {
+          my $meditions = $links_m{$keys[0]}{$meet}{EDITIONS};
+          for my $mtag (sort keys %$meditions)
+          {
+            my $mchapter = $meditions->{$mtag};
+            my $mdate1 = $mchapter->{DATE_START};
+            my $mdate2 = $mchapter->{DATE_END};
+
+            # warn "$tname, $ctag: $cdate1, $mdate1";
+
+            my $tdate = DateCalc->new();
+            $tdate->set_by_field($cdate1);
+            next unless $tdate->distance($mdate1, $mdate2) == 0;
+
+            $tdate->set_by_field($cdate2);
+            next unless $tdate->distance($mdate1, $mdate2) == 0;
+
+            my $str = $tname . '|' . $mtag . '|' . $ctag;
+            next if exists $IGNORE_MEETS{$str};
+
+            warn "$tname, $ctag: Matches meet $meet, $mtag?";
+          }
+        }
+      }
+    }
+  }
+}
+
+
+sub check_field_values
+{
+  my ($key) = @_;
+
+  my @keys = sort keys %links_t;
+  return unless $#keys == 0;
+
+  for my $tname (sort keys %{$links_t{$keys[0]}})
+  {
+    my $editions = $links_t{$keys[0]}{$tname}{EDITIONS};
+    for my $tag (sort keys %$editions)
+    {
+      my $edition = $editions->{$tag};
+      next if exists $edition->{MEET};
+
+      for my $ctag (sort keys %{$edition->{CHAPTERS}})
+      {
+        my $chapter = $edition->{CHAPTERS}{$ctag};
+        my $cdate1 = $chapter->{DATE_START};
+        my $cdate2 = $chapter->{DATE_END};
+
+        my (%cumul, %chapter);
+        $parseT->get_all_fields($tname, $tag, $ctag, \%cumul, \%chapter);
+
+        my @fields = sort keys %cumul;
+        push @fields, sort keys %chapter;
+
+        for my $field (sort keys %cumul)
+        {
+          # TODO WEEKEND
+          # TODO Online as a city (wasn't there a special city?!)
+
+          next if ($field eq 'major' ||
+            $field eq 'minor' ||
+            $field eq 'WEEKEND' ||
+            $field eq 'YEAR');
+
+          next if ($field eq 'ORDINAL' && $cumul{$field} =~ /^\d+$/);
+          next if ($field eq 'CITY' && $cumul{$field} eq 'Online');
+          next if ($field eq 'AGE' && $cumul{$field} eq 'Open');
+
+          my $lookup_field = ($field eq 'TOURNAMENT_NAME' ?
+            'TNAME' : $field);
+
+          my $composite = $whole->get_multi($lookup_field, 
+            lc($cumul{$field}));
+          if (defined $composite)
+          {
+            if ($cumul{$field} ne $composite)
+            {
+              print "$tname, $tag, $ctag: ",
+                "field $field, value .$cumul{$field}., ",
+                " got .$composite.\n";
+            }
+            next;
+          }
+
+          my $single = $whole->get_single($lookup_field, 
+            lc($cumul{$field}));
+          if (! defined $single->{CATEGORY})
+          {
+            print "$tname, $tag, $ctag: ",
+              $cumul{$field}, ", $field: No singleton category\n";
+            next;
+          }
+
+          if ($cumul{$field} ne $single->{VALUE})
+          {
+           print "$tname, $tag, $ctag: ",
+             "field $field, value .$cumul{$field}., ",
+             " got single .", $single->{VALUE}, ".\n";
+          }
+        }
+
+        # warn "$tname, $tag, $ctag";
+      }
+    }
+  }
+}
+
+
+sub print_correction
+{
+  my ($text, $name) = @_;
+
+  if ($text eq 'Meet')
+  {
+    my $s = $MEET_TEMPLATE;
+    $s =~ s/MNAME/$name/;
+    say $s;
+  }
+  elsif ($text eq 'Tname')
+  {
+    my $s = $TNAME_TEMPLATE;
+    $s =~ s/TNAME/$name/;
+    say $s;
+  }
+  else
+  {
+    die $text;
+  }
+}
+

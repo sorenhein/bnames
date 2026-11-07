@@ -1,0 +1,122 @@
+2025-04-12
+
+Build:
+Look for skips and duplicates in digest output
+(once we have names)
+
+Check (a,b,c) values? E.g. skip
+
+RS_REPLACE in .ref sometimes less generic
+
+Next steps
+==========
+
+1. Get the old names into new form:
+- Read in ebl.txt
+- Read in status of names_full.txt
+- Read in simple names.txt (which is LAST First)
+- Output something like
+
+BBO 10299
+TEAM1_NAMES MECKSTROTH Jeff,RODWELL Eric,HAMPSON Geoff,LEVIN Bobby
+TEAM2_NAMES KOLATA Suleyman,KANDEMIR Ismail,YILMAZ M.Gokhan,GUR Okay
+TEAM1_PID EBL 3775, EBL 3777, EBL 8696, EBL 11125
+TEAM2_PID EBL 9461, EBL 18319, EBL 5881, EBL 18635
+
+Or 
+TEAM1_NAMES MECKSTROTH Jeff [EBL 3775],RODWELL Eric [EBL 3777],HAMPSON Geoff [EBL 8696],LEVIN Bobby [EBL 11125]
+
+Can leave out entire team if no names
+Can have no player ID (EBL open])
+Can have no player ('open')
+
+2. Get overview by tournament:
+- Read in new names file
+- Read in ebl.txt
+- Read in output of digest (potentially limited by AFRICA etc.)
+- Can also pick out specific tournament, even 2009A
+
+For each tournament (overall and for 2009A etc.):
+Count #BBO
+Count #BBO for which there are no 'open'
+Count #names
+Count #PID
+
+Output csv:
+tname, [2009A], gender, age, the four fields
+
+For each tournament that is not complete:
+BBO's OK ?
+BBO's not OK
+
+3. Get overview by player (output to file):
+The player data in some sensible form
+NAME
+COUNTRY
+EBL
+GENDER
+something about BIRTH, DEATH
+
+Partners with counts
+#times international, transnational, national, other
+
+4. Within a tournament (or country?):
+From a grep string, the matches (as before for each known player)
+The unrecognized players matching the grep string
+Each partner and their nationality
+
+5. A version that fixes the BBO file and also the player stats
+
+
+
+
+
+Workflow
+========
+In GitHub/Build/src:
+./reader -I ../../../bbo1 -Q 9=4=0=0 -v 63 > raw.txt
+Edit out the bottom lines
+Copy to GitHub/Valet/scripts/Euro-and-World/bbo
+
+perl cook.pl raw.txt > t
+Edit out the bottom lines
+
+perl digest t > d
+
+The outputs currently live in Bridge/Corpus/tournaments/BBOVG/Data.
+
+Things that get modified to fix errors:
+- EntryT.pm, list of scoring adjustments (especially pairs tournaments)
+- Title/Study.pm, regex substitution of ranges of BBONO numbers
+- The .ref files
+
+Can look at weekdays:
+foreach f (..$/Tournaments/*pm)
+  perl weekday.pl $f > ../Tournaments/DATED/`basename $f`
+end
+
+perl checkT.pl
+checks internal consistency of Tournament and Meet.
+
+perl checkB.pl t
+checks BBO entry field values vs. Tournament and Meet.
+
+To look for skips:
+./reader -I ../../../bbo2 -Q 9=4=0=0 -e > op2
+Then
+perl contain.pl 73441 73443
+Then look for the master file (gets the modifications)
+and the slave file (gets the SKIP line from op2).
+
+
+Nice-to-have
+============
+
+MOVEMENT/STAGE
+- If present, must be present in chapter header.
+- If in chapter header, must be in at least one BBO
+
+Misc.
+- Multiple attempts at same segment of a match
+  23000, 23004, 23005 (candidates for skip files)
+- Tname date ranges as tight as possible? (Deviations noted but OK)

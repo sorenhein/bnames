@@ -1,0 +1,79 @@
+#!/bin/csh
+
+set tags = ( \
+  AFRICA \
+  ARGENTINA \
+  ASIA \
+  AUSTRALIA \
+  AUSTRIA \
+  BALKAN \
+  BALTIC \
+  BELARUS \
+  BELGIUM \
+  BOLIVIA \
+  BRAZIL \
+  BULGARIA \
+  CANADA \
+  CENTRALAMERICA \
+  CHILE \
+  CHINA \
+  COLOMBIA \
+  CZECH \
+  CROATIA \
+  DENMARK \
+  ECUADOR \
+  EGYPT \
+  EUROADULT \
+  EUROYOUTH \
+  FAROE \
+  FINLAND \
+  FRANCE \
+  FRIENDLY \
+  GERMANY \
+  GREECE \
+  HONGKONG \
+  HUNGARY \
+  ICELAND \
+  INDIA \
+  INDONESIA \
+  IRELAND \
+  ISRAEL \
+  ITALY \
+  JAPAN \
+  JORDAN \
+  LEBANON \
+  MIDDLEEAST \
+  MONACO \
+  NETHERLANDS \
+  NEWZEALAND \
+  NORDIC \
+  NORWAY \
+  PAKISTAN \
+  POLAND \
+  PORTUGAL \
+  ROMANIA \
+  RUSSIA \
+  SERBIA \
+  SINGAPORE \
+  SLOVAKIA \
+  SOUTHAFRICA \
+  SOUTHAMERICA \
+  SPAIN \
+  SUPRA \
+  SWEDEN \
+  SWITZERLAND \
+  TAIPEI \
+  THAILAND \
+  TURKEY \
+  UK \
+  USA \
+  VENEZUELA \
+  WORLD )
+
+foreach tag ($tags)
+    echo "Processing tag: $tag"
+    echo "=========="
+    perl digest.pl t $tag
+    echo ""
+end
+

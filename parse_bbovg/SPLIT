@@ -1,0 +1,27 @@
+grep EVENT_SEGMENT d2 > aev
+grep -v EVENT_SEGMENT d2 > /tmp/t1
+
+grep EVENT_ROUND /tmp/t1 > aero
+grep -v EVENT_ROUND /tmp/t1 > /tmp/t2
+
+grep EVENT_AGE /tmp/t2 > aeag
+grep -v EVENT_AGE /tmp/t2 > /tmp/t3
+
+grep EVENT_PARTICLE /tmp/t3 > aepa
+grep -v EVENT_PARTICLE /tmp/t3 > /tmp/t4
+
+grep "HEADER FORM" /tmp/t4 > afo
+grep -v "HEADER FORM" /tmp/t4 > /tmp/t5
+
+grep "CHAPTER STAGE" /tmp/t5 > acst
+grep -v "CHAPTER STAGE" /tmp/t5 > /tmp/t6
+
+grep "COUNTER MATCH" /tmp/t6 > acma
+grep -v "COUNTER MATCH" /tmp/t6 > /tmp/t7
+
+grep "^STAGE: " /tmp/t7 > ast
+grep -v "^STAGE: " /tmp/t7 > /tmp/t8
+
+cat /tmp/ta
+
+wc a*
