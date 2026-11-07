@@ -1,0 +1,111 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tags::Tnames::Friendly;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_hash);
+
+
+my @MULTI_WORDS =
+(
+  'Argentina Friendly',
+  'Australia Challenge',
+  'Australia Friendly',
+  'Australia Practice',
+  'Bay Area Challenge',
+  'Brighton Exhibition',
+  'Canada Friendly',
+  'Chile Practice',
+  'China Friendly',
+  'China Practice',
+  'Denmark Friendly',
+  'Denmark Practice',
+  'Denmark Practice Pairs',
+  'France Friendly',
+  'France Friendly Pairs',
+  'France Practice',
+  'Germany Friendly Pairs',
+  'Germany Practice',
+  'Goulash Practice',
+  'Hong Kong Practice',
+  'Hungary Challenge',
+  'Hungary Exhibition',
+  'Hungary Friendly',
+  'Hungary Practice',
+  'Iceland Friendly',
+  'India Exhibition',
+  'Ireland Friendly',
+  'Israel Friendly',
+  'Israel Practice',
+  'Italy Friendly',
+  'Italy Practice',
+  'Morocco Friendly',
+  'Netherlands Challenge',
+  'Netherlands Friendly',
+  'Netherlands Friendly Pairs',
+  'Netherlands Practice',
+  'Norway Practice',
+  'Online Practice',
+  'Poland Friendly',
+  'Poland Mixed Friendly Pairs',
+  'Poland Practice',
+  'Portugal Friendly',
+  'Portugal Practice',
+  'Russia Practice',
+  'Scotland Exhibition',
+  'Scotland Friendly',
+  'Scotland Practice',
+  'Spain Challenge',
+  'Spain Friendly',
+  'Sweden Friendly',
+  'Sweden Practice',
+  'Taiwan Practice',
+  'Tunisia Friendly',
+  'Turkey Friendly',
+  'Turkey Practice',
+  'Zulawski Friendly',
+);
+
+my %MULTI_TYPOS =
+(
+  'Denmark Practice' => [
+    'danish practice'],
+  'France Practice' => [
+    'paris country club exhibition'],
+  'Scotland Exhibition' => [
+    'm lawrence exhibiton',
+    'mike lawrence exhibition'],
+);
+
+my %SINGLE_TYPOS =
+(
+  'Denmark Practice' => [
+    'landsholdsobservation',
+    'landsholdstræning',
+    'observationsturnering'],
+);
+
+sub set_hash
+{
+  my ($gmulti_words, $gmulti_typos, $gsingle_typos) = @_;
+
+  push @$gmulti_words, @MULTI_WORDS;
+
+  while (my ($key, $value) = each %MULTI_TYPOS)
+  {
+    @{$gmulti_typos->{$key}} = @$value;
+  }
+
+  while (my ($key, $value) = each %SINGLE_TYPOS)
+  {
+    @{$gsingle_typos->{$key}} = @$value;
+  }
+}
+
+1;

@@ -1,0 +1,82 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tags::Tnames::Russia;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_hash);
+
+
+my @MULTI_WORDS =
+(
+  'Moscow Sunday Times Pairs',
+  'Moscow Sunday Times Teams',
+  'NN Cup',
+  'Russian IMSA Cup',
+  'Russian Mixed Team Trials',
+  'Russian Open Teams',
+  'Russian Open Team Trials',
+  'Russian Premier League',
+  'Russian Women Pairs',
+  'Russian Women Team Trials',
+  'Slava Cup',
+  'Slava Pairs Cup',
+  'Tennet Mixed Pairs Cup',
+);
+
+my %MULTI_TYPOS =
+(
+  'NN Cup' => [
+    'goulyash by e. gladysh',
+    'goulyash by e_gladysh',
+    'moscow goulash',
+    'nn-cup'],
+  'Russian IMSA Cup' => ['imsa cup'],
+  'Russian Mixed Team Trials' => [
+    'russian mixed trials',
+    'russian mixed trails'],
+  'Russian Open Teams' => [
+    'russian teams championship',
+    'russian team championship'],
+  'Russian Open Team Trials' => [
+    'russia open trials',
+    'russian open trials'],
+  'Russian Women Pairs' => [
+    'russian women pair championship'],
+  'Russian Women Team Trials' => ['russian women trials'],
+  'Russian Premier League' => ['russian premiere league'],
+  'Slava Cup' => [
+    'bkbt match',
+    'bkbt teams',
+    'cup slava', 
+    'salava cup'],
+  'Tennet Mixed Pairs Cup' => ['tennet cup']
+);
+
+my %SINGLE_TYPOS =
+(
+);
+
+sub set_hash
+{
+  my ($gmulti_words, $gmulti_typos, $gsingle_typos) = @_;
+
+  push @$gmulti_words, @MULTI_WORDS;
+
+  while (my ($key, $value) = each %MULTI_TYPOS)
+  {
+    @{$gmulti_typos->{$key}} = @$value;
+  }
+
+  while (my ($key, $value) = each %SINGLE_TYPOS)
+  {
+    @{$gsingle_typos->{$key}} = @$value;
+  }
+}
+
+1;
