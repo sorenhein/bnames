@@ -1,0 +1,64 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tags::Age;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_hashes);
+
+my @MULTI_WORDS =
+(
+);
+
+my %MULTI_TYPOS =
+(
+  Seniors => ['over 60', 'senior*', "seniors'"],
+  U16 => ['u-16'],
+  U18 => ['jhs'],
+  U20 => ['u 20', 'u-20', 'junior u20'],
+  U21 => ['shs', 'u 21', 'u-21', 'under 21'],
+  U25 => ['u 25'],
+  U26 => ['junior', 'junior series', 'juniors',
+    'u-26', 'under 26', 'undar 26', 'u 26'],
+  U28 => ['under 28'],
+  O55 => ['over 55']
+);
+
+my @SINGLE_WORDS = qw(
+  Seniors Girls Schools Kids
+  U36 U31 U30 U28 U26 U25 U23 U22 U21 U20 U18 U16 U15
+  O55 O61 O63
+);
+
+my %SINGLE_TYPOS =
+(
+  Seniors => [qw(senior senior's seniori seniorii seniorit 
+    senjoorid senyor sr seniiors)],
+  Schools => [qw(school)],
+  U16 => ['boys'],
+  U20 => [qw(u20s)],
+  U21 => [qw(youngster youngsters young youth yoth younth
+    yongster yougerters genclik gençlik gençlýk genç)],
+  U26 => [qw(juniiors juniores junior jrs jr jt junioor
+    junios juniot juniours junniors junor juniori
+    yuniors yunior juniorit jun juniorerna
+    students)],
+  Girls => [qw(girl gir jenter dziewczêta
+    dziewczeta dziewczyny)]
+);
+
+
+sub set_hashes
+{
+  my ($method, $key) = @_;
+
+  $method->(\@MULTI_WORDS, \%MULTI_TYPOS,
+    \@SINGLE_WORDS, \%SINGLE_TYPOS, $key);
+}
+
+1;

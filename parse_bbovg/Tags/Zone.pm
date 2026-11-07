@@ -1,0 +1,64 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tags::Zone;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_hashes);
+
+my @MULTI_WORDS =
+(
+  'African Zone',
+  'Asia Pacific',
+  'Central America and Caribbean',
+  'Middle East',
+  'North America',
+  'South America',
+  'South East Asia',
+  'South Pacific'
+);
+
+my %MULTI_TYPOS =
+(
+  'African Zone' => ['african zone', 'african zonal', 'zonal africa',
+    'zonal african'],
+  'Central America and Caribbean' => ['central america & caribean'],
+  'South America' => ['south american', 'south amerian',
+    'south amercian']
+);
+
+my @SINGLE_WORDS = qw(
+  ASEAN
+  Balkan
+  Commonwealth
+  Eurasia
+  Europe
+  Global
+  Mercosur
+  Norden
+  World
+);
+
+my %SINGLE_TYPOS =
+(
+  Commonwealth => ['commomwealth'],
+  Europe => ['european', 'euroregion', 'euro', 'europ_', 'europeqn'],
+  'South America' => ['southamerica', 'sudamericano',
+    'southamerican', 'sudamerican']
+);
+
+
+sub set_hashes
+{
+  my ($method, $key) = @_;
+
+  $method->(\@MULTI_WORDS, \%MULTI_TYPOS,
+    \@SINGLE_WORDS, \%SINGLE_TYPOS, $key);
+}
+
+1;

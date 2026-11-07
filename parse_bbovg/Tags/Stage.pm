@@ -1,0 +1,139 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tags::Stage;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_hashes);
+
+my @MULTI_WORDS =
+(
+  'Knock-out',
+  'Pre-Quarterfinal',
+);
+
+my %MULTI_TYPOS =
+(
+  Bronze => ['third place', '3rd place', 'bronze-finals', 
+    'bronze playoff', 'bronze match', 'small final'],
+  'Elimination' => ['head to head', 'eliminacje', 'eleme'],
+  'Final' => ['super final', 'final phase', 'fase final',
+    'playoff final', 'playoffs final', 'final poule', 'phase finale',
+    'f i n a l', 'fin als'],
+  'Knock-out' => ['knock-outs', 'knock out', 'k _ o'],
+  Playoff => ['play offs', 'play-off', 'play off', 'play_off'],
+  'Pre-Quarterfinal' => ['pre qf', 'pr qf', 'pre q_f', 'pre qfinals',
+    'pre-qf'],
+  Qualifying => ['qualification for', 'qualification to',
+    'wbg qualification', 'qualification to', 'qualifying swiss',
+    'playoff qual', 'preliminary rounds'],
+  Quarterfinal => ['kvartfinale', 'kvartsfinal', 'quarter final', 
+    'quarter finals', 
+    'quarter-final', 'quarter-finals', 'qua fin', 'q-final', 'q_f', 'q f',
+    'quater final', 'quater finals', 'round of 8', 'rd of 8', 'r of 8',
+    'æwieræfina³y', 'qtr finals', 'phase à 8', 'quoter-finals', 
+    'quart de finale', 'ceyrek final',
+    'quarter f', '1/4 f', '1_4 f', 'quaerter final', '1_4 fin',
+    '1_4 final', '1_4 final_', '1_4 fina', '1/4f', '1_4f',
+    '1_4 finales', 'quet final', 'quarti finale', '1_4 finale', 
+    '1/4 finale', '1_4 de finale', 'quartal final'],
+  Rof6 => ['round of 6'],
+  Rof12 => ['round of 12', 'rnd of12', 'phase a 12'],
+  Rof14 => ['phase à 14'],
+  Rof16 => ['round of 16', 'rd of 16', 'phase à 16', 'phase à16',
+    'phase a 16', 'rd 0f 16', 'phase 16', 'rnd of 16', 'rof 16', 
+    '1_8e finale', 'r.of 16', 'rn of 16', 'r of 16', '1_8e de finale',
+    '1_8 finales', '1_8 finale', '1_8 final'],
+  Rof18 => ['phase a 18'],
+  Rof28 => ['phase à 28', 'phase 28'],
+  Rof32 => ['round of 32', 'rd of 32', 'rnd of 32', 'rof 32', 'r of 32'],
+  Rof64 => ['round of 64', 'rd of 64'],
+  Rof128 => ['round of 128', 'rof 128'],
+  Semifinal => ['semi final', 'semi finals', 'semi-fiinal', 
+    's_f', 's.f.', 's f',
+    'semi-final', 'semi-finals', 'round of 4', 'round-of-four',
+    'demi-final', 'demi-finale', 'demi-finales', 'demi finale',
+    'half final', 'halve finale', 's-final', 'halbfinale',
+    'meia final', 'meias finais', 'yf', 'demi-nale', 'dsemi final',
+    'yari fi', 'yari final', 'yarý final', 'yari fýnal', 
+    'sem fin', 'semi <final', 'simi final',
+    'pó³fina³y', 'semi and final', 'semis and finals', 'semi f',
+    'playoff semi-final', 'playoffs semi final', 'semi finale', 
+    '1/2 f', '1_2 f', '1_2f', '1_2 final', '1_2 final_', '1_2 finale',
+    '1_2 finales', 'play-off semi-final', 'semi- final', 'semi finall',
+    'intermediate final', 'intermediate finals'],
+  Tiebreak => ['tie break', 'tie reak', 'extra boards', 'extra stanza',
+    'extra match', 'o_t', 'extra time']
+);
+
+my @SINGLE_WORDS = qw(
+  Bronze
+  Consolation
+  Elimination
+  Final
+  Playoff
+  Rof6 Rof12 Rof16 Rof32 Rof64
+  Qualifying Quarterfinal
+  Relegation
+  Repechage
+  Semifinal 
+  Tiebreak
+);
+
+my %SINGLE_TYPOS =
+(
+  Consolation => ['conso'],
+  Elimination => [
+    'eliminations',
+    'elim',
+    'penyisihan',
+    'peyisihan'],
+  Final => ['finala', 'finalds', 'finale', 'finali', 'finals',
+    'finales', 'finall', 'finar', 'finas', 'finat', 'finsl', 
+    'finais', 'finalns', 'fina³', 'fianal', 'fianl', 'fianls', 'finalý',
+    'fiinal', 'fina', 'fýnal', 'finalleri', 'fina³y', 'fn', 'finaller',
+    'filnal', 'fnal', 'fnals', 'ff', 'finaali', 'fýnalleri', 'fýnallerý',
+    'slutspil', 'slutspillet', 'superfinal', 'finalen'],
+  'Knock-out' => ['knockour', 'knockout', 'ko', 'kostage', 'knockouts',
+    'knock', 'nakavt'],
+  Playoff => ['playoffs', 'po'],
+  Qualifying => ['qualification', 'qualifications', 'qualif',
+    'qualifier', 'qalifyng', 'qualy', 'qualifikation', 'qual',
+    'qualifyng', 'qualýfýcatýon', 'qualification', 'qualifications', 
+    'quailfy', 'qualf', 'qualfication', 'quali', 'qualify',
+    'quallification', 'qulification', 'qualificazioni',
+    'qualif', 'qualifier', 'q', 'ql', 'qlf',
+    'prelim', 'preliminary', 'pre', 'pelim',
+    'clasificacion', 'clasificatoria'],
+  Quarterfinal => ['quarterfinals', 'quarterf', 'qualterfinal',
+    'quarterfinala', 'quarterfinalb', 'quarterfinalc', 'quarterfinald',
+    'quaterfinal', 'quaterfinals', 'quarti',
+    'quartetfinal', 'qurterfinal', 'qfinal', 'qfinals',
+    'q_ finals', 'q-f',
+    'qf', 'qfa', 'qfb', 'qfc', 'qfd', 'qr'],
+  'Pre-Quarterfinal' => ['pqf', 'preqf'],
+  Repechage => ['repcharge', 'repercharge'],
+  Rof12 => ['r12a', 'r12b'],
+  Rof16 => ['ottavi', 'r16a', 'r16b', 'r16c', 'r16d'],
+  Semifinal => ['semifinals', 'semifinale', 'semifimals', 'semifi',
+    'semif', 'semis', 'sf', 'sfa', 'sfb', 'semi', 'semifianls',
+    'semýfýnal', 'sfinals', 'sefi', 'semifinales', 'semifinali', 
+    'seminfinal', 'sfinal', 'sinal'],
+  Tiebreak => ['ot', 'tie', 'extra']
+);
+
+
+sub set_hashes
+{
+  my ($method, $key) = @_;
+
+  $method->(\@MULTI_WORDS, \%MULTI_TYPOS,
+    \@SINGLE_WORDS, \%SINGLE_TYPOS, $key);
+}
+
+1;
