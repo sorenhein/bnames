@@ -1,0 +1,592 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::Nordic;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+my %MEETS_NORDIC =
+(
+  'Nordic Junior Championship',
+  {
+    ORGANIZATION => 'NBU',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    AGE => 'U26',
+    GENDER => 'Open',
+
+    EDITIONS => 
+    {
+      '2009' =>
+      {
+        YEAR => 2009,
+        DATE_START => '2009-04-09', # Thu
+        DATE_END => '2009-04-12' # Sun
+      },
+      '2010' =>
+      {
+        YEAR => 2010,
+        DATE_START => '2010-04-03', # Sat
+        DATE_END => '2010-04-04' # Sun
+      },
+      '2011' =>
+      {
+        YEAR => 2011,
+        DATE_START => '2011-04-21', # Thu
+        DATE_END => '2011-04-24' # Sun
+      },
+      '2012' =>
+      {
+        YEAR => 2012,
+        DATE_START => '2012-04-07', # Sat
+        DATE_END => '2012-04-08' # Sun
+      },
+      '2013' =>
+      {
+        YEAR => 2013,
+        DATE_START => '2013-03-28', # Thu
+        DATE_END => '2013-03-31' # Sun
+      },
+      '2015' =>
+      {
+        YEAR => 2015,
+        DATE_START => '2015-04-04', # Sat
+        DATE_END => '2015-04-06' # Mon
+      },
+      '2016' =>
+      {
+        YEAR => 2016,
+        DATE_START => '2016-03-26', # Sat
+        DATE_END => '2016-03-27' # Sun
+      },
+    }
+  },
+
+  'Nordic Team Championship',
+  {
+    ORGANIZATION => 'NBU',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+
+    EDITIONS => 
+    {
+      '2005' =>
+      {
+        ORDINAL => 29,
+        CITY => 'Vingsted',
+        COUNTRY => 'Denmark',
+        YEAR => 2005,
+        DATE_START => '2005-07-01', # Estimated
+        DATE_END => '2005-07-04' # Mon
+      },
+      '2007' =>
+      {
+        ORDINAL => 30,
+        YEAR => 2007,
+        DATE_START => '2007-06-05', # Tue
+        DATE_END => '2007-06-09' # Sat
+      },
+      '2009' =>
+      {
+        ORDINAL => 31,
+        YEAR => 2009,
+        CITY => 'Turussa',
+        COUNTRY => 'Finland',
+        DATE_START => '2009-06-05', # Fri
+        DATE_END => '2009-06-07' # Sun
+      },
+      '2011' =>
+      {
+        ORDINAL => 32,
+        YEAR => 2011,
+        DATE_START => '2011-05-27', # Fri
+        DATE_END => '2011-05-29' # Sun
+      },
+      '2013' =>
+      {
+        # https://csbnews.org/iceland-nordic-teams-championships-2013/
+        ORDINAL => 33,
+        YEAR => 2013,
+        CITY => 'Keflavik',
+        COUNTRY => 'Iceland',
+        DATE_START => '2013-05-24', # Fri
+        DATE_END => '2013-05-26' # Sun
+      },
+      '2015' =>
+      {
+        ORDINAL => 34,
+        YEAR => 2015,
+        DATE_START => '2015-05-21', # Thu
+        DATE_END => '2015-05-24' # Sun
+      },
+      '2017' =>
+      {
+        # https://www2.bridge.dk/Default.aspx?ID=21886
+        ORDINAL => 35,
+        YEAR => 2017,
+        CITY => 'Horsens',
+        COUNTRY => 'Denmark',
+        DATE_START => '2017-06-02', # Fri
+        DATE_END => '2017-06-04' # Sun
+      },
+      '2019' =>
+      {
+        # https://kvangraven.no/historikk/nordic-championship-2019/
+        ORDINAL => 36,
+        YEAR => 2019,
+        CITY => 'Kristiansand',
+        COUNTRY => 'Norway',
+        DATE_START => '2019-06-07', # Fri
+        DATE_END => '2019-06-09' # Sun
+      },
+      '2021' =>
+      {
+        # https://www2.bridge.dk/Default.aspx?ID=25470
+        ORDINAL => 37,
+        YEAR => 2021,
+        CITY => 'Online',
+        DATE_START => '2021-05-29', # Sat
+        DATE_END => '2021-05-30' # Sun
+      },
+      '2023' =>
+      {
+        # https://www.svenskbridge.se/nm-2023/info
+        ORDINAL => 38,
+        YEAR => 2023,
+        CITY => 'Örebro',
+        COUNTRY => 'Sweden',
+        DATE_START => '2023-05-30', # Tue
+        DATE_END => '2023-06-01' # Thu
+      },
+    }
+  },
+);
+
+my %TOURNAMENTS_NORDIC =
+(
+  'Nordic Cup',
+  {
+    ORGANIZATION => 'NBU',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        # https://www.bridge.dk/turn/nordic_cup06/
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            CITY => 'Rottneros',
+            major => 'MATCH',
+            minor => 'HALF',
+            DATE_START => '2006-05-19', # Fri
+            DATE_END => '2006-05-21' # Sun
+          } 
+        }
+      },
+      '2008' =>
+      {
+        # https://arkiv.svenskbridge.se/e107_plugins/league/season.php?action=view&id=352
+        ORDINAL => 12,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            CITY => 'Rottneros',
+            major => 'ROUND',
+            DATE_START => '2008-05-23', # Fri
+            DATE_END => '2008-05-23' # Fri
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            CITY => 'Rottneros',
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-05-25', # Sun
+            DATE_END => '2008-05-25' # Sun
+          } 
+        }
+      },
+    }
+  },
+
+  'Nordic Junior Pairs',
+  {
+    FORM => 'Pairs',
+    SCORING => 'MP',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'SESSION',
+            DATE_START => '2010-04-03', # Sat
+            DATE_END => '2010-04-04' # Sun
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'SESSION',
+            DATE_START => '2012-04-07', # Sat
+            DATE_END => '2012-04-08' # Sun
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION',
+            DATE_START => '2016-03-26', # Sat
+            DATE_END => '2016-03-27' # Sun
+          } 
+        }
+      },
+    }
+  },
+
+  'Nordic Junior Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            major => 'ROUND',
+            DATE_START => '2005-07-01', # Fri
+            DATE_END => '2005-07-04' # Mon
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-04-09', # Thu
+            DATE_END => '2009-04-12' # Sun
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Round-robin',
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2011-04-21', # Thu
+            DATE_END => '2011-04-24' # Sun
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2013-03-28', # Thu
+            DATE_END => '2013-03-30' # Sat
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-03-30', # Sat
+            DATE_END => '2013-03-31' # Sun
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Nordic Junior Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2015-04-04', # Sat
+            DATE_END => '2015-04-06' # Mon
+          } 
+        }
+      },
+    }
+  },
+
+  'Nordic Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2005-07-01', # Fri
+            DATE_END => '2005-07-04' # Mon
+          } 
+        }
+      },
+      '2007' =>
+      {
+        # TODO
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            DATE_START => '2007-06-05', # Tue
+            DATE_END => '2007-06-09' # Sat
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-06-05', # Fri
+            DATE_END => '2009-06-07' # Sun
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-05-27', # Fri
+            DATE_END => '2011-05-29' # Sun
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'ROUND',
+            DATE_START => '2013-05-24', # Fri
+            DATE_END => '2013-05-26' # Sun
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-05-21', # Thu
+            DATE_END => '2015-05-24' # Sun
+          } 
+        }
+      },
+    }
+  },
+
+  'Nordic Security Pro-Am Pairs',
+  {
+    ORGANIZATION => 'NBU',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            DATE_START => '2011-01-21', # Fri
+            DATE_END => '2011-01-21' # Fri
+          } 
+        }
+      },
+    }
+  },
+
+  'Nordic Women Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            major => 'ROUND',
+            DATE_START => '2005-07-01', # Fri
+            DATE_END => '2005-07-04' # Mon
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            minor => 'HALF',
+            DATE_START => '2007-06-05', # Tue
+            DATE_END => '2007-06-09' # Sat
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-06-05', # Fri
+            DATE_END => '2009-06-07' # Sun
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-05-27', # Fri
+            DATE_END => '2011-05-29' # Sun
+          } 
+        }
+      },
+      '2013' =>
+      {
+        # TODO
+        MEET => 'Nordic Team Championship',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            DATE_START => '2013-05-24', # Fri
+            DATE_END => '2013-05-26' # Sun
+          } 
+        }
+      },
+    }
+  },
+
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_NORDIC, \%TOURNAMENTS_NORDIC, 'Nordic');
+}
+
+1;

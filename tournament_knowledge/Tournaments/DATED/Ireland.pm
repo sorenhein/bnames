@@ -1,0 +1,214 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::Ireland;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+# TODO Cities are a guess.
+# TODO There are no links to actual results.
+# https://www.bridgewebs.com/cgi-bin/bwoq/bw.cgi?club=cbai&pid=display_home
+# doesn't have a search function, and seems to stop in 2022.
+# https://www.fob.ie/national/
+# seems random.
+
+my %MEETS_IRELAND =
+(
+);
+
+my %TOURNAMENTS_IRELAND =
+(
+  'Full Tilt Irish Bridge Masters' =>
+  {
+    COUNTRY => 'Ireland',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2013' =>
+      {
+        CITY => 'Galway',
+        CHAPTERS => 
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'SESSION',
+            DATE_START => '2013-08-03', # Sat
+            DATE_END => '2013-08-04' # Sun
+          } 
+        }
+      }
+    }
+  },
+
+  'Irish Invitational Pairs' =>
+  {
+    ORGANIZATION => 'IBU',
+    COUNTRY => 'Ireland',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2016' =>
+      {
+        # https://www.fob.ie/national/invitational-premier-pairs-championship/
+        CHAPTERS => 
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION',
+            DATE_START => '2016-04-08', # Fri
+            DATE_END => '2016-04-08' # Fri
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION',
+            DATE_START => '2016-05-27', # Fri
+            DATE_END => '2016-05-27' # Fri
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION',
+            DATE_START => '2016-06-10', # Fri
+            DATE_END => '2016-06-10' # Fri
+          } 
+        }
+      }
+    }
+  },
+
+  'Irish Open Trials' =>
+  {
+    ORGANIZATION => 'CBAI',
+    COUNTRY => 'Ireland',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2012' =>
+      {
+        CHAPTERS => 
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-11-24', # Sat
+            DATE_END => '2012-11-25' # Sun
+          } 
+        }
+      },
+
+      '2013' =>
+      {
+        CHAPTERS => 
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'ROUND',
+            minor => 'HALF',
+            DATE_START => '2013-10-05', # Sat
+            DATE_END => '2013-10-06' # Sun
+          } 
+        }
+      },
+
+      '2014' =>
+      {
+        CHAPTERS => 
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-17', # Fri
+            DATE_END => '2014-01-18' # Sat
+          } ,
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-18', # Sat
+            DATE_END => '2014-01-19' # Sun
+          } 
+        }
+      },
+
+      '2015' =>
+      {
+        CHAPTERS => 
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-09-11', # Fri
+            DATE_END => '2015-09-12' # Sat
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-09-12', # Sat
+            DATE_END => '2015-09-13' # Sun
+          } 
+        }
+      },
+
+      '2016' =>
+      {
+        CHAPTERS => 
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-30', # Sat
+            DATE_END => '2016-01-31' # Sun
+          } 
+        }
+      }
+    }
+  }
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_IRELAND, \%TOURNAMENTS_IRELAND, 'Ireland');
+}
+
+1;

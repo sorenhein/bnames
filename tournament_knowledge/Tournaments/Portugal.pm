@@ -1,0 +1,2344 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::Portugal;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+# https://quintonaipe.com/festiv0607/festivais.html
+
+my %GLOBAL = (
+  ORGANIZATION => 'FPB',
+  COUNTRY => 'Portugal',
+  ZONE => 'Europe',
+);
+
+my %MEETS_PORTUGAL =
+(
+  'Azores Festival' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+    REGION => 'Azores',
+
+    EDITIONS =>
+    {
+      '2003' =>
+      {
+        ORDINAL => 7,
+        CITY => 'Sao Miguel',
+        YEAR => 2003,
+        DATE_START => '2003-08-13',
+        DATE_END => '2003-08-17'
+      },
+      '2008' =>
+      {
+        ORDINAL => 12,
+        YEAR => 2008,
+        DATE_START => '2008-10-01',
+        DATE_END => '2008-10-03'
+      },
+      '2009' =>
+      {
+        ORDINAL => 13,
+        YEAR => 2009,
+        DATE_START => '2009-10-01',
+        DATE_END => '2009-10-05'
+      },
+      '2011' =>
+      {
+        ORDINAL => 15,
+        YEAR => 2011,
+        DATE_START => '2011-10-03',
+        DATE_END => '2011-10-04'
+      },
+      '2012' =>
+      {
+        ORDINAL => 16,
+        YEAR => 2012,
+        DATE_START => '2012-10-05',
+        DATE_END => '2012-10-06'
+      },
+      '2013' =>
+      {
+        ORDINAL => 17,
+        YEAR => 2013,
+        DATE_START => '2013-09-27',
+        DATE_END => '2013-09-28'
+      },
+      '2014' =>
+      {
+        ORDINAL => 18,
+        YEAR => 2014,
+        DATE_START => '2014-10-04',
+        DATE_END => '2014-10-05'
+      },
+      '2015' =>
+      {
+        ORDINAL => 19,
+        YEAR => 2015,
+        DATE_START => '2015-10-03',
+        DATE_END => '2015-10-04'
+      },
+      '2016' =>
+      {
+        ORDINAL => 20,
+        CITY => 'Ponta Delgada',
+        YEAR => 2016,
+        DATE_START => '2016-10-01',
+        DATE_END => '2016-10-05'
+      },
+      '2017' =>
+      {
+        ORDINAL => 21,
+        YEAR => 2017,
+        DATE_START => '2017-10-04',
+        DATE_END => '2017-10-08'
+      },
+      '2018' =>
+      {
+        ORDINAL => 22,
+        YEAR => 2018,
+        DATE_START => '2018-10-04',
+        DATE_END => '2018-10-08'
+      },
+      '2019' =>
+      {
+        ORDINAL => 23,
+        CITY => 'Ponta Delgada',
+        YEAR => 2019,
+        DATE_START => '2019-10-01',
+        DATE_END => '2019-10-06'
+      },
+      '2020' =>
+      {
+        CITY => 'Ponta Delgada',
+        YEAR => 2020,
+        DATE_START => '2020-10-01',
+        DATE_END => '2020-10-05'
+      },
+    }
+  },
+
+  'Estoril Bridge Festival' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+    CITY => 'Estoril',
+
+    EDITIONS =>
+    {
+      '2002' =>
+      {
+        ORDINAL => 17,
+        YEAR => 2002,
+        DATE_START => '2002-04-23',
+        DATE_END => '2002-04-28'
+      },
+      '2003' =>
+      {
+        ORDINAL => 18,
+        YEAR => 2003,
+        DATE_START => '2003-04-22',
+        DATE_END => '2003-04-27'
+      },
+      '2004' =>
+      {
+        ORDINAL => 19,
+        YEAR => 2004,
+        DATE_START => '2004-04-20',
+        DATE_END => '2004-04-26'
+      },
+      '2005' =>
+      {
+        ORDINAL => 20,
+        YEAR => 2005,
+        DATE_START => '2005-04-19',
+        DATE_END => '2005-04-24'
+      },
+      '2006' =>
+      {
+        ORDINAL => 21,
+        YEAR => 2006,
+        DATE_START => '2006-04-18',
+        DATE_END => '2006-04-23'
+      },
+      '2007' =>
+      {
+        ORDINAL => 22,
+        YEAR => 2007,
+        DATE_START => '2007-04-17',
+        DATE_END => '2007-04-22'
+      },
+      '2008' =>
+      {
+        ORDINAL => 23,
+        YEAR => 2008,
+        DATE_START => '2008-05-04',
+        DATE_END => '2008-05-04'
+      },
+      '2009' =>
+      {
+        ORDINAL => 24,
+        YEAR => 2009,
+        DATE_START => '2009-04-14',
+        DATE_END => '2009-04-16'
+      },
+      '2010' =>
+      {
+        ORDINAL => 25,
+        YEAR => 2010,
+        DATE_START => '2010-04-20',
+        DATE_END => '2010-04-22'
+      },
+      '2011' =>
+      {
+        ORDINAL => 26,
+        YEAR => 2011,
+        DATE_START => '2011-05-10',
+        DATE_END => '2011-05-12'
+      },
+      '2012' =>
+      {
+        ORDINAL => 27,
+        YEAR => 2012,
+        DATE_START => '2012-04-24',
+        DATE_END => '2012-04-26'
+      },
+      '2013' =>
+      {
+        ORDINAL => 28,
+        YEAR => 2013,
+        DATE_START => '2013-05-14',
+        DATE_END => '2013-05-17'
+      },
+      '2014' =>
+      {
+        ORDINAL => 29,
+        YEAR => 2014,
+        DATE_START => '2014-04-22',
+        DATE_END => '2014-04-24'
+      },
+      '2015' =>
+      {
+        ORDINAL => 30,
+        YEAR => 2015,
+        DATE_START => '2015-05-19',
+        DATE_END => '2015-05-24'
+      },
+      '2016' =>
+      {
+        ORDINAL => 31,
+        YEAR => 2016,
+        DATE_START => '2016-05-24',
+        DATE_END => '2016-05-29'
+      },
+      '2017' =>
+      {
+        ORDINAL => 32,
+        YEAR => 2017,
+        DATE_START => '2017-05-09',
+        DATE_END => '2017-05-14'
+      },
+      '2018' =>
+      {
+        ORDINAL => 33,
+        YEAR => 2018,
+        DATE_START => '2018-05-08',
+        DATE_END => '2018-05-10'
+      },
+      '2019' =>
+      {
+        ORDINAL => 34,
+        YEAR => 2019,
+        DATE_START => '2019-05-07',
+        DATE_END => '2019-05-09'
+      },
+    }
+  },
+
+  'Lisbon International Festival' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+    CITY => 'Lisbon',
+
+    EDITIONS =>
+    {
+      '2015' =>
+      {
+        ORDINAL => 1,
+        YEAR => 2015,
+        DATE_START => '2015-03-13',
+        DATE_END => '2015-03-15'
+      },
+      '2016' =>
+      {
+        ORDINAL => 2,
+        YEAR => 2016,
+        DATE_START => '2016-03-19',
+        DATE_END => '2016-03-20'
+      },
+      '2017' =>
+      {
+        ORDINAL => 3,
+        YEAR => 2017,
+        DATE_START => '2017-03-10',
+        DATE_END => '2017-03-12'
+      },
+      '2018' =>
+      {
+        ORDINAL => 4,
+        YEAR => 2018,
+        DATE_START => '2018-03-09',
+        DATE_END => '2018-03-11'
+      },
+    }
+  },
+
+  'Madeira International Festival' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+         YEAR => 2004,
+         DATE_START => '2004-11-14',
+         DATE_END => '2004-11-14'
+      },
+      '2005' =>
+      {
+        YEAR => 2005,
+        DATE_START => '2005-11-14',
+        DATE_END => '2005-11-14'
+      },
+      '2006' =>
+      {
+        YEAR => 2006,
+        DATE_START => '2006-11-13',
+        DATE_END => '2006-11-13'
+      },
+      '2007' =>
+      {
+        YEAR => 2007,
+        DATE_START => '2007-11-25',
+        DATE_END => '2007-11-25'
+      },
+      '2008' =>
+      {
+        YEAR => 2008,
+        DATE_START => '2008-11-23',
+        DATE_END => '2008-11-23'
+      },
+      '2009' =>
+      {
+        YEAR => 2009,
+        DATE_START => '2009-11-06',
+        DATE_END => '2009-11-08'
+      },
+      '2010' =>
+      {
+        YEAR => 2010,
+        DATE_START => '2010-11-05',
+        DATE_END => '2010-11-07'
+      },
+      '2011' =>
+      {
+        YEAR => 2011,
+        DATE_START => '2011-11-11',
+        DATE_END => '2011-11-13'
+      },
+      '2012' =>
+      {
+        # https://www.bridge-madeira.com/2012-results/
+        YEAR => 2012,
+        DATE_START => '2012-11-05',
+        DATE_END => '2012-11-11'
+      },
+      '2013' =>
+      {
+        # https://www.bridge-madeira.com/2013-results/
+        MEET_ORDINAL => 17,
+        YEAR => 2013,
+        DATE_START => '2013-11-04',
+        DATE_END => '2013-11-10'
+      },
+      '2014' =>
+      {
+        # https://www.bridge-madeira.com/2014-results/
+        MEET_ORDINAL => 18,
+        YEAR => 2014,
+        DATE_START => '2014-11-03',
+        DATE_END => '2014-11-09'
+      },
+      '2015' =>
+      {
+        # https://www.bridge-madeira.com/2015-results/
+        MEET_ORDINAL => 18,
+        YEAR => 2015,
+        DATE_START => '2015-10-29',
+        DATE_END => '2015-11-08'
+      },
+      '2016' =>
+      {
+        # https://www.bridge-madeira.com/2016-results/
+        MEET_ORDINAL => 19,
+        YEAR => 2016,
+        DATE_START => '2016-11-03',
+        DATE_END => '2016-11-13'
+      },
+      '2017' =>
+      {
+        # https://www.bridge-madeira.com/2017-results/
+        MEET_ORDINAL => 20,
+        YEAR => 2017,
+        DATE_START => '2017-11-02',
+        DATE_END => '2017-11-13'
+      },
+      '2018' =>
+      {
+        # https://www.bridge-madeira.com/2018-results/
+        MEET_ORDINAL => 21,
+        YEAR => 2018,
+        DATE_START => '2018-11-01',
+        DATE_END => '2018-11-12'
+      },
+      '2019' =>
+      {
+        # https://bridgescanner.com/event/madeira-international-bridge-open-2019
+        MEET_ORDINAL => 22,
+        YEAR => 2019,
+        DATE_START => '2019-10-31',
+        DATE_END => '2019-11-11'
+      },
+      '2020' =>
+      {
+        # https://bridgescanner.com/event/madeira-international-bridge-open-2020
+        MEET_ORDINAL => 23,
+        YEAR => 2020,
+        DATE_START => '2020-10-29',
+        DATE_END => '2020-11-09'
+      },
+      '2021' =>
+      {
+        MEET_ORDINAL => 24,
+        YEAR => 2021,
+        DATE_START => '2021-11-05',
+        DATE_END => '2021-11-07'
+      },
+      '2022' =>
+      {
+        # https://bridgescanner.com/event/madeira-international-bridge-open-2022
+        MEET_ORDINAL => 25,
+        YEAR => 2022,
+        DATE_START => '2022-11-07',
+        DATE_END => '2022-11-13'
+      },
+      '2023' =>
+      {
+        # https://bridgescanner.com/event/madeira-international-bridge-open-2023
+        MEET_ORDINAL => 26,
+        YEAR => 2023,
+        DATE_START => '2023-11-06',
+        DATE_END => '2023-11-13'
+      },
+      '2024' =>
+      {
+        # https://bridgescanner.com/event/madeira-international-bridge-open-2024
+        MEET_ORDINAL => 27,
+        YEAR => 2024,
+        DATE_START => '2024-11-04',
+        DATE_END => '2024-11-11'
+      },
+    }
+  }
+
+);
+
+my %TOURNAMENTS_PORTUGAL =
+(
+  'Azores Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-10-03',
+            DATE_END => '2011-10-04'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-10-05',
+            DATE_END => '2012-10-06'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'ROUND',
+            DATE_START => '2013-09-27',
+            DATE_END => '2013-09-28'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            DATE_START => '2014-10-04',
+            DATE_END => '2014-10-05'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-10-03',
+            DATE_END => '2015-10-04'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2016-10-04',
+            DATE_END => '2016-10-05'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-10-07',
+            DATE_END => '2017-10-08'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'ROUND',
+            DATE_START => '2018-10-06',
+            DATE_END => '2018-10-07'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Azores Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2019-10-04',
+            DATE_END => '2019-10-05'
+          } 
+        }
+      },
+    }
+  },
+
+  'FullBridge International Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            DATE_START => '2014-11-28',
+            DATE_END => '2014-11-30'
+          } 
+        }
+      },
+    }
+  },
+
+  'Lisbon Open Pairs' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2019,
+            major => 'SESSION',
+            DATE_START => '2019-11-15',
+            DATE_END => '2019-11-16'
+          }
+        }
+      },
+    }
+  },
+
+  'Lisbon Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2015' =>
+      {
+        MEET => 'Lisbon International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-03-13',
+            DATE_END => '2015-03-15'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Lisbon International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-03-19',
+            DATE_END => '2016-03-20'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Lisbon International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-03-10',
+            DATE_END => '2017-03-12'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Lisbon International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'ROUND',
+            DATE_START => '2018-03-09',
+            DATE_END => '2018-03-11'
+          } 
+        }
+      },
+    }
+  },
+
+  'Madeira Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2004-11-14',
+            DATE_END => '2004-11-14'
+          } 
+        }
+      },
+      '2005' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2005-11-14',
+            DATE_END => '2005-11-14'
+          } 
+        }
+      },
+      '2006' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND|SESSION',
+            DATE_START => '2006-11-13',
+            DATE_END => '2006-11-13'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND|SESSION',
+            DATE_START => '2007-11-25',
+            DATE_END => '2007-11-25'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2008-11-23',
+            DATE_END => '2008-11-23'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2009-11-06',
+            DATE_END => '2009-11-08'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2010-11-05',
+            DATE_END => '2010-11-07'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2011-11-11',
+            DATE_END => '2011-11-13'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2012-11-09',
+            DATE_END => '2012-11-11'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2013-11-08',
+            DATE_END => '2013-11-10'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2014-11-07',
+            DATE_END => '2014-11-09'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2015-11-06',
+            DATE_END => '2015-11-08'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND|SESSION',
+            DATE_START => '2016-11-11',
+            DATE_END => '2016-11-13'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2017-11-10',
+            DATE_END => '2017-11-12'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2018-11-09',
+            DATE_END => '2018-11-11'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2019-11-08',
+            DATE_END => '2019-11-10'
+          } 
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2020,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2020-11-06',
+            DATE_END => '2020-11-08'
+          } 
+        }
+      },
+      '2021' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2021,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2021-11-05',
+            DATE_END => '2021-11-07'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2022-11-11',
+            DATE_END => '2022-11-13'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2023-11-10',
+            DATE_END => '2023-11-12'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Madeira International Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2024-11-08',
+            DATE_END => '2024-11-10'
+          } 
+        }
+      },
+    }
+  },
+
+  'Portuguese First Division' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-05-26',
+            DATE_END => '2017-05-28'
+          },
+        }
+      },
+    }
+  },
+
+  'Portuguese Grand Prix',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND',
+            DATE_START => '2004-04-26',
+            DATE_END => '2004-04-26'
+          } 
+        }
+      },
+      '2005' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2005-04-20',
+            DATE_END => '2005-04-22'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2007-04-22',
+            DATE_END => '2007-04-22'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        # TODO Dates probably wrong
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2008-05-04',
+            DATE_END => '2008-05-04'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2009-04-14',
+            DATE_END => '2009-04-16'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-04-20',
+            DATE_END => '2010-04-22'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-05-10',
+            DATE_END => '2011-05-12'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-04-24',
+            DATE_END => '2012-04-26'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2013-05-14',
+            DATE_END => '2013-05-17'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            DATE_START => '2014-04-22',
+            DATE_END => '2014-04-24'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        # https://fpbridge.pt/_wp/wp-content/uploads/2015/08/2015-Festival-Estoril-Pares-Final.pdf
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-05-19',
+            DATE_END => '2015-05-21'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        # https://fpbridge.pt/_wp/wp-content/uploads/2016/05/2016-Grande-Pr%C3%A9mio-Portugal-Equipas.pdf
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-05-24',
+            DATE_END => '2016-05-27'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-05-09',
+            DATE_END => '2017-05-12'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'ROUND',
+            DATE_START => '2018-05-08',
+            DATE_END => '2018-05-10'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Estoril Bridge Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            major => 'ROUND',
+            DATE_START => '2019-05-07',
+            DATE_END => '2019-05-09'
+          } 
+        }
+      },
+    }
+  },
+
+  'Portuguese IMP Pairs',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2014-10-24',
+            DATE_END => '2014-10-26'
+          } 
+        }
+      },
+    }
+  },
+
+  'Portuguese Mixed Teams' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-10-15',
+            DATE_END => '2017-10-15'
+          },
+        }
+      },
+    }
+  },
+
+  'Portuguese Mixed Team Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-16',
+            DATE_END => '2018-11-17'
+          },
+          'C1' =>
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-17',
+            DATE_END => '2018-11-19'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-11',
+            DATE_END => '2020-01-13'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-21',
+            DATE_END => '2023-10-22'
+          },
+        }
+      },
+    }
+  },
+
+  'Portuguese Open Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CITY => 'Porto',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            # Estimated.
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2008-12-05',
+            DATE_END => '2008-12-07'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2009-10-16',
+            DATE_END => '2009-10-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-12-04',
+            DATE_END => '2009-12-06'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-11-19',
+            DATE_END => '2010-11-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2010-12-03',
+            DATE_END => '2010-12-05'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2011-11-18',
+            DATE_END => '2011-11-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-12-02',
+            DATE_END => '2011-12-03'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-12-03',
+            DATE_END => '2011-12-03'
+          },
+          'C3' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-12-04',
+            DATE_END => '2011-12-04'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            major => 'SESSION',
+            ignore => 'PHASE',
+            DATE_START => '2012-11-17',
+            DATE_END => '2012-11-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-11-30',
+            DATE_END => '2012-12-01'
+          },
+          'C2' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-12-01',
+            DATE_END => '2012-12-02'
+          },
+          'C3' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-12-02',
+            DATE_END => '2012-12-02'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            major => 'ROUND|SESSION',
+            DATE_START => '2013-10-25',
+            DATE_END => '2013-10-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-22',
+            DATE_END => '2013-11-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-23',
+            DATE_END => '2013-11-23'
+          },
+          'C3' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-24',
+            DATE_END => '2013-11-24'
+          },
+        }
+      },
+      '2014A' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2014-05-30',
+            DATE_END => '2014-06-01'
+          } 
+        }
+      },
+      '2014B' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-22',
+            DATE_END => '2014-11-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-22',
+            DATE_END => '2014-11-22'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-23',
+            DATE_END => '2014-11-23'
+          } 
+        }
+      },
+      '2015A' =>
+      {
+        # https://fpbridge.pt/_wp/wp-content/uploads/2015/07/CN-Equipas-Open-2015-Apuramento.pdf
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-05-29',
+            DATE_END => '2015-05-31'
+          } 
+        }
+      },
+      '2015B' =>
+      {
+        # https://fpbridge.pt/_wp/wp-content/uploads/2015/07/CN-Equipas-Open-2015-Final.pdf
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-11-20',
+            DATE_END => '2015-11-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Quarterfinal',
+            DATE_START => '2015-11-21',
+            DATE_END => '2015-11-21'
+          },
+          'C2' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-11-21',
+            DATE_END => '2015-11-22'
+          },
+          'C3' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-11-22',
+            DATE_END => '2015-11-22'
+          } 
+        }
+      },
+      '2016A' =>
+      {
+        # https://fpbridge.pt/_wp/wp-content/uploads/2016/05/Classifica%C3%A7%C3%A3o-Final.pdf
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-05-06',
+            DATE_END => '2016-05-08'
+          } 
+        }
+      },
+      '2016B' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-14',
+            DATE_END => '2016-10-15'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-15',
+            DATE_END => '2016-10-15'
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-16',
+            DATE_END => '2016-10-16'
+          } 
+        }
+      },
+      '2017A' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-05-19',
+            DATE_END => '2017-05-21'
+          },
+        }
+      },
+      '2017B' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-09-22',
+            DATE_END => '2017-09-23'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-09-23',
+            DATE_END => '2017-09-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-09-24',
+            DATE_END => '2017-09-24'
+          },
+        }
+      },
+      '2018A' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            major => 'ROUND',
+            DATE_START => '2018-06-01',
+            DATE_END => '2018-06-03'
+          },
+        }
+      },
+      '2018B' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-12',
+            DATE_END => '2018-10-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-13',
+            DATE_END => '2018-10-13'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-14',
+            DATE_END => '2018-10-14'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-19',
+            DATE_END => '2019-10-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-20',
+            DATE_END => '2019-10-20'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-11-02',
+            DATE_END => '2019-11-03'
+          },
+        }
+      },
+      '2021' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2021-11-13',
+            DATE_END => '2021-11-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2021-11-14',
+            DATE_END => '2021-11-14'
+          },
+          'C2' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2021-11-20',
+            DATE_END => '2021-11-21'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-05-27',
+            DATE_END => '2023-05-28'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2024-06-15',
+            DATE_END => '2024-06-16'
+          },
+        }
+      },
+    }
+  },
+
+  'Portuguese Open Trials',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        # These days are surely wrong.
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-03-20',
+            DATE_END => '2008-03-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2008-04-02',
+            DATE_END => '2008-04-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2008,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2008-04-16',
+            DATE_END => '2008-04-16'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-02-19',
+            DATE_END => '2010-02-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-03-05',
+            DATE_END => '2010-03-07'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-03-19',
+            DATE_END => '2010-03-21'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-10-14',
+            DATE_END => '2011-10-16'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2012-01-20',
+            DATE_END => '2012-01-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-02-03',
+            DATE_END => '2012-02-05'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2019-10-12',
+            DATE_END => '2019-10-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-21',
+            DATE_END => '2019-12-22'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-07',
+            DATE_END => '2023-10-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-14',
+            DATE_END => '2023-10-15'
+          }
+        },
+      }
+    },
+  },
+
+  'Portuguese Northern Regional Open Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2008-05-21',
+            DATE_END => '2008-05-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-05-21',
+            DATE_END => '2008-05-21'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-02-27',
+            DATE_END => '2009-02-28'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2009-06-05',
+            DATE_END => '2009-06-06'
+          } 
+        }
+      },
+    }
+  },
+
+  'Portuguese Senior Team Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-02-22',
+            DATE_END => '2020-02-23'
+          },
+        }
+      },
+    }
+  },
+
+  'Rui Pinto Cup',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            DATE_START => '2011-10-29',
+            DATE_END => '2011-10-29'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            DATE_START => '2011-10-29',
+            DATE_END => '2011-10-29'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-09-29',
+            DATE_END => '2012-09-29'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-09-29',
+            DATE_END => '2012-09-29'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-02',
+            DATE_END => '2013-11-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-02',
+            DATE_END => '2013-11-03'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            DATE_START => '2014-09-27',
+            DATE_END => '2014-09-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            DATE_START => '2014-09-27',
+            DATE_END => '2014-09-27'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-09-19',
+            DATE_END => '2015-09-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-09-19',
+            DATE_END => '2015-09-19'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-10',
+            DATE_END => '2016-12-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-10',
+            DATE_END => '2016-12-10'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-09-30',
+            DATE_END => '2017-09-30'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-09-30',
+            DATE_END => '2017-09-30'
+          } 
+        }
+      },
+    }
+  },
+
+
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_PORTUGAL, \%TOURNAMENTS_PORTUGAL, 'Portugal');
+}
+
+1;

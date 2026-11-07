@@ -1,0 +1,328 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::Czech;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+# Records for the first league start in late 2016:
+# https://www.czechbridge.cz/tournaments
+
+my %GLOBAL = (
+  ORGANIZATION => 'CzBF',
+  COUNTRY => 'Czech Republic',
+  ZONE => 'Europe',
+);
+
+my %MEETS_CZECH =
+(
+);
+
+my %TOURNAMENTS_CZECH =
+(
+  'Czech First League',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006-07' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-05-31',
+            DATE_END => '2007-05-31'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-05-31',
+            DATE_END => '2007-05-31'
+          } 
+        }
+      },
+      '2008-09' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2009-05-16',
+            DATE_END => '2009-05-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-05-16',
+            DATE_END => '2009-05-17'
+          } 
+        }
+      },
+      '2011-12' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2012-04-21',
+            DATE_END => '2012-04-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-04-21',
+            DATE_END => '2012-04-22'
+          } 
+        }
+      },
+      '2013-14' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-04-05',
+            DATE_END => '2014-04-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-04-05',
+            DATE_END => '2014-04-06'
+          } 
+        }
+      },
+      '2014-15' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-04-11',
+            DATE_END => '2015-04-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-04-11',
+            DATE_END => '2015-04-12'
+          } 
+        }
+      },
+      '2015-16' =>
+      {
+        # https://matrikacbs.cz/Detail-turnaje.aspx?id=1653
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-27',
+            DATE_END => '2016-02-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2016-02-27',
+            DATE_END => '2016-02-28'
+          } 
+        }
+      },
+      '2016-17' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-02-25',
+            DATE_END => '2017-02-25'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-02-26',
+            DATE_END => '2017-02-26'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-04-21',
+            DATE_END => '2018-04-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2018-04-22',
+            DATE_END => '2018-04-22'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-05-11',
+            DATE_END => '2019-05-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2019-05-12',
+            DATE_END => '2019-05-12'
+          } 
+        }
+      },
+    }
+  },
+
+  'Czech Open',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2005-07-15',
+            DATE_END => '2005-07-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            DATE_START => '2005-07-22',
+            DATE_END => '2005-07-22'
+          } 
+        }
+      },
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND',
+            DATE_START => '2006-08-09',
+            DATE_END => '2006-08-09'
+          } 
+        }
+      },
+    }
+  },
+
+  'Grand Prix of Prague',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    CITY => 'Prague',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2004-10-17',
+            DATE_END => '2004-10-17'
+          },
+        }
+      }
+    }
+  },
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_CZECH, \%TOURNAMENTS_CZECH, 'Czech Republic');
+}
+
+1;

@@ -1,0 +1,9695 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::Australia;
+
+# https://www.abf.com.au/archives/#results
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+my %GLOBAL = (
+  ORGANIZATION => 'AuBF',
+  COUNTRY => 'Australia',
+  ZONE => 'South Pacific',
+);
+
+my %MEETS_AUSTRALIA =
+(
+  'Australian ANC Championships' =>
+  {
+    %GLOBAL,
+
+    EDITIONS => 
+    {
+      '2005' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=05ANCN&header=abf
+        YEAR => 2005,
+        CITY => 'Sydney',
+        DATE_START => '2005-07-22',
+        DATE_END => '2005-08-05'
+      },
+      '2008' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=08ANCW&header=abf
+        YEAR => 2008,
+        CITY => 'Surfers Paradise', # Sic
+        DATE_START => '2008-07-25',
+        DATE_END => '2008-08-08'
+      },
+      '2009' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=09ANCT&header=abf
+        YEAR => 2009,
+        CITY => 'Canberra',
+        DATE_START => '2009-07-03',
+        DATE_END => '2009-07-18'
+      },
+      '2010' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=ANCT10&header=abf
+        YEAR => 2010,
+        CITY => 'Hobart',
+        DATE_START => '2010-07-17',
+        DATE_END => '2010-07-29'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2011&dir=anc
+        YEAR => 2011,
+        CITY => 'Melbourne',
+        DATE_START => '2011-07-24',
+        DATE_END => '2011-07-29'
+      },
+      '2012' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=12ANCD&header=abf
+        YEAR => 2012,
+        CITY => 'Darwin',
+        DATE_START => '2012-07-12',
+        DATE_END => '2012-07-19'
+      },
+      '2013' =>
+      {
+        # http://abfevents.com.au/events/anc/2013/
+        YEAR => 2013,
+        CITY => 'Adelaide',
+        DATE_START => '2013-07-06',
+        DATE_END => '2013-07-18'
+      },
+      '2014' =>
+      {
+        # https://abfevents.com.au/events/anc/2014/
+        YEAR => 2014,
+        CITY => 'Sydney',
+        DATE_START => '2014-07-12',
+        DATE_END => '2014-07-24'
+      },
+      '2015' =>
+      {
+        # http://abfevents.com.au/events/anc/2016/
+        YEAR => 2015,
+        CITY => 'Fremantle',
+        DATE_START => '2015-07-11',
+        DATE_END => '2015-07-23'
+      },
+      '2016' =>
+      {
+        # http://abfevents.com.au/events/anc/2016/
+        YEAR => 2016,
+        CITY => 'Brisbane',
+        DATE_START => '2016-06-25',
+        DATE_END => '2016-07-07'
+      },
+      '2017' =>
+      {
+        # http://abfevents.com.au/events/anc/2017/
+        YEAR => 2017,
+        CITY => 'Canberra',
+        DATE_START => '2017-07-15',
+        DATE_END => '2017-07-27'
+      },
+      '2018' =>
+      {
+        # https://abfevents.com.au/events/anc/2018/
+        YEAR => 2018,
+        CITY => 'Hobart',
+        DATE_START => '2018-07-28',
+        DATE_END => '2018-08-09'
+      },
+      '2019' =>
+      {
+        # http://abfevents.com.au/events/anc/2019/
+        YEAR => 2019,
+        CITY => 'Melbourne',
+        DATE_START => '2019-07-13',
+        DATE_END => '2019-07-25'
+      },
+      '2022' =>
+      {
+        # https://abfevents.com.au/events/anc/2022/
+        YEAR => 2022,
+        CITY => 'Adelaide',
+        DATE_START => '2022-07-02',
+        DATE_END => '2022-07-14'
+      },
+      '2023' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/472
+        YEAR => 2023,
+        CITY => 'Perth',
+        DATE_START => '2023-07-09',
+        DATE_END => '2023-07-20'
+      },
+      '2024' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/798
+        YEAR => 2024,
+        CITY => 'Orange',
+        DATE_START => '2024-07-06',
+        DATE_END => '2024-07-18'
+      },
+    }
+  },
+
+  'Australian Autumn Nationals' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+
+    EDITIONS => 
+    {
+      '2004' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=ANOT04&header=abf
+        YEAR => 2004,
+        CITY => 'Adelaide',
+        DATE_START => '2004-05-14',
+        DATE_END => '2004-05-17'
+      },
+      '2005' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=05ANOT&header=abf
+        YEAR => 2005,
+        CITY => 'Adelaide',
+        DATE_START => '2005-05-12',
+        DATE_END => '2005-05-16'
+      },
+      '2006' =>
+      {
+        # https://www.abf.com.au/events/anot/2006.html
+        YEAR => 2006,
+        CITY => 'Adelaide',
+        DATE_START => '2006-05-11',
+        DATE_END => '2006-05-15'
+      },
+      '2007' =>
+      {
+        # https://www.abf.com.au/events/anot/2007.html
+        YEAR => 2007,
+        CITY => 'Adelaide',
+        DATE_START => '2007-05-10',
+        DATE_END => '2007-05-14'
+      },
+      '2008' =>
+      {
+        # https://abfevents.com.au/events/anot/2008.html
+        YEAR => 2008,
+        CITY => 'Adelaide',
+        DATE_START => '2008-05-01',
+        DATE_END => '2008-05-05'
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/events/anot/2009.html
+        YEAR => 2009,
+        CITY => 'Adelaide',
+        DATE_START => '2009-04-30',
+        DATE_END => '2009-05-04'
+      },
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/anot/2010.html
+        YEAR => 2010,
+        CITY => 'Adelaide',
+        DATE_START => '2010-04-29',
+        DATE_END => '2010-05-03'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/anot/2011.html
+        YEAR => 2011,
+        CITY => 'Adelaide',
+        DATE_START => '2011-04-28',
+        DATE_END => '2011-05-02'
+      },
+      '2012' =>
+      {
+        # https://abfevents.com.au/events/anot/2012/index.html
+        YEAR => 2012,
+        CITY => 'Adelaide',
+        DATE_START => '2012-04-26',
+        DATE_END => '2012-04-30'
+      },
+      '2013' =>
+      {
+        # https://abfevents.com.au/events/anot/2013/
+        YEAR => 2013,
+        CITY => 'Adelaide',
+        DATE_START => '2013-05-02',
+        DATE_END => '2013-05-06'
+      },
+      '2014' =>
+      {
+        # https://abfevents.com.au/events/anot/2014/
+        YEAR => 2014,
+        CITY => 'Adelaide',
+        DATE_START => '2014-05-01',
+        DATE_END => '2014-05-05'
+      },
+      '2015' =>
+      {
+        # https://abfevents.com.au/events/anot/2015/
+        YEAR => 2015,
+        CITY => 'Adelaide',
+        DATE_START => '2015-04-30',
+        DATE_END => '2015-05-04'
+      },
+      '2016' =>
+      {
+        # https://abfevents.com.au/events/anot/2016/
+        YEAR => 2016,
+        CITY => 'Adelaide',
+        DATE_START => '2016-04-28',
+        DATE_END => '2016-05-02'
+      },
+      '2017' =>
+      {
+        # https://abfevents.com.au/events/anot/2017/
+        YEAR => 2017,
+        CITY => 'Adelaide',
+        DATE_START => '2017-05-04',
+        DATE_END => '2017-05-08'
+      },
+      '2018' =>
+      {
+        # https://abfevents.com.au/events/anot/2018/
+        YEAR => 2018,
+        CITY => 'Adelaide',
+        DATE_START => '2018-05-03',
+        DATE_END => '2018-05-07'
+      },
+      '2019' =>
+      {
+        # https://abfevents.com.au/events/anot/2019/
+        YEAR => 2019,
+        CITY => 'Adelaide',
+        DATE_START => '2019-05-02',
+        DATE_END => '2019-05-06'
+      },
+      '2021' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/4
+        YEAR => 2021,
+        CITY => 'Adelaide',
+        DATE_START => '2021-04-29',
+        DATE_END => '2021-05-03'
+      },
+      '2022' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/155
+        YEAR => 2022,
+        CITY => 'Adelaide',
+        DATE_START => '2022-04-28',
+        DATE_END => '2022-05-02'
+      },
+      '2023' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/493
+        YEAR => 2023,
+        CITY => 'Adelaide',
+        DATE_START => '2023-05-04',
+        DATE_END => '2023-05-08'
+      },
+      '2024' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/1187
+        YEAR => 2024,
+        CITY => 'Adelaide',
+        DATE_START => '2024-05-02',
+        DATE_END => '2024-05-06'
+      },
+    }
+  },
+
+  'Australian Playoffs' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+
+    EDITIONS => 
+    {
+      '2003A' =>
+      {
+        # Open and Women ("2003")
+        YEAR => 2003,
+        CITY => 'Sydney',
+        DATE_START => '2003-03-06',
+        DATE_END => '2003-03-09'
+      },
+      '2003B' =>
+      {
+        # Seniors ("2003")
+        YEAR => 2003,
+        DATE_START => '2003-04-04',
+        DATE_END => '2003-04-06'
+      },
+      '2004A' =>
+      {
+        # Open and Women ("2004")
+        YEAR => 2004,
+        CITY => 'Sydney',
+        DATE_START => '2004-03-04',
+        DATE_END => '2004-03-08'
+      },
+      '2004B' =>
+      {
+        # Seniors ("2004")
+        YEAR => 2004,
+        DATE_START => '2004-04-01',
+        DATE_END => '2004-04-05'
+      },
+      '2005A' =>
+      {
+        # Open and Women ("2005")
+        YEAR => 2005,
+        CITY => 'Sydney',
+        DATE_START => '2005-03-17',
+        DATE_END => '2005-03-21'
+      },
+      '2005B' =>
+      {
+        # Seniors ("2005")
+        YEAR => 2005,
+        DATE_START => '2005-04-14',
+        DATE_END => '2005-04-18'
+      },
+      '2006A' =>
+      {
+        # Open and Women ("2006")
+        YEAR => 2006,
+        CITY => 'Sydney',
+        DATE_START => '2006-03-23',
+        DATE_END => '2006-03-27'
+      },
+      '2006B' =>
+      {
+        # Seniors ("2006")
+        YEAR => 2006,
+        CITY => 'Sydney',
+        DATE_START => '2006-04-20',
+        DATE_END => '2006-04-24'
+      },
+      '2007A' =>
+      {
+        # Open and Women ("2007")
+        YEAR => 2007,
+        CITY => 'Sydney',
+        DATE_START => '2007-03-22',
+        DATE_END => '2007-03-26'
+      },
+      '2007B' =>
+      {
+        # Seniors ("2007")
+        YEAR => 2007,
+        CITY => 'Sydney',
+        DATE_START => '2007-04-19',
+        DATE_END => '2007-04-23'
+      },
+      '2008A' =>
+      {
+        # Open and Women ("2008")
+        YEAR => 2008,
+        CITY => 'Canberra',
+        DATE_START => '2008-03-26',
+        DATE_END => '2008-03-30'
+      },
+      '2008B' =>
+      {
+        # Seniors ("2008")
+        YEAR => 2008,
+        CITY => 'Sydney',
+        DATE_START => '2008-04-09',
+        DATE_END => '2008-04-13'
+      },
+      '2009A' =>
+      {
+        # Open and Women ("2009")
+        YEAR => 2009,
+        CITY => 'Sydney',
+        DATE_START => '2009-03-21',
+        DATE_END => '2009-03-26'
+      },
+      '2009B' =>
+      {
+        # Seniors ("2009")
+        YEAR => 2009,
+        CITY => 'Sydney',
+        DATE_START => '2009-04-16',
+        DATE_END => '2009-04-20'
+      },
+      '2010A' =>
+      {
+        # Open and Women ("2010")
+        YEAR => 2010,
+        CITY => 'Sydney',
+        DATE_START => '2010-03-20',
+        DATE_END => '2010-03-24'
+      },
+      '2010B' =>
+      {
+        # Seniors ("2010")
+        YEAR => 2010,
+        CITY => 'Sydney',
+        DATE_START => '2010-04-07',
+        DATE_END => '2010-04-11'
+      },
+      '2011A' =>
+      {
+        # Open and Women ("2011")
+        YEAR => 2011,
+        CITY => 'Sydney',
+        DATE_START => '2011-03-26',
+        DATE_END => '2011-03-31'
+      },
+      '2011B' =>
+      {
+        # Seniors ("2011")
+        YEAR => 2011,
+        CITY => 'Sydney',
+        DATE_START => '2011-04-06',
+        DATE_END => '2011-04-10'
+      },
+      '2012A' =>
+      {
+        # Open and Women ("2012")
+        YEAR => 2012,
+        CITY => 'Sydney',
+        DATE_START => '2012-03-31',
+        DATE_END => '2012-04-05'
+      },
+      '2012B' =>
+      {
+        # Seniors ("2012")
+        YEAR => 2012,
+        CITY => 'Sydney',
+        DATE_START => '2012-04-18',
+        DATE_END => '2012-04-22'
+      },
+      '2012C' =>
+      {
+        # Open and Women ("2013")
+        YEAR => 2012,
+        CITY => 'Sydney',
+        DATE_START => '2012-12-08',
+        DATE_END => '2012-12-13'
+      },
+      '2013' =>
+      {
+        # Seniors ("2013")
+        YEAR => 2013,
+        CITY => 'Canberra',
+        DATE_START => '2013-02-13',
+        DATE_END => '2013-02-17'
+      },
+      '2014A' =>
+      {
+        # Open and Women ("2014")
+        YEAR => 2014,
+        CITY => 'Canberra',
+        DATE_START => '2014-02-05',
+        DATE_END => '2014-02-09'
+      },
+      '2014B' =>
+      {
+        # Seniors ("2014")
+        YEAR => 2014,
+        CITY => 'Canberra',
+        DATE_START => '2014-04-03',
+        DATE_END => '2014-04-08'
+      },
+      '2015A' =>
+      {
+        # Open and Women ("2015")
+        YEAR => 2015,
+        CITY => 'Canberra',
+        DATE_START => '2015-01-31',
+        DATE_END => '2015-02-05'
+      },
+      '2015B' =>
+      {
+        # Seniors ("2015")
+        YEAR => 2015,
+        CITY => 'Canberra',
+        DATE_START => '2015-03-13',
+        DATE_END => '2015-03-18'
+      },
+      '2016A' =>
+      {
+        # Open ("2016")
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-02-06',
+        DATE_END => '2016-02-11'
+      },
+      '2016B' =>
+      {
+        # Seniors and Women ("2016")
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-03-12',
+        DATE_END => '2016-03-17'
+      },
+      '2016C' =>
+      {
+        # Open ("2017")
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-11-12',
+        DATE_END => '2016-11-17'
+      },
+      '2016D' =>
+      {
+        # Seniors and Women ("2017")
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-12-03',
+        DATE_END => '2016-12-08'
+      },
+      '2017A' =>
+      {
+        # Open ("2018")
+        YEAR => 2017,
+        CITY => 'Canberra',
+        DATE_START => '2017-11-12',
+        DATE_END => '2017-11-16'
+      },
+      '2017B' =>
+      {
+        # Seniors and Women ("2018")
+        YEAR => 2017,
+        CITY => 'Canberra',
+        DATE_START => '2017-12-03',
+        DATE_END => '2017-12-07'
+      },
+      '2018A' =>
+      {
+        # Open ("2019")
+        YEAR => 2018,
+        CITY => 'Canberra',
+        DATE_START => '2018-11-10',
+        DATE_END => '2018-11-15'
+      },
+      '2018B' =>
+      {
+        # Seniors and Women ("2019")
+        YEAR => 2018,
+        CITY => 'Canberra',
+        DATE_START => '2018-12-08',
+        DATE_END => '2018-12-13'
+      },
+      '2019A' =>
+      {
+        # Mixed ("2019")
+        YEAR => 2019,
+        CITY => 'Sydney',
+        DATE_START => '2019-01-25',
+        DATE_END => '2019-01-28'
+      },
+      '2019B' =>
+      {
+        # Open ("2020")
+        YEAR => 2019,
+        CITY => 'Canberra',
+        DATE_START => '2019-11-09',
+        DATE_END => '2019-11-14'
+      },
+      '2019C' =>
+      {
+        # Seniors and Women ("2020"),
+        YEAR => 2019,
+        CITY => 'Canberra',
+        DATE_START => '2019-12-07',
+        DATE_END => '2019-12-12'
+      },
+      '2020' =>
+      {
+        # Mixed ("2020"),
+        YEAR => 2020,
+        CITY => 'Sydney',
+        DATE_START => '2020-01-24',
+        DATE_END => '2020-01-27'
+      },
+      '2022A' =>
+      {
+        # Open, Seniors and Women ("2022")
+        YEAR => 2022,
+        CITY => 'Canberra',
+        DATE_START => '2022-04-18',
+        DATE_END => '2022-04-23'
+      },
+      '2022B' =>
+      {
+        # Open ("2023")
+        YEAR => 2022,
+        CITY => 'Canberra',
+        DATE_START => '2022-11-12',
+        DATE_END => '2022-11-17'
+      },
+      '2022C' =>
+      {
+        # Mixed ("2023")
+        YEAR => 2022,
+        CITY => 'Canberra',
+        DATE_START => '2022-12-03',
+        DATE_END => '2022-12-08'
+      },
+      '2023A' =>
+      {
+        # Open ("2024")
+        YEAR => 2023,
+        CITY => 'Canberra',
+        DATE_START => '2023-11-11',
+        DATE_END => '2023-11-16'
+      },
+      '2023B' =>
+      {
+        # Mixed ("2024")
+        YEAR => 2023,
+        CITY => 'Canberra',
+        DATE_START => '2023-12-09',
+        DATE_END => '2023-12-14'
+      },
+      '2024A' =>
+      {
+        # Open ("2025")
+        YEAR => 2024,
+        CITY => 'Canberra',
+        DATE_START => '2024-01-11',
+        DATE_END => '2024-01-14'
+      },
+      '2024B' =>
+      {
+        # Open ("2025")
+        YEAR => 2024,
+        CITY => 'Canberra',
+        DATE_START => '2024-11-16',
+        DATE_END => '2024-11-21'
+      },
+      '2024C' =>
+      {
+        # Mixed ("2025")
+        YEAR => 2024,
+        CITY => 'Canberra',
+        DATE_START => '2024-12-07',
+        DATE_END => '2024-12-12'
+      },
+    }
+  },
+
+  'Australian Spring Nationals' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+
+    EDITIONS => 
+    {
+      '2004' =>
+      {
+        # https://abfevents.com.au/events/spnot/2004/results.asp
+        YEAR => 2004,
+        CITY => 'Sydney',
+        DATE_START => '2004-11-11',
+        DATE_END => '2004-11-18'
+      },
+      '2006' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2006&dir=sn
+        YEAR => 2006,
+        CITY => 'Sydney',
+        DATE_START => '2006-10-18',
+        DATE_END => '2006-10-26'
+      },
+      '2007' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2007&dir=sn
+        YEAR => 2007,
+        CITY => 'Sydney',
+        DATE_START => '2007-10-24',
+        DATE_END => '2007-11-01'
+      },
+      '2008' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2008&dir=sn
+        YEAR => 2008,
+        CITY => 'Sydney',
+        DATE_START => '2008-10-22',
+        DATE_END => '2008-10-30'
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2009&dir=sn
+        YEAR => 2009,
+        CITY => 'Sydney',
+        DATE_START => '2009-10-21',
+        DATE_END => '2009-10-29'
+      },
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2010&dir=sn
+        YEAR => 2010,
+        CITY => 'Sydney',
+        DATE_START => '2010-10-20',
+        DATE_END => '2010-10-28'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2011&dir=sn
+        YEAR => 2011,
+        CITY => 'Sydney',
+        DATE_START => '2011-10-19',
+        DATE_END => '2011-10-27'
+      },
+      '2012' =>
+      {
+        # http://abfevents.com.au/events/results/results.asp?yr=2012&dir=sn
+        YEAR => 2012,
+        CITY => 'Sydney',
+        DATE_START => '2012-10-24',
+        DATE_END => '2012-11-01'
+      },
+      '2013' =>
+      {
+        # http://abfevents.com.au/events/spnot/2013/
+        YEAR => 2013,
+        CITY => 'Sydney',
+        DATE_START => '2013-10-23',
+        DATE_END => '2013-10-31'
+      },
+      '2014' =>
+      {
+        # http://abfevents.com.au/events/spnot/2014/
+        YEAR => 2014,
+        CITY => 'Sydney',
+        DATE_START => '2014-10-29',
+        DATE_END => '2014-11-06'
+      },
+      '2015' =>
+      {
+        # http://abfevents.com.au/events/spnot/2015/
+        YEAR => 2015,
+        CITY => 'Sydney',
+        DATE_START => '2015-10-21',
+        DATE_END => '2015-10-29'
+      },
+      '2016' =>
+      {
+        # http://abfevents.com.au/events/spnot/2016/
+        YEAR => 2016,
+        CITY => 'Sydney',
+        DATE_START => '2016-10-19',
+        DATE_END => '2016-10-27'
+      },
+      '2017' =>
+      {
+        # http://abfevents.com.au/events/spnot/2017/
+        YEAR => 2017,
+        CITY => 'Sydney',
+        DATE_START => '2017-10-18',
+        DATE_END => '2017-10-26'
+      },
+      '2018' =>
+      {
+        # http://abfevents.com.au/events/spnot/2018/
+        YEAR => 2018,
+        CITY => 'Sydney',
+        SPONSOR => 'Tony Bemrose Insurance Brokers',
+        DATE_START => '2018-10-17',
+        DATE_END => '2018-10-25'
+      },
+      '2019' =>
+      {
+        # http://abfevents.com.au/events/spnot/2019/
+        YEAR => 2019,
+        CITY => 'Sydney',
+        DATE_START => '2019-10-16',
+        DATE_END => '2019-10-24'
+      },
+      '2021' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/82
+        YEAR => 2021,
+        CITY => 'Online',
+        DATE_START => '2021-10-14',
+        DATE_END => '2021-10-24'
+      },
+      '2022' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/39
+        YEAR => 2022,
+        CITY => 'Sydney',
+        DATE_START => '2022-10-19',
+        DATE_END => '2022-10-28'
+      },
+      '2023' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/638
+        YEAR => 2023,
+        CITY => 'Sydney',
+        SPONSOR => 'Tony Bemrose Insurance Brokers',
+        DATE_START => '2023-10-18',
+        DATE_END => '2023-10-25'
+      },
+      '2024' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/967
+        YEAR => 2024,
+        CITY => 'Sydney',
+        DATE_START => '2024-10-19',
+        DATE_END => '2024-10-27'
+      },
+    }
+  },
+
+  'Australian Summer Festival' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+
+    EDITIONS => 
+    {
+      '2005' =>
+      {
+        # https://abfevents.com.au/events/not/2005/index.html
+        YEAR => 2005,
+        CITY => 'Canberra',
+        DATE_START => '2005-01-11',
+        DATE_END => '2005-01-25'
+      },
+      '2006' =>
+      {
+        # https://abfevents.com.au/events/not/2006/index.html
+        YEAR => 2006,
+        CITY => 'Canberra',
+        DATE_START => '2006-01-18',
+        DATE_END => '2006-01-30'
+      },
+      '2007' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=07SUMF&header=abf
+        YEAR => 2007,
+        CITY => 'Canberra',
+        DATE_START => '2007-01-15',
+        DATE_END => '2007-01-29'
+      },
+      '2008' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=08SUMF&header=abf
+        YEAR => 2008,
+        CITY => 'Canberra',
+        DATE_START => '2008-01-14',
+        DATE_END => '2008-01-28'
+      },
+      '2009' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=10SUMF&header=abf
+        YEAR => 2009,
+        CITY => 'Canberra',
+        DATE_START => '2009-01-12',
+        DATE_END => '2009-01-26'
+      },
+      '2010' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=10SUMF&header=abf
+        YEAR => 2010,
+        CITY => 'Canberra',
+        DATE_START => '2010-01-11',
+        DATE_END => '2010-01-25'
+      },
+      '2011' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=11sumf&header=abf
+        YEAR => 2011,
+        CITY => 'Canberra',
+        DATE_START => '2011-01-17',
+        DATE_END => '2011-01-31'
+      },
+      '2012' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=12sumf&header=abf
+        YEAR => 2012,
+        CITY => 'Canberra',
+        DATE_START => '2012-01-16',
+        DATE_END => '2012-01-29'
+      },
+      '2013' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=13sumf&header=abf
+        YEAR => 2013,
+        CITY => 'Canberra',
+        DATE_START => '2013-01-15',
+        DATE_END => '2013-01-27'
+      },
+      '2014' =>
+      {
+        # No link.
+        YEAR => 2014,
+        CITY => 'Canberra',
+        DATE_START => '2014-01-14',
+        DATE_END => '2014-01-26'
+      },
+      '2015' =>
+      {
+        # No link.
+        YEAR => 2015,
+        CITY => 'Canberra',
+        DATE_START => '2015-01-13',
+        DATE_END => '2015-01-25'
+      },
+      '2016' =>
+      {
+        # No link.
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-01-12',
+        DATE_END => '2016-01-24'
+      },
+      '2017' =>
+      {
+        # https://abfevents.com.au/events/not/2017/index.asp
+        YEAR => 2017,
+        CITY => 'Canberra',
+        DATE_START => '2017-01-10',
+        DATE_END => '2017-01-22'
+      },
+      '2018' =>
+      {
+        # https://abfevents.com.au/events/not/2018/
+        YEAR => 2018,
+        CITY => 'Canberra',
+        DATE_START => '2018-01-10',
+        DATE_END => '2018-01-21'
+      },
+      '2019' =>
+      {
+        # https://abfevents.com.au/events/not/2019/
+        YEAR => 2019,
+        CITY => 'Canberra',
+        DATE_START => '2019-01-09',
+        DATE_END => '2019-01-20'
+      },
+      '2020' =>
+      {
+        # https://abfevents.com.au/events/not/2020/
+        YEAR => 2020,
+        CITY => 'Canberra',
+        DATE_START => '2020-01-08',
+        DATE_END => '2020-01-19'
+      },
+      '2022' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/122
+        YEAR => 2022,
+        CITY => 'Online',
+        DATE_START => '2022-01-13',
+        DATE_END => '2022-01-23'
+      },
+      '2023' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/343
+        YEAR => 2023,
+        CITY => 'Canberra',
+        DATE_START => '2023-01-10',
+        DATE_END => '2023-01-22'
+      },
+      '2024' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/790
+        YEAR => 2024,
+        CITY => 'Canberra',
+        DATE_START => '2024-01-09',
+        DATE_END => '2024-01-21'
+      },
+    }
+  },
+
+  'Australian Youth Week' =>
+  {
+    %GLOBAL,
+    COUNTRY => 'Australia',
+    ORIGIN => 'National',
+
+    EDITIONS => 
+    {
+      '2006' =>
+      {
+        # https://abfevents.com.au/youth/events/ayc/2007/results.asp
+        YEAR => 2006,
+        CITY => 'Canberra',
+        DATE_START => '2006-01-14',
+        DATE_END => '2006-01-22'
+      },
+      '2007' =>
+      {
+        # https://abfevents.com.au/youth/events/ayc/2007/results.asp
+        YEAR => 2007,
+        CITY => 'Canberra',
+        DATE_START => '2007-01-13',
+        DATE_END => '2007-01-20'
+      },
+      '2008' =>
+      {
+        # https://abfevents.com.au/youth/events/ayc/2008/results.asp
+        YEAR => 2008,
+        CITY => 'Canberra',
+        DATE_START => '2008-01-12',
+        DATE_END => '2008-01-19'
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/youth/events/ayc/2009/results.asp
+        YEAR => 2009,
+        CITY => 'Canberra',
+        DATE_START => '2009-01-10',
+        DATE_END => '2009-01-17'
+      },
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2010&dir=ayc
+        YEAR => 2010,
+        CITY => 'Canberra',
+        DATE_START => '2010-01-09',
+        DATE_END => '2010-01-16'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2011&dir=ayc
+        YEAR => 2011,
+        CITY => 'Canberra',
+        DATE_START => '2011-01-15',
+        DATE_END => '2011-01-23'
+      },
+      '2012' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2012&dir=ayc
+        YEAR => 2012,
+        CITY => 'Canberra',
+        DATE_START => '2012-01-14',
+        DATE_END => '2012-01-22'
+      },
+      '2013' =>
+      {
+        # https://abfevents.com.au/youth/events/ayc/2013/
+        YEAR => 2013,
+        CITY => 'Canberra',
+        DATE_START => '2013-01-12',
+        DATE_END => '2013-01-20'
+      },
+      '2014' =>
+      {
+        # https://abfevents.com.au/events/ayc/2014/
+        YEAR => 2014,
+        CITY => 'Canberra',
+        DATE_START => '2014-01-11',
+        DATE_END => '2014-01-19'
+      },
+      '2015' =>
+      {
+        # https://abfevents.com.au/events/ayc/2015/
+        YEAR => 2015,
+        CITY => 'Canberra',
+        DATE_START => '2015-01-10',
+        DATE_END => '2015-01-17'
+      },
+      '2016' =>
+      {
+        # https://abfevents.com.au/events/ayc/2016/
+        YEAR => 2016,
+        CITY => 'Canberra',
+        DATE_START => '2016-01-09',
+        DATE_END => '2016-01-15'
+      },
+      '2017' =>
+      {
+        # https://abfevents.com.au/events/ayc/2017/
+        YEAR => 2017,
+        CITY => 'Canberra',
+        DATE_START => '2017-01-07',
+        DATE_END => '2017-01-14'
+      },
+      '2018' =>
+      {
+        # https://abfevents.com.au/events/ayc/2018/
+        YEAR => 2018,
+        CITY => 'Canberra',
+        DATE_START => '2018-01-06',
+        DATE_END => '2018-01-12'
+      },
+      '2019' =>
+      {
+        # https://abfevents.com.au/events/ayc/2019/
+        YEAR => 2019,
+        CITY => 'Canberra',
+        DATE_START => '2019-01-05',
+        DATE_END => '2019-01-11'
+      },
+      '2020' =>
+      {
+        # https://abfevents.com.au/events/ayc/2020/
+        YEAR => 2020,
+        CITY => 'Canberra',
+        DATE_START => '2020-01-04',
+        DATE_END => '2020-01-10'
+      },
+      '2023' =>
+      {
+        # https://www.myabf.com.au/events/congress/view/479
+        YEAR => 2023,
+        CITY => 'Canberra',
+        DATE_START => '2023-01-07',
+        DATE_END => '2023-01-13'
+      },
+      '2024' =>
+      {
+        # https://abfevents.com.au/events/ayc/2024/
+        YEAR => 2024,
+        CITY => 'Canberra',
+        DATE_START => '2024-01-06',
+        DATE_END => '2024-01-12'
+      },
+    }
+  },
+
+  'Gold Coast Congress' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Transnational',
+
+    EDITIONS => 
+    {
+      '2005' =>
+      {
+        # https://abfevents.com.au/events/gcc/2005.html
+        YEAR => 2005,
+        CITY => 'Surfers Paradise',
+        DATE_START => '2005-02-19',
+        DATE_END => '2005-02-26'
+      },
+      '2006' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=06SURF&header=abf
+        YEAR => 2006,
+        CITY => 'Gold Coast',
+        DATE_START => '2006-02-18',
+        DATE_END => '2006-02-25'
+      },
+      '2007' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=07SURF&header=abf
+        YEAR => 2007,
+        CITY => 'Gold Coast',
+        DATE_START => '2007-02-17',
+        DATE_END => '2007-02-24'
+      },
+      '2008' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=08GCCC&header=abf
+        YEAR => 2008,
+        CITY => 'Gold Coast',
+        DATE_START => '2008-02-17',
+        DATE_END => '2008-03-01'
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2009
+        YEAR => 2009,
+        CITY => 'Gold Coast',
+        DATE_START => '2009-02-28',
+        DATE_END => '2009-03-07'
+      },
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2010
+        YEAR => 2010,
+        CITY => 'Gold Coast',
+        DATE_START => '2010-02-27',
+        DATE_END => '2010-03-06'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2011
+        YEAR => 2011,
+        CITY => 'Broadbeach',
+        DATE_START => '2011-02-26',
+        DATE_END => '2011-03-05'
+      },
+      '2012' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2012
+        YEAR => 2012,
+        CITY => 'Broadbeach',
+        DATE_START => '2012-02-25',
+        DATE_END => '2012-03-03'
+      },
+      '2013' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2013
+        YEAR => 2013,
+        CITY => 'Broadbeach',
+        DATE_START => '2013-02-23',
+        DATE_END => '2013-03-02'
+      },
+      '2014' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2014
+        YEAR => 2014,
+        CITY => 'Broadbeach',
+        DATE_START => '2014-02-22',
+        DATE_END => '2014-03-01'
+      },
+      '2015' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2015
+        YEAR => 2015,
+        CITY => 'Broadbeach',
+        DATE_START => '2015-02-21',
+        DATE_END => '2015-02-28'
+      },
+      '2016' =>
+      {
+        # https://abfevents.com.au/events/results/gcc.asp?yr=2016
+        YEAR => 2016,
+        CITY => 'Broadbeach',
+        DATE_START => '2016-02-19',
+        DATE_END => '2016-02-27'
+      },
+      '2017' =>
+      {
+        YEAR => 2017,
+        CITY => 'Broadbeach',
+        DATE_START => '2017-02-24',
+        DATE_END => '2017-02-25'
+      },
+      '2018' =>
+      {
+        YEAR => 2018,
+        DATE_START => '2018-02-23',
+        DATE_END => '2018-02-24'
+      },
+      '2019' =>
+      {
+        YEAR => 2019,
+        CITY => 'Broadbeach',
+        DATE_START => '2019-02-22',
+        DATE_END => '2019-02-23'
+      },
+      '2020' =>
+      {
+        YEAR => 2020,
+        DATE_START => '2020-02-28',
+        DATE_END => '2020-02-29'
+      },
+      '2022' =>
+      {
+        YEAR => 2022,
+        DATE_START => '2022-02-26',
+        DATE_END => '2022-02-26'
+      },
+      '2023' =>
+      {
+        YEAR => 2023,
+        DATE_START => '2023-02-25',
+        DATE_END => '2023-02-25'
+      },
+      '2024' =>
+      {
+        YEAR => 2024,
+        DATE_START => '2024-02-24',
+        DATE_END => '2024-02-24'
+      },
+    }
+  },
+
+  'Queensland Festival of Bridge' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+
+    EDITIONS => 
+    {
+      '2021' =>
+      {
+        YEAR => 2021,
+        DATE_START => '2021-10-10',
+        DATE_END => '2021-10-10'
+      },
+      '2022' =>
+      {
+        YEAR => 2022,
+        DATE_START => '2022-10-09',
+        DATE_END => '2022-10-09'
+      },
+    }
+  },
+
+  'Victor Champion Cup' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2004/
+        CITY => 'Melbourne',
+        YEAR => 2004,
+        DATE_START => '2004-06-10',
+        DATE_END => '2004-06-14'
+      },
+      '2005' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2005/
+        CITY => 'Melbourne',
+        YEAR => 2005,
+        DATE_START => '2005-06-09',
+        DATE_END => '2005-06-13'
+      },
+      '2006' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2006/
+        CITY => 'Melbourne',
+        YEAR => 2006,
+        DATE_START => '2006-06-08',
+        DATE_END => '2006-06-12'
+      },
+      '2007' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2007/
+        CITY => 'Melbourne',
+        YEAR => 2007,
+        DATE_START => '2007-06-07',
+        DATE_END => '2007-06-11'
+      },
+      '2008' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2008/
+        CITY => 'Melbourne',
+        YEAR => 2008,
+        DATE_START => '2008-06-05',
+        DATE_END => '2008-06-09'
+      },
+      '2009' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=09VCCC&header=abf
+        CITY => 'Melbourne',
+        YEAR => 2009,
+        DATE_START => '2009-06-04',
+        DATE_END => '2009-06-08'
+      },
+      '2010' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=vccc10&header=abf
+        CITY => 'Melbourne',
+        YEAR => 2010,
+        DATE_START => '2010-06-10',
+        DATE_END => '2010-06-14'
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2011&dir=vcc
+        CITY => 'Melbourne',
+        YEAR => 2011,
+        DATE_START => '2011-06-09',
+        DATE_END => '2011-06-13'
+      },
+      '2012' =>
+      {
+        CITY => 'Melbourne',
+        YEAR => 2012,
+        DATE_START => '2012-06-07',
+        DATE_END => '2012-06-11'
+      },
+      '2013' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2013/
+        CITY => 'Melbourne',
+        YEAR => 2013,
+        DATE_START => '2013-06-06',
+        DATE_END => '2013-06-10'
+      },
+      '2014' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?header=abf&code=14VCCC
+        CITY => 'Melbourne',
+        YEAR => 2014,
+        DATE_START => '2014-06-05',
+        DATE_END => '2014-06-09'
+      },
+      '2015' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2015&dir=vcc
+        CITY => 'Melbourne',
+        YEAR => 2015,
+        DATE_START => '2015-06-04',
+        DATE_END => '2015-06-08'
+      },
+      '2016' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2016/
+        CITY => 'Melbourne',
+        YEAR => 2016,
+        DATE_START => '2016-06-09',
+        DATE_END => '2016-06-13'
+      },
+      '2017' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2017/
+        CITY => 'Melbourne',
+        YEAR => 2017,
+        DATE_START => '2017-06-08',
+        DATE_END => '2017-06-12'
+      },
+      '2018' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2018/
+        CITY => 'Melbourne',
+        YEAR => 2018,
+        DATE_START => '2018-06-07',
+        DATE_END => '2018-06-11'
+      },
+      '2019' =>
+      {
+        # https://www.abfevents.com.au/events/vcc/2019/
+        CITY => 'Melbourne',
+        YEAR => 2019,
+        DATE_START => '2019-06-06',
+        DATE_END => '2019-06-10'
+      },
+      '2020' =>
+      {
+        # https://www.abf.com.au/event/2020-victor-champion-cup/
+        # https://www.abfevents.com.au/events/vcc/2020/
+        CITY => 'Melbourne',
+        YEAR => 2020,
+        DATE_START => '2020-06-04',
+        DATE_END => '2020-06-08'
+      },
+      '2021' =>
+      {
+        # https://www.abf.com.au/event/2021-victor-champion-cup/
+        CITY => 'Melbourne',
+        YEAR => 2021,
+        DATE_START => '2021-08-26',
+        DATE_END => '2021-08-29'
+      },
+      '2022' =>
+      {
+        # https://www.abf.com.au/event/2022-victor-champion-cup/
+        CITY => 'Melbourne',
+        YEAR => 2022,
+        DATE_START => '2022-06-06',
+        DATE_END => '2022-06-13'
+      },
+      '2023' =>
+      {
+        # https://www.abf.com.au/event/2023-victor-champion-cup/
+        CITY => 'Moonee Ponds',
+        YEAR => 2023,
+        DATE_START => '2023-06-08',
+        DATE_END => '2023-06-12'
+      },
+      '2024' =>
+      {
+        # https://www.abf.com.au/event/2024-victor-champion-cup/
+        CITY => 'Melbourne',
+        YEAR => 2024,
+        DATE_START => '2024-06-06',
+        DATE_END => '2024-06-10'
+      },
+    }
+  },
+);
+
+my %TOURNAMENTS_AUSTRALIA =
+(
+  'Altman Swiss Pairs',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2011-04-13',
+            DATE_END => '2011-04-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2011-04-20',
+            DATE_END => '2011-04-20'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2011-04-27',
+            DATE_END => '2011-04-27'
+          },
+          'C3' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2011-05-04',
+            DATE_END => '2011-05-04'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Autumn National Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2007' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2007-05-14',
+            DATE_END => '2007-05-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Rof16',
+            DATE_START => '2007-05-14',
+            DATE_END => '2007-05-14'
+          },
+          'C2' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2007-05-14',
+            DATE_END => '2007-05-14'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            DATE_START => '2008-05-05',
+            DATE_END => '2008-05-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2008-05-05',
+            DATE_END => '2008-05-05'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-05-03',
+            DATE_END => '2009-05-04'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2010-05-02',
+            DATE_END => '2010-05-03'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2011-05-01',
+            DATE_END => '2011-05-02'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-04-29',
+            DATE_END => '2012-04-30'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-05-06',
+            DATE_END => '2013-05-06'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-05-05',
+            DATE_END => '2014-05-05'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-05-04',
+            DATE_END => '2015-05-04'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-05-02',
+            DATE_END => '2016-05-02'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-05-08',
+            DATE_END => '2017-05-08'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-05-07',
+            DATE_END => '2018-05-07'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-05-06',
+            DATE_END => '2019-05-06'
+          } 
+        }
+      },
+      '2021' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2021-05-03',
+            DATE_END => '2021-05-03'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-05-02',
+            DATE_END => '2022-05-02'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-05-08',
+            DATE_END => '2023-05-08'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Australian Autumn Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-05-06',
+            DATE_END => '2024-05-06'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Grand National Open Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        # https://abfevents.com.au/events/gnot/2006/index.html
+        CITY => 'Banora Point',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2006-11-19',
+            DATE_END => '2006-11-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2006-11-20',
+            DATE_END => '2006-11-20'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        # https://abfevents.com.au/events/gnot/2007/index.html
+        CITY => 'Banora Point',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-11-30',
+            DATE_END => '2007-11-30'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2007-12-01',
+            DATE_END => '2007-12-01'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        # https://abfevents.com.au/events/gnot/2008/index.html
+        CITY => 'Banora Point',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2008-11-28',
+            DATE_END => '2008-12-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-11-28',
+            DATE_END => '2008-12-01'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/events/gnot/2009/results.htm
+        CITY => 'Banora Point',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Rof6',
+            major => 'ROUND',
+            DATE_START => '2009-11-27',
+            DATE_END => '2009-11-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'ROUND',
+            DATE_START => '2009-11-28',
+            DATE_END => '2009-11-29'
+          },
+          'C2' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2009-11-30',
+            DATE_END => '2009-11-30'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/gnot/2010/results.htm
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-11-27',
+            DATE_END => '2010-11-28'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-11-28',
+            DATE_END => '2010-11-29'
+          },
+        }
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/gnot/2011/results.htm
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2011-11-25',
+            DATE_END => '2011-11-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-11-27',
+            DATE_END => '2011-11-28'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        # http://abfevents.com.au/events/gnot/2012/results.html
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-12-02',
+            DATE_END => '2012-12-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-12-02',
+            DATE_END => '2012-12-03'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        # http://abfevents.com.au/events/gnot/2013/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-12-01',
+            DATE_END => '2013-12-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-12-02',
+            DATE_END => '2013-12-02'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        # http://abfevents.com.au/events/gnot/2014/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-30',
+            DATE_END => '2014-12-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-12-01',
+            DATE_END => '2014-12-01'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        # http://abfevents.com.au/events/gnot/2015/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-11-29',
+            DATE_END => '2015-11-30'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-11-30',
+            DATE_END => '2015-11-30'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        # http://abfevents.com.au/events/gnot/2016/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-11-27',
+            DATE_END => '2016-11-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-11-28',
+            DATE_END => '2016-11-28'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        # http://abfevents.com.au/events/gnot/2017/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-11-26',
+            DATE_END => '2017-11-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-11-27',
+            DATE_END => '2017-11-27'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        # http://abfevents.com.au/events/gnot/2018/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-02',
+            DATE_END => '2018-12-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-03',
+            DATE_END => '2018-12-03'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        # http://abfevents.com.au/events/gnot/2019/
+        CITY => 'Tweed Heads',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2019-12-01',
+            DATE_END => '2019-12-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-02',
+            DATE_END => '2019-12-02'
+          },
+        }
+      },
+      '2021' =>
+      {
+        # http://abfevents.com.au/events/gnot/2021/
+        CITY => 'Online',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2021,
+            DATE_START => '2021-11-26',
+            DATE_END => '2021-11-28'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        # https://abfevents.com.au/events/gnot/2022/
+        CITY => 'Brisbane',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-11-28',
+            DATE_END => '2022-11-28'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        # https://abfevents.com.au/events/gnot/2023/
+        CITY => 'Brisbane',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            DATE_START => '2023-12-01',
+            DATE_END => '2023-12-04'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        # https://abfevents.com.au/events/gnot/2024/
+        CITY => 'Canberra',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            DATE_START => '2024-11-23',
+            DATE_END => '2024-11-24'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Junior Teams',
+  {
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-08',
+            DATE_END => '2008-08-08'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            DATE_START => '2009-07-17',
+            DATE_END => '2009-07-18'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            DATE_START => '2010-07-22',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-07-28',
+            DATE_END => '2011-07-28'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            DATE_START => '2012-07-12',
+            DATE_END => '2012-07-13'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            DATE_START => '2014-07-13',
+            DATE_END => '2014-07-18'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            DATE_START => '2016-07-01',
+            DATE_END => '2016-07-01'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-07-06',
+            DATE_END => '2022-07-07'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Mixed Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Mixed',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2019' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2019A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            DATE_START => '2019-01-26',
+            DATE_END => '2019-01-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2019-01-27',
+            DATE_END => '2019-01-27'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-28',
+            DATE_END => '2019-01-28'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Mixed Trials',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Mixed',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2020' =>
+      {
+        MEET => 'Australian Playoffs',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-26',
+            DATE_END => '2020-01-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-27',
+            DATE_END => '2020-01-27'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2022C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2022-12-03',
+            DATE_END => '2022-12-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2022-12-05',
+            DATE_END => '2022-12-06'
+          },
+          'C2' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-12-07',
+            DATE_END => '2022-12-08'
+          },
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2023B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-12-09',
+            DATE_END => '2023-12-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-12-11',
+            DATE_END => '2023-12-12'
+          },
+          'C2' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-12-13',
+            DATE_END => '2023-12-14'
+          },
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2024C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-12-07',
+            DATE_END => '2024-12-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-12-09',
+            DATE_END => '2024-12-10'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-12-11',
+            DATE_END => '2024-12-12'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian National Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Rof16',
+            groupon => 'AUTO',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2005-01-22',
+            DATE_END => '2005-01-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            ignore => 'TABLE',
+            DATE_START => '2005-01-23',
+            DATE_END => '2005-01-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            ignore => 'TABLE',
+            DATE_START => '2005-01-23',
+            DATE_END => '2005-01-23'
+          },
+          'C3' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2005-01-25',
+            DATE_END => '2005-01-25'
+          },
+        }
+      },
+      '2006' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2006-01-28',
+            DATE_END => '2006-01-30'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2006-01-28',
+            DATE_END => '2006-01-30'
+          },
+          'C2' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2006-01-28',
+            DATE_END => '2006-01-30'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Rof16',
+            DATE_START => '2007-01-28',
+            DATE_END => '2007-01-29'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-01-28',
+            DATE_END => '2007-01-29'
+          },
+          'C2' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2007-01-28',
+            DATE_END => '2007-01-29'
+          },
+          'C3' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2007-01-28',
+            DATE_END => '2007-01-29'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Rof16',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2008-01-25',
+            DATE_END => '2008-01-25'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-27',
+            DATE_END => '2008-01-27'
+          },
+          'C2' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-27',
+            DATE_END => '2008-01-27'
+          },
+          'C3' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-28',
+            DATE_END => '2008-01-28'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Rof12',
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2010-01-22',
+            DATE_END => '2010-01-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-22',
+            DATE_END => '2010-01-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-23',
+            DATE_END => '2010-01-24'
+          },
+          'C3' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-24',
+            DATE_END => '2010-01-25'
+          },
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Rof20',
+            major => 'SEGMENT',
+            ignore => 'TABLE',
+            DATE_START => '2011-01-28',
+            DATE_END => '2011-01-28'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Quarterfinal',
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2011-01-28',
+            DATE_END => '2011-01-29'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2011-01-29',
+            DATE_END => '2011-01-30'
+          },
+          'C3' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-01-30',
+            DATE_END => '2011-01-31'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-01-26',
+            DATE_END => '2012-01-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2012-01-27',
+            DATE_END => '2012-01-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-01-28',
+            DATE_END => '2012-01-29'
+          },
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-25',
+            DATE_END => '2013-01-25'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-26',
+            DATE_END => '2013-01-26'
+          },
+          'C2' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-27',
+            DATE_END => '2013-01-27'
+          },
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-24',
+            DATE_END => '2014-01-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-25',
+            DATE_END => '2014-01-25'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-26',
+            DATE_END => '2014-01-26'
+          }
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-23',
+            DATE_END => '2015-01-23'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-24',
+            DATE_END => '2015-01-24'
+          },
+          'C2' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-25',
+            DATE_END => '2015-01-25'
+          }
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-22',
+            DATE_END => '2016-01-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-23',
+            DATE_END => '2016-01-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-24',
+            DATE_END => '2016-01-24'
+          },
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-20',
+            DATE_END => '2017-01-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-21',
+            DATE_END => '2017-01-21'
+          },
+          'C2' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-22',
+            DATE_END => '2017-01-22'
+          },
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2018-01-19',
+            DATE_END => '2018-01-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2018-01-20',
+            DATE_END => '2018-01-20'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2018-01-21',
+            DATE_END => '2018-01-21'
+          },
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-18',
+            DATE_END => '2019-01-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-19',
+            DATE_END => '2019-01-19'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-20',
+            DATE_END => '2019-01-20'
+          },
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-17',
+            DATE_END => '2020-01-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-18',
+            DATE_END => '2020-01-18'
+          },
+          'C2' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-19',
+            DATE_END => '2020-01-19'
+          },
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-20',
+            DATE_END => '2023-01-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-21',
+            DATE_END => '2023-01-21'
+          },
+          'C2' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-22',
+            DATE_END => '2023-01-22'
+          },
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Quarterfinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-19',
+            DATE_END => '2024-01-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-20',
+            DATE_END => '2024-01-20'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-21',
+            DATE_END => '2024-01-21'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian National Senior Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-20',
+            DATE_END => '2008-01-25'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            DATE_START => '2010-01-13',
+            DATE_END => '2010-01-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            MOVEMENT => 'Round-robin',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-15',
+            DATE_END => '2010-01-16'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-16',
+            DATE_END => '2010-01-17'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SEGMENT',
+            DATE_START => '2011-01-22',
+            DATE_END => '2011-01-23'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-01-20',
+            DATE_END => '2012-01-22'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-19',
+            DATE_END => '2013-01-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-20',
+            DATE_END => '2013-01-20'
+          },
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-18',
+            DATE_END => '2014-01-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-18',
+            DATE_END => '2014-01-19'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-17',
+            DATE_END => '2015-01-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2015-01-18',
+            DATE_END => '2015-01-18'
+          },
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-16',
+            DATE_END => '2016-01-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-16',
+            DATE_END => '2016-01-17'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-14',
+            DATE_END => '2017-01-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-15',
+            DATE_END => '2017-01-15'
+          },
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2018-01-13',
+            DATE_END => '2018-01-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2018-01-14',
+            DATE_END => '2018-01-14'
+          },
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-12',
+            DATE_END => '2019-01-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-13',
+            DATE_END => '2019-01-13'
+          },
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-11',
+            DATE_END => '2020-01-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-12',
+            DATE_END => '2020-01-12'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian National Women Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-20',
+            DATE_END => '2008-01-20'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-16',
+            DATE_END => '2010-01-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-16',
+            DATE_END => '2010-01-17'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SEGMENT',
+            DATE_START => '2011-01-22',
+            DATE_END => '2011-01-23'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-01-21',
+            DATE_END => '2012-01-22'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-19',
+            DATE_END => '2013-01-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-20',
+            DATE_END => '2013-01-20'
+          }
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-18',
+            DATE_END => '2014-01-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-18',
+            DATE_END => '2014-01-19'
+          } 
+        }
+      },
+      '2015A' =>
+      {
+        MEET => 'Australian Summer Festival',
+        MEET_TAG => '2015',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-17',
+            DATE_END => '2015-01-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-01-17',
+            DATE_END => '2015-01-18'
+          },
+        }
+      },
+      '2015B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2015',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          },
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-16',
+            DATE_END => '2016-01-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-17',
+            DATE_END => '2016-01-17'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-14',
+            DATE_END => '2017-01-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-01-15',
+            DATE_END => '2017-01-15'
+          },
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-01-13',
+            DATE_END => '2018-01-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2018-01-14',
+            DATE_END => '2018-01-14'
+          },
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-12',
+            DATE_END => '2019-01-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-01-13',
+            DATE_END => '2019-01-13'
+          },
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-11',
+            DATE_END => '2020-01-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-01-12',
+            DATE_END => '2020-01-12'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2005-07-29',
+            DATE_END => '2005-07-29'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-08',
+            DATE_END => '2008-08-08'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'SEGMENT',
+            DATE_START => '2009-07-17',
+            DATE_END => '2009-07-18'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2010-07-19',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-07-28',
+            DATE_END => '2011-07-28'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-07-12',
+            DATE_END => '2012-07-13'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-07-11',
+            DATE_END => '2013-07-12'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2014-07-13',
+            DATE_END => '2014-07-17'
+          } ,
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-07-17',
+            DATE_END => '2014-07-18'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          },
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-07-01',
+            DATE_END => '2016-07-01'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-07-21',
+            DATE_END => '2017-07-21'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-02',
+            DATE_END => '2018-08-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-03',
+            DATE_END => '2018-08-03'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-07-17',
+            DATE_END => '2019-07-18'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-07-06',
+            DATE_END => '2022-07-07'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-07-13',
+            DATE_END => '2023-07-14'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Open Pair Trials',
+  {
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Round-robin',
+            major => 'SESSION',
+            minor => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2017-11-15',
+            DATE_END => '2017-11-16'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Open Trials',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        # https://abfevents.com.au/events/results/2005.html
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=05PLAY&abf=yes
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2005A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2005-03-21',
+            DATE_END => '2005-03-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2005-03-21',
+            DATE_END => '2005-03-21'
+          } 
+        }
+      },
+      '2006' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=06PLAY&abf=yes
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2006A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            DATE_START => '2006-03-23',
+            DATE_END => '2006-03-27'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=07PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2007A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2007-03-22',
+            DATE_END => '2007-03-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-03-22',
+            DATE_END => '2007-03-26'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=08PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2008A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND|SESSION',
+            DATE_START => '2008-03-26',
+            DATE_END => '2008-03-30'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=09PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2009A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-23',
+            DATE_END => '2009-03-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-24',
+            DATE_END => '2009-03-24'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=10PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2010A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-03-20',
+            DATE_END => '2010-03-24'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2011/results/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2011A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2011-03-26',
+            DATE_END => '2011-03-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Repechage',
+            major => 'ROUND',
+            DATE_START => '2011-03-27',
+            DATE_END => '2011-03-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-03-28',
+            DATE_END => '2011-03-29'
+          },
+          'C3' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-03-29',
+            DATE_END => '2011-03-30'
+          },
+        }
+      },
+      '2012A' =>
+      {
+        # http://abfevents.com.au/events/results/results.asp?yr=2012&dir=owp
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2012A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-04-02',
+            DATE_END => '2012-04-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-04-03',
+            DATE_END => '2012-04-05'
+          } 
+        }
+      },
+      '2012B' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2013/OW/results.asp
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2012C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-12-11',
+            DATE_END => '2012-12-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-12-12',
+            DATE_END => '2012-12-13'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2014/ow/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2014A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SESSION',
+            minor => 'ROUND',
+            DATE_START => '2014-02-05',
+            DATE_END => '2014-02-09'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2015/OW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2015A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-03',
+            DATE_END => '2015-02-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-04',
+            DATE_END => '2015-02-05'
+          } 
+        }
+      },
+      '2016A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2016/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-09',
+            DATE_END => '2016-02-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-10',
+            DATE_END => '2016-02-11'
+          } 
+        }
+      },
+      '2016B' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2017/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-11-13',
+            DATE_END => '2016-11-15'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-11-16',
+            DATE_END => '2016-11-17'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2018/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            DATE_START => '2017-11-12',
+            DATE_END => '2017-11-16'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2019/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2018A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-10',
+            DATE_END => '2018-11-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-12',
+            DATE_END => '2018-11-13'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-14',
+            DATE_END => '2018-11-15'
+          },
+        }
+      },
+      '2019' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2020/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2019B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-11-09',
+            DATE_END => '2019-11-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-11-11',
+            DATE_END => '2019-11-12'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-11-13',
+            DATE_END => '2019-11-14'
+          },
+        }
+      },
+      '2022A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2022/ows/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2022A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            DATE_START => '2022-04-18',
+            DATE_END => '2022-04-23'
+          } 
+        }
+      },
+      '2022B' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2023/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2022B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2022-11-12',
+            DATE_END => '2022-11-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2022-11-14',
+            DATE_END => '2022-11-15'
+          },
+          'C2' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-11-16',
+            DATE_END => '2022-11-17'
+          },
+        }
+      },
+      '2023' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2024&dir=opo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2023A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-11-11',
+            DATE_END => '2023-11-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-11-13',
+            DATE_END => '2023-11-14'
+          },
+          'C2' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-11-15',
+            DATE_END => '2023-11-16'
+          },
+        }
+      },
+      '2024' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2025/open/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2024B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-11-16',
+            DATE_END => '2024-11-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-11-18',
+            DATE_END => '2024-11-19'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-11-20',
+            DATE_END => '2024-11-21'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Senior Pair Trials',
+  {
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Round-robin',
+            major => 'SESSION',
+            minor => 'ROUND',
+            DATE_START => '2017-12-06',
+            DATE_END => '2017-12-07'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Senior Pairs',
+  {
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2010&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2010B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-04-07',
+            DATE_END => '2010-04-11'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2014/seniors/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2014B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SEGMENT',
+            major => 'ROUND|SESSION|SEGMENT',
+            DATE_START => '2014-04-07',
+            DATE_END => '2014-04-08'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Senior Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        # http://www.abf.com.au/events/results/results.asp?yr=2006&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2006B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2006-04-20',
+            DATE_END => '2006-04-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2006-04-23',
+            DATE_END => '2006-04-24'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        # http://www.abf.com.au/events/results/results.asp?yr=2007&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2007B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            DATE_START => '2007-04-22',
+            DATE_END => '2007-04-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-04-19',
+            DATE_END => '2007-04-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-04-19',
+            DATE_END => '2007-04-23'
+          }
+        }
+      },
+      '2008A' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2008&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2008B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            DATE_START => '2008-04-09',
+            DATE_END => '2008-04-13'
+          } 
+        }
+      },
+      '2008B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2008',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-08',
+            DATE_END => '2008-08-08'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2009&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2009B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2009-04-18',
+            DATE_END => '2009-04-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-04-19',
+            DATE_END => '2009-04-20'
+          } 
+        }
+      },
+      '2010A' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2010&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2010B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            DATE_START => '2010-04-07',
+            DATE_END => '2010-04-11'
+          } 
+        }
+      },
+      '2010B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2010',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2010-07-19',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2011A' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2011&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2011B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2011-04-07',
+            DATE_END => '2011-04-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-04-08',
+            DATE_END => '2011-04-09'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-04-09',
+            DATE_END => '2011-04-10'
+          },
+        }
+      },
+      '2011B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2011',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-07-28',
+            DATE_END => '2011-07-29'
+          } 
+        }
+      },
+      '2012A' =>
+      {
+        # http://abfevents.com.au/events/results/results.asp?yr=2012&dir=spo
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2012B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2012-04-18',
+            DATE_END => '2012-04-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-04-20',
+            DATE_END => '2012-04-22'
+          } 
+        }
+      },
+      '2012B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2012',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-07-12',
+            DATE_END => '2012-07-13'
+          } 
+        }
+      },
+      '2013A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2013/seniors/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2013',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-02-13',
+            DATE_END => '2013-02-17'
+          } 
+        }
+      },
+      '2013B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2013',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-07-11',
+            DATE_END => '2013-07-12'
+          } 
+        }
+      },
+      '2014A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2014/seniors/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2014B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            DATE_START => '2014-04-04',
+            DATE_END => '2014-04-08'
+          } 
+        }
+      },
+      '2014B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2014',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2014-07-13',
+            DATE_END => '2014-07-17'
+          } ,
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-07-17',
+            DATE_END => '2014-07-18'
+          } 
+        }
+      },
+      '2015A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2015/seniors/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2015B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-03-13',
+            DATE_END => '2015-03-18'
+          } 
+        }
+      },
+      '2015B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2015',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          } 
+        }
+      },
+      '2016A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2016/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2016-03-12',
+            DATE_END => '2016-03-17'
+          } 
+        }
+      },
+      '2016B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2016',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-07-01',
+            DATE_END => '2016-07-01'
+          } 
+        }
+      },
+      '2016C' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2017/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016D',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-05',
+            DATE_END => '2016-12-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-07',
+            DATE_END => '2016-12-08'
+          } 
+        }
+      },
+      '2017A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2017,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-07-21',
+            DATE_END => '2017-07-21'
+          } 
+        }
+      },
+      '2017B' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2018/sw/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            DATE_START => '2017-12-03',
+            DATE_END => '2017-12-07'
+          } 
+        }
+      },
+      '2018A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2018,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-02',
+            DATE_END => '2018-08-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-03',
+            DATE_END => '2018-08-03'
+          },
+        }
+      },
+      '2018B' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2019/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2018B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-08',
+            DATE_END => '2018-12-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-10',
+            DATE_END => '2018-12-11'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-12',
+            DATE_END => '2018-12-13'
+          },
+        }
+      },
+      '2019A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2019,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-07-17',
+            DATE_END => '2019-07-18'
+          } 
+        }
+      },
+      '2019B' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2020/sw/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2019C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-07',
+            DATE_END => '2019-12-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-09',
+            DATE_END => '2019-12-10'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-11',
+            DATE_END => '2019-12-12'
+          },
+        }
+      },
+      '2022A' =>
+      {
+        # http://abfevents.com.au/events/playoffs/2022/ows/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2022A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            DATE_START => '2022-04-18',
+            DATE_END => '2022-04-23'
+          } 
+        }
+      },
+      '2022B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2022,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-07-06',
+            DATE_END => '2022-07-07'
+          } 
+        }
+      },
+      '2023A' =>
+      {
+        MEET => 'Australian Summer Festival',
+        MEET_TAG => '2023',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-13',
+            DATE_END => '2023-01-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-14',
+            DATE_END => '2023-01-15'
+          },
+        }
+      },
+      '2023B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2023',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-07-13',
+            DATE_END => '2023-07-14'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2024A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-12',
+            DATE_END => '2024-01-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-14',
+            DATE_END => '2024-01-14'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Senior Trials',
+  {
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2000' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2000,
+            DATE_START => '2000-01-01',
+            DATE_END => '2000-01-01'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Spring Mixed Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Mixed',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2023' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-21',
+            DATE_END => '2023-10-25'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Spring Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2004-11-18',
+            DATE_END => '2004-11-18'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-10-31',
+            DATE_END => '2007-10-31'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-10-31',
+            DATE_END => '2007-10-31'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-10-30',
+            DATE_END => '2008-10-30'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-10-24',
+            DATE_END => '2009-10-25'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-10-23',
+            DATE_END => '2010-10-28'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-10-21',
+            DATE_END => '2011-10-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-10-22',
+            DATE_END => '2011-10-22'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-10-27',
+            DATE_END => '2012-10-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-10-28',
+            DATE_END => '2012-10-28'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2013-10-26',
+            DATE_END => '2013-10-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-10-27',
+            DATE_END => '2013-10-27'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-01',
+            DATE_END => '2014-11-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-02',
+            DATE_END => '2014-11-02'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2015-10-24',
+            DATE_END => '2015-10-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-10-25',
+            DATE_END => '2015-10-25'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-22',
+            DATE_END => '2016-10-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-23',
+            DATE_END => '2016-10-23'
+          },
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-10-21',
+            DATE_END => '2017-10-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-10-22',
+            DATE_END => '2017-10-22'
+          },
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-20',
+            DATE_END => '2018-10-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-21',
+            DATE_END => '2018-10-21'
+          },
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-19',
+            DATE_END => '2019-10-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-20',
+            DATE_END => '2019-10-20'
+          },
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2022-10-22',
+            DATE_END => '2022-10-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2022-10-23',
+            DATE_END => '2022-10-23'
+          },
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2023-10-21',
+            DATE_END => '2023-10-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-22',
+            DATE_END => '2023-10-22'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Spring Senior Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2007' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-11-01',
+            DATE_END => '2007-11-01'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-10-30',
+            DATE_END => '2008-10-30'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-10-28',
+            DATE_END => '2009-10-29'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-10-27',
+            DATE_END => '2010-10-28'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-10-26',
+            DATE_END => '2011-10-27'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-06',
+            DATE_END => '2014-11-06'
+          } 
+        }
+      },
+    }
+  },
+
+  "Australian Spring Women Teams",
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2007' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-11-01',
+            DATE_END => '2007-11-01'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-10-30',
+            DATE_END => '2008-10-30'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-10-28',
+            DATE_END => '2010-10-28'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-10-26',
+            DATE_END => '2011-10-26'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-06',
+            DATE_END => '2014-11-06'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-27',
+            DATE_END => '2016-10-27'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Women Pair Trials',
+  {
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Women',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Round-robin',
+            major => 'SESSION',
+            minor => 'ROUND',
+            ignore => 'TABLE',
+            DATE_START => '2017-12-06',
+            DATE_END => '2017-12-07'
+          } 
+        }
+      },
+    }
+  },
+
+  "Australian Women Teams",
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005A' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=05PLAY&abf=yes
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2005A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2005-03-20',
+            DATE_END => '2005-03-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Tiebreak',
+            major => 'SEGMENT',
+            DATE_START => '2005-03-20',
+            DATE_END => '2005-03-21'
+          } 
+        }
+      },
+      '2005B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2005',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2005-07-29',
+            DATE_END => '2005-07-29'
+          } 
+        }
+      },
+      '2006' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=06PLAY&abf=yes
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2006A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            DATE_START => '2006-03-23',
+            DATE_END => '2006-03-27'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=07PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2007A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'ROUND',
+            DATE_START => '2007-03-22',
+            DATE_END => '2007-03-26'
+          } 
+        }
+      },
+      '2008A' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=08PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2008A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND|SESSION',
+            DATE_START => '2008-03-26',
+            DATE_END => '2008-03-30'
+          } 
+        }
+      },
+      '2008B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2008',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-08',
+            DATE_END => '2008-08-08'
+          } 
+        }
+      },
+      '2009A' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=09PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2009A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-21',
+            DATE_END => '2009-03-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-21',
+            DATE_END => '2009-03-26'
+          } 
+        }
+      },
+      '2009B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2009',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'SEGMENT',
+            DATE_START => '2009-07-17',
+            DATE_END => '2009-07-18'
+          } 
+        }
+      },
+      '2010A' =>
+      {
+        # http://www.bridgeunlimited.com/bridge/ViewMasterEvent2?code=10PLAY&header=abf
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2010A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-03-20',
+            DATE_END => '2010-03-24'
+          } 
+        }
+      },
+      '2010B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2010',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2010-07-19',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2011A' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2011/results/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2011A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2011-03-26',
+            DATE_END => '2011-03-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-03-28',
+            DATE_END => '2011-03-29'
+          } 
+        }
+      },
+      '2011B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2011',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-07-28',
+            DATE_END => '2011-07-29'
+          } 
+        }
+      },
+      '2012A' =>
+      {
+        # https://abfevents.com.au/events/results/results.asp?yr=2012&dir=owp
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2012A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-03-31',
+            DATE_END => '2012-04-05'
+          } 
+        }
+      },
+      '2012B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2012',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-07-12',
+            DATE_END => '2012-07-13'
+          } 
+        }
+      },
+      '2012C' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2013/OW/results.asp
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2012C',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-12-11',
+            DATE_END => '2012-12-13'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-07-11',
+            DATE_END => '2013-07-12'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2014/ow/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2014A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SESSION',
+            minor => 'ROUND',
+            DATE_START => '2014-02-05',
+            DATE_END => '2014-02-09'
+          } 
+        }
+      },
+      '2014B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2014',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2014-07-13',
+            DATE_END => '2014-07-17'
+          } ,
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-07-17',
+            DATE_END => '2014-07-18'
+          } 
+        }
+      },
+      '2015A' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2015/OW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2015A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-03',
+            DATE_END => '2015-02-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-04',
+            DATE_END => '2015-02-05'
+          } 
+        }
+      },
+      '2015B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2015',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          } 
+        }
+      },
+      '2016A' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2016/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2016-03-12',
+            DATE_END => '2016-03-17'
+          } 
+        }
+      },
+      '2016B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2016',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-07-01',
+            DATE_END => '2016-07-01'
+          } 
+        }
+      },
+      '2016C' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2017/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2016D',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-05',
+            DATE_END => '2016-12-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-07',
+            DATE_END => '2016-12-08'
+          },
+        }
+      },
+      '2017A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2017,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-07-21',
+            DATE_END => '2017-07-21'
+          } 
+        }
+      },
+      '2017B' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2018/sw/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2017B',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            DATE_START => '2017-12-03',
+            DATE_END => '2017-12-07'
+          } 
+        }
+      },
+      '2018A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2018,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-02',
+            DATE_END => '2018-08-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-03',
+            DATE_END => '2018-08-03'
+          } 
+        }
+      },
+      '2018B' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2019/SW/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2018B',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-08',
+            DATE_END => '2018-12-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-10',
+            DATE_END => '2018-12-11'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-12',
+            DATE_END => '2018-12-13'
+          },
+        }
+      },
+      '2019A' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2019,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-07-17',
+            DATE_END => '2019-07-18'
+          } 
+        }
+      },
+      '2019B' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2020/sw/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2019C',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-07',
+            DATE_END => '2019-12-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-09',
+            DATE_END => '2019-12-10'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-12-11',
+            DATE_END => '2019-12-12'
+          },
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Australian Summer Festival',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            DATE_START => '2020-01-11',
+            DATE_END => '2020-01-12'
+          },
+        }
+      },
+      '2022A' =>
+      {
+        # https://abfevents.com.au/events/playoffs/2022/ows/
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2022A',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            DATE_START => '2022-04-18',
+            DATE_END => '2022-04-23'
+          } 
+        }
+      },
+      '2022B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2022',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-07-07',
+            DATE_END => '2022-07-07'
+          } 
+        }
+      },
+      '2023A' =>
+      {
+        MEET => 'Australian Summer Festival',
+        MEET_TAG => '2023',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-13',
+            DATE_END => '2023-01-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-01-15',
+            DATE_END => '2023-01-15'
+          } 
+        }
+      },
+      '2023B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2023',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-07-13',
+            DATE_END => '2023-07-14'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Australian Playoffs',
+        MEET_TAG => '2024A',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-11',
+            DATE_END => '2024-01-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-01-13',
+            DATE_END => '2024-01-14'
+          },
+        }
+      },
+    }
+  },
+
+  'Australian Youth IMP Pairs',
+  {
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-01-18',
+            DATE_END => '2011-01-20'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2015-01-13',
+            DATE_END => '2015-01-15'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'ROUND',
+            DATE_START => '2015-01-16',
+            DATE_END => '2015-01-17'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-01-15',
+            DATE_END => '2016-01-15'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Youngster Teams',
+  {
+    # Some of these are really Juniors, I think.
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U21',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-08',
+            DATE_END => '2008-08-08'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'SEGMENT',
+            DATE_START => '2009-07-17',
+            DATE_END => '2009-07-18'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-07-19',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-07-12',
+            DATE_END => '2012-07-13'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-07-11',
+            DATE_END => '2013-07-12'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-07-16',
+            DATE_END => '2015-07-17'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-07-01',
+            DATE_END => '2016-07-01'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Youth Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-01-18',
+            DATE_END => '2008-01-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-01-19',
+            DATE_END => '2008-01-19'
+          } 
+        }
+      },
+      '2010A' =>
+      {
+        MEET => 'Australian Youth Week',
+        MEET_TAG => '2010',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-01-15',
+            DATE_END => '2010-01-16'
+          } 
+        }
+      },
+      '2010B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2010',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            DATE_START => '2010-07-19',
+            DATE_END => '2010-07-23'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SEGMENT',
+            DATE_START => '2011-01-21',
+            DATE_END => '2011-01-22'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'ROUND',
+            DATE_START => '2012-01-20',
+            DATE_END => '2012-01-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Repechage',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-01-21',
+            DATE_END => '2012-01-22'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2013-01-19',
+            DATE_END => '2013-01-20'
+          } 
+        }
+      },
+      '2014A' =>
+      {
+        MEET => 'Australian Youth Week',
+        MEET_TAG => '2014',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-17',
+            DATE_END => '2014-01-18'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Repechage',
+            major => 'SEGMENT',
+            DATE_START => '2014-01-19',
+            DATE_END => '2014-01-19'
+          } 
+        }
+      },
+      '2014B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => '2014',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2014-07-13',
+            DATE_END => '2014-07-17'
+          } ,
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-07-17',
+            DATE_END => '2014-07-18'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            DATE_START => '2015-01-13',
+            DATE_END => '2015-01-13'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-01-11',
+            DATE_END => '2016-01-15'
+          } 
+        }
+      },
+      '2017A' =>
+      {
+        MEET => 'Australian Youth Week',
+        MEET_TAG => 2017,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-01-13',
+            DATE_END => '2017-01-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND',
+            DATE_START => '2017-01-14',
+            DATE_END => '2017-01-14'
+          } 
+        }
+      },
+      '2017B' =>
+      {
+        MEET => 'Australian ANC Championships',
+        MEET_TAG => 2017,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-07-21',
+            DATE_END => '2017-07-21'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-08-02',
+            DATE_END => '2018-08-03'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-07-17',
+            DATE_END => '2019-07-18'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian ANC Championships',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2023-07-13',
+            DATE_END => '2023-07-14'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Youth Tri Individual',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Individual',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        # No link
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            DATE_START => '2011-12-03',
+            DATE_END => '2011-12-03'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Youth Tri Pairs',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        # No link
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SESSION',
+            DATE_START => '2011-12-03',
+            DATE_END => '2011-12-03'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'SESSION',
+            DATE_START => '2013-12-08',
+            DATE_END => '2013-12-08'
+          } 
+        }
+      },
+    }
+  },
+
+  'Australian Youth Tri Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-12-02',
+            DATE_END => '2011-12-02'
+          } 
+        }
+      },
+    }
+  },
+
+  'Bobby Evans Senior Teams' =>
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2012' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-11-01',
+            DATE_END => '2012-11-01'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-10-31',
+            DATE_END => '2013-10-31'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-10-29',
+            DATE_END => '2015-10-29'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-27',
+            DATE_END => '2016-10-27'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-10-26',
+            DATE_END => '2017-10-26'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-25',
+            DATE_END => '2018-10-25'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-24',
+            DATE_END => '2019-10-24'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-10-28',
+            DATE_END => '2022-10-28'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-10-25',
+            DATE_END => '2023-10-25'
+          } 
+        }
+      },
+    }
+  },
+
+  'Cliff Wake Challenge' =>
+  {
+    FORM => 'Teams',
+    SCORING => 'BAM',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2011-01-18',
+            DATE_END => '2011-01-18'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Tiebreak',
+            DATE_START => '2014-01-14',
+            DATE_END => '2014-01-14'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            DATE_START => '2015-01-13',
+            DATE_END => '2015-01-13'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Youth Week',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Playoff',
+            DATE_START => '2016-01-11',
+            DATE_END => '2016-01-11'
+          } 
+        }
+      },
+    }
+  },
+
+  'Gold Coast Open Pairs' =>
+  {
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2009' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            DATE_START => '2009-03-03',
+            DATE_END => '2009-03-03'
+          } 
+        }
+      },
+    }
+  },
+
+  'Gold Coast Open Teams' =>
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2005-02-26',
+            DATE_END => '2005-02-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2005-02-26',
+            DATE_END => '2005-02-26'
+          } 
+        }
+      },
+      '2006' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Repechage',
+            major => 'SEGMENT',
+            DATE_START => '2006-02-24',
+            DATE_END => '2006-02-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2006-02-25',
+            DATE_END => '2006-02-25'
+          },
+          'C2' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2006-02-25',
+            DATE_END => '2006-02-25'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Repechage',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2007-02-24',
+            DATE_END => '2007-02-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2007-02-24',
+            DATE_END => '2007-02-24'
+          },
+          'C2' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-02-24',
+            DATE_END => '2007-02-24'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2008-03-01',
+            DATE_END => '2008-03-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-03-01',
+            DATE_END => '2008-03-01'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-05',
+            DATE_END => '2009-03-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-05',
+            DATE_END => '2009-03-06'
+          },
+          'C2' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-03-05',
+            DATE_END => '2009-03-06'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-03-04',
+            DATE_END => '2010-03-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-03-04',
+            DATE_END => '2010-03-04'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2010-03-04',
+            DATE_END => '2010-03-05'
+          },
+          'C3' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2010-03-05',
+            DATE_END => '2010-03-06'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-03-03',
+            DATE_END => '2011-03-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-03-04',
+            DATE_END => '2011-03-04'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-03-01',
+            DATE_END => '2012-03-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-03-01',
+            DATE_END => '2012-03-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-03-02',
+            DATE_END => '2012-03-03'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-03-01',
+            DATE_END => '2013-03-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2013-03-01',
+            DATE_END => '2013-03-01'
+          },
+          'C2' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-03-02',
+            DATE_END => '2013-03-02'
+          },
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-02-28',
+            DATE_END => '2014-02-28'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2014-02-28',
+            DATE_END => '2014-02-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-03-01',
+            DATE_END => '2014-03-01'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-27',
+            DATE_END => '2015-02-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-27',
+            DATE_END => '2015-02-27'
+          },
+          'C2' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-28',
+            DATE_END => '2015-02-28'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-26',
+            DATE_END => '2016-02-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-26',
+            DATE_END => '2016-02-26'
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-27',
+            DATE_END => '2016-02-27'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-02-24',
+            DATE_END => '2017-02-24'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2017-02-24',
+            DATE_END => '2017-02-25'
+          },
+          'C2' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-02-25',
+            DATE_END => '2017-02-25'
+          },
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-23',
+            DATE_END => '2018-02-23'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-23',
+            DATE_END => '2018-02-23'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2018-02-24',
+            DATE_END => '2018-02-24'
+          },
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-02-22',
+            DATE_END => '2019-02-22'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2019-02-22',
+            DATE_END => '2019-02-22'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-02-23',
+            DATE_END => '2019-02-23'
+          },
+        }
+      },
+      '2020' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2020-02-28',
+            DATE_END => '2020-02-28'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2020-02-28',
+            DATE_END => '2020-02-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-02-29',
+            DATE_END => '2020-02-29'
+          },
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-02-26',
+            DATE_END => '2022-02-26'
+          },
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-02-25',
+            DATE_END => '2023-02-25'
+          },
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-02-24',
+            DATE_END => '2024-02-24'
+          },
+        }
+      },
+    }
+  },
+
+  'Gold Coast Senior Teams' =>
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-02-28',
+            DATE_END => '2014-03-01'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-02-27',
+            DATE_END => '2015-02-28'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-02-26',
+            DATE_END => '2016-02-27'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-02-24',
+            DATE_END => '2017-02-24'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-23',
+            DATE_END => '2018-02-23'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Gold Coast Congress',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-02-22',
+            DATE_END => '2019-02-22'
+          } 
+        }
+      },
+    }
+  },
+
+  "Hans Rosendorff Memorial Women's Teams",
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2009-09-27',
+            DATE_END => '2009-09-28'
+          },
+        }
+      },
+    }
+  },
+
+  'John Arkinstall State Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            DATE_START => '2011-12-10',
+            DATE_END => '2011-12-10'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-12-14',
+            DATE_END => '2014-12-14'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2015-12-13',
+            DATE_END => '2015-12-13'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2016-12-11',
+            DATE_END => '2016-12-11'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2018-12-16',
+            DATE_END => '2018-12-16'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2019-11-17',
+            DATE_END => '2019-11-17'
+          },
+        }
+      },
+    }
+  },
+
+  'Kings and Queens Blaine Howe Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-12-30',
+            DATE_END => '2012-12-30'
+          },
+        }
+      },
+    }
+  },
+
+  "Linda Stern Women's Teams" =>
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2012' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-11-01',
+            DATE_END => '2012-11-01'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-10-31',
+            DATE_END => '2013-10-31'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-10-29',
+            DATE_END => '2015-10-29'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-27',
+            DATE_END => '2016-10-27'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-10-26',
+            DATE_END => '2017-10-26'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-10-25',
+            DATE_END => '2018-10-25'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2019-10-24',
+            DATE_END => '2019-10-24'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Australian Spring Nationals',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-10-28',
+            DATE_END => '2022-10-28'
+          } 
+        }
+      },
+    }
+  },
+
+  'New South Wales Open Teams' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-12-10',
+            DATE_END => '2011-12-11'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2013-12-15',
+            DATE_END => '2013-12-15'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2017-12-10',
+            DATE_END => '2017-12-10'
+          } 
+        }
+      },
+    }
+  },
+
+  'New South Wales Open Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'SESSION',
+            DATE_START => '2010-04-23',
+            DATE_END => '2010-04-26'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'ROUND',
+            DATE_START => '2012-04-13',
+            DATE_END => '2012-04-15'
+          } 
+        }
+      },
+    }
+  },
+
+  'North Shore Mixed Teams',
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Mixed',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-12-01',
+            DATE_END => '2016-12-01'
+          },
+        }
+      },
+    }
+  },
+
+  'Northern Territory Gold Swiss Pairs' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-09-10',
+            DATE_END => '2008-09-10'
+          } 
+        }
+      },
+    }
+  },
+
+  'Northern Territory Gold Teams' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-09-10',
+            DATE_END => '2008-09-10'
+          } 
+        }
+      },
+    }
+  },
+
+  'Queensland Open Teams' =>
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2021' =>
+      {
+        MEET => 'Queensland Festival of Bridge',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2021-10-10',
+            DATE_END => '2021-10-10'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Queensland Festival of Bridge',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2022-10-09',
+            DATE_END => '2022-10-09'
+          } 
+        }
+      },
+    }
+  },
+
+  'Queensland Women Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-05-21',
+            DATE_END => '2011-05-21'
+          } 
+        }
+      },
+    }
+  },
+
+  'Queensland Senior Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2011-05-20',
+            DATE_END => '2011-05-21'
+          } 
+        }
+      },
+    }
+  },
+
+  'Smirnov Cup',
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2012-05-05',
+            DATE_END => '2012-05-06'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'SEGMENT|SESSION|ROUND',
+            DATE_START => '2013-06-29',
+            DATE_END => '2013-06-30'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            DATE_START => '2014-05-24',
+            DATE_END => '2014-05-25'
+          },
+        }
+      },
+    }
+  },
+
+  'South Australia Open Teams' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-12-11',
+            DATE_END => '2023-12-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2023-12-18',
+            DATE_END => '2023-12-18'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-12-02',
+            DATE_END => '2024-12-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-12-09',
+            DATE_END => '2024-12-09'
+          },
+        }
+      },
+    }
+  },
+
+  'Victor Swiss Pairs',
+  {
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2013' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            MOVEMENT => 'Swiss',
+            major => 'SESSION',
+            DATE_START => '2013-06-07',
+            DATE_END => '2013-06-07'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victor Open Teams',
+  {
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND',
+            DATE_START => '2004-06-13',
+            DATE_END => '2004-06-13'
+          } 
+        }
+      },
+      '2007' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-06-10',
+            DATE_END => '2007-06-10'
+          } 
+        }
+      },
+      '2008' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-06-08',
+            DATE_END => '2008-06-08'
+          } 
+        }
+      },
+      '2009' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-06-06',
+            DATE_END => '2009-06-07'
+          } 
+        }
+      },
+      '2010' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2010-06-12',
+            DATE_END => '2010-06-13'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-06-11',
+            DATE_END => '2011-06-12'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-06-09',
+            DATE_END => '2012-06-11'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2013-06-08',
+            DATE_END => '2013-06-10'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            DATE_START => '2014-06-07',
+            DATE_END => '2014-06-09'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2015-06-06',
+            DATE_END => '2015-06-08'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2016-06-11',
+            DATE_END => '2016-06-13'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2017-06-10',
+            DATE_END => '2017-06-12'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2018-06-09',
+            DATE_END => '2018-06-11'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2019-06-08',
+            DATE_END => '2019-06-10'
+          } 
+        }
+      },
+      '2022' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2022-06-11',
+            DATE_END => '2022-06-13'
+          } 
+        }
+      },
+      '2023' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2023-06-10',
+            DATE_END => '2023-06-12'
+          } 
+        }
+      },
+      '2024' =>
+      {
+        MEET => 'Victor Champion Cup',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            MOVEMENT => 'Swiss',
+            major => 'ROUND',
+            DATE_START => '2024-06-08',
+            DATE_END => '2024-06-10'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victoria Cup' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-12-15',
+            DATE_END => '2013-12-15'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Mixed Teams' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Mixed',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-05-26',
+            DATE_END => '2010-05-26'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Open Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2005-04-10',
+            DATE_END => '2005-04-10'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            # Estimated.
+            YEAR => 2008,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2008-04-04',
+            DATE_END => '2008-04-04'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2010-03-26',
+            DATE_END => '2010-03-28'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2011-04-01',
+            DATE_END => '2011-04-03'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            DATE_START => '2012-03-23',
+            DATE_END => '2012-03-25'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2013-04-07',
+            DATE_END => '2013-04-07'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Rof6',
+            major => 'ROUND',
+            DATE_START => '2014-04-26',
+            DATE_END => '2014-04-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-04-27',
+            DATE_END => '2014-04-27'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-03-22',
+            DATE_END => '2015-03-22'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2017-04-09',
+            DATE_END => '2017-04-09'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Pennant' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2004-04-13',
+            DATE_END => '2004-04-13'
+          },
+        }
+      },
+      '2005' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2005-04-02',
+            DATE_END => '2005-04-02'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2008-04-16',
+            DATE_END => '2008-04-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-04-16',
+            DATE_END => '2008-04-16'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2009-04-03',
+            DATE_END => '2009-04-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-04-04',
+            DATE_END => '2009-04-05'
+          },
+          'C2' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            DATE_START => '2009-04-24',
+            DATE_END => '2009-04-26'
+          },
+          'C3' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-11-21',
+            DATE_END => '2009-11-22'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-11-19',
+            DATE_END => '2011-11-20'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2012-11-07',
+            DATE_END => '2012-11-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2012-11-14',
+            DATE_END => '2012-11-14'
+          },
+          'C2' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Rof6',
+            major => 'ROUND',
+            DATE_START => '2012-11-24',
+            DATE_END => '2012-11-24'
+          },
+          'C3' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-11-24',
+            DATE_END => '2012-11-24'
+          },
+          'C4' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-11-24',
+            DATE_END => '2012-11-25'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-09-11',
+            DATE_END => '2013-09-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-16',
+            DATE_END => '2013-11-16'
+          },
+          'C2' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-11-17',
+            DATE_END => '2013-11-17'
+          }
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-11-23',
+            DATE_END => '2014-11-23'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-11-22',
+            DATE_END => '2015-11-22'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2016-11-20',
+            DATE_END => '2016-11-20'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-11-18',
+            DATE_END => '2017-11-18'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-11-18',
+            DATE_END => '2018-11-18'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Senior Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SESSION',
+            DATE_START => '2016-04-03',
+            DATE_END => '2016-04-09'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Women Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'MP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SESSION',
+            DATE_START => '2016-04-16',
+            DATE_END => '2016-04-16'
+          } 
+        }
+      },
+    }
+  },
+
+  'Victorian Youth Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-05-25',
+            DATE_END => '2013-05-25'
+          } 
+        }
+      },
+    }
+  },
+
+  'Watermark Open Teams',
+  {
+    # https://nsw.bridgeaustralia.org/resultslistbm.asp
+    %GLOBAL,
+    ORIGIN => 'Regional',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2009-06-26',
+            DATE_END => '2009-06-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-06-27',
+            DATE_END => '2009-06-28'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2010-06-25',
+            DATE_END => '2010-06-26'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-06-26',
+            DATE_END => '2010-06-27'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-07-14',
+            DATE_END => '2011-07-14'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-04-24',
+            DATE_END => '2014-04-24'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2015-04-23',
+            DATE_END => '2015-04-23'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2017-05-25',
+            DATE_END => '2017-05-25'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2017-06-01',
+            DATE_END => '2017-06-01'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-09-20',
+            DATE_END => '2018-09-20'
+          },
+        }
+      },
+    }
+  },
+
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_AUSTRALIA, \%TOURNAMENTS_AUSTRALIA, 'Australia');
+}
+
+1;

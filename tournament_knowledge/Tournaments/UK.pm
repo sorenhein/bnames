@@ -1,0 +1,5558 @@
+#!perl
+
+use strict;
+use warnings;
+use v5.10;
+use utf8;
+use open ':std', ':encoding(UTF-8)';
+
+package Tournaments::UK;
+
+our @ISA = qw(Exporter);
+our @EXPORT = qw(set_links);
+
+my %GLOBAL = (
+  ORGANIZATION => 'EBU',
+  COUNTRY => 'England',
+  ZONE => 'Europe',
+);
+
+my %MEETS_UK =
+(
+);
+
+my %TOURNAMENTS_UK =
+(
+  'Acol BC Invitational Pairs' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'Invitational',
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2017,
+            STAGE => 'Qualifying',
+            major => 'SESSION',
+            DATE_START => '2017-12-16',
+            DATE_END => '2017-12-16'
+          },
+          'C1' =>
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SESSION',
+            DATE_START => '2017-12-17',
+            DATE_END => '2017-12-17'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2019,
+            STAGE => 'Qualifying',
+            major => 'SESSION',
+            ignore => 'TABLE',
+            DATE_START => '2019-02-16',
+            DATE_END => '2019-02-16'
+          },
+          'C1' =>
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SESSION',
+            DATE_START => '2019-02-17',
+            DATE_END => '2019-02-17'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            DATE_START => '2020-02-21',
+            DATE_END => '2020-02-21'
+          },
+        }
+      },
+    }
+  },
+
+  'British Gold Cup' => 
+  {
+    # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_Gold%20Cup%20Roll%20of%20Honour.htm
+    ORGANIZATION => 'BGB',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2007%20Gold%20Cup%20Finals.htm
+      '2003' =>
+      {
+        ORDINAL => 66,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2003,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2003-12-13',
+            DATE_END => '2003-12-14'
+          },
+        }
+      },
+      '2004' =>
+      {
+        ORDINAL => 67,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            STAGE => 'Final',
+            major => 'QUARTER',
+            DATE_START => '2004-12-12',
+            DATE_END => '2004-12-12'
+          },
+        }
+      },
+      '2005' =>
+      {
+        ORDINAL => 68,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2005-12-10',
+            DATE_END => '2005-12-11'
+          },
+        }
+      },
+      '2006' =>
+      {
+        ORDINAL => 69,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2006-12-09',
+            DATE_END => '2006-12-10'
+          },
+        }
+      },
+      '2007' =>
+      {
+        ORDINAL => 70,
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2007-12-09',
+            DATE_END => '2007-12-09'
+          },
+        }
+      },
+      '2008' =>
+      {
+        ORDINAL => 71,
+        CITY => 'Peebles',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Quarterfinal',
+            DATE_START => '2008-12-14',
+            DATE_END => '2008-12-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2008-12-14',
+            DATE_END => '2008-12-14'
+          },
+          'C2' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-12-14',
+            DATE_END => '2008-12-14'
+          },
+        }
+      },
+      '2009' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2009%20Gold%20Cup%20Finals.htm
+        ORDINAL => 72,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|SET',
+            DATE_START => '2009-12-12',
+            DATE_END => '2009-12-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT|SET',
+            DATE_START => '2009-12-13',
+            DATE_END => '2009-12-13'
+          },
+        }
+      },
+      '2010' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2010%20Gold%20Cup%20Finals.htm
+        ORDINAL => 73,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2010-12-11',
+            DATE_END => '2010-12-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2010-12-12',
+            DATE_END => '2010-12-12'
+          },
+        }
+      },
+      '2011' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2011%20Gold%20Cup%20Final%20Stages.htm
+        ORDINAL => 74,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2011-12-10',
+            DATE_END => '2011-12-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2011-12-11',
+            DATE_END => '2011-12-11'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2012%20QF%20Results.htm
+        ORDINAL => 75,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2012-12-08',
+            DATE_END => '2012-12-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2012-12-09',
+            DATE_END => '2012-12-09'
+          },
+        }
+      },
+      '2013' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2013%20Gold%20Cup%20%20Finals.pdf
+        ORDINAL => 76,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2013-12-14',
+            DATE_END => '2013-12-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2013-12-15',
+            DATE_END => '2013-12-15'
+          },
+        }
+      },
+      '2014' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2014%20God%20Cup%20finals.htm
+        ORDINAL => 77,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2014-12-13',
+            DATE_END => '2014-12-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2014-12-14',
+            DATE_END => '2014-12-14'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_2015%20Gold%20Cup%20Finals.pdf
+        ORDINAL => 78,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-12-12',
+            DATE_END => '2015-12-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-12-13',
+            DATE_END => '2015-12-13'
+          },
+        }
+      },
+      '2016' =>
+      {
+        ORDINAL => 81,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-08',
+            DATE_END => '2016-10-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2016-10-09',
+            DATE_END => '2016-10-09'
+          },
+        }
+      },
+      '2017' =>
+      {
+        # https://www.ebu.co.uk/results/645
+        ORDINAL => 80,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|SET|STANZA',
+            DATE_START => '2017-10-07',
+            DATE_END => '2017-10-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2017-10-08',
+            DATE_END => '2017-10-08'
+          },
+        }
+      },
+      '2018' =>
+      {
+        # https://www.ebu.co.uk/results/708
+        ORDINAL => 81,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|SET|STANZA',
+            DATE_START => '2018-10-13',
+            DATE_END => '2018-10-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|SET|STANZA',
+            DATE_START => '2018-10-14',
+            DATE_END => '2018-10-14'
+          },
+        }
+      },
+      '2019' =>
+      {
+        # https://www.ebu.co.uk/results/765
+        ORDINAL => 82,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2019-10-12',
+            DATE_END => '2019-10-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2019-10-13',
+            DATE_END => '2019-10-13'
+          },
+        }
+      },
+      '2020' =>
+      {
+        # https://www.ebu.co.uk/results/1025
+        ORDINAL => 83,
+        CITY => 'Online',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2020-12-05',
+            DATE_END => '2020-12-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2020-12-06',
+            DATE_END => '2020-12-06'
+          },
+        }
+      },
+      '2021' =>
+      {
+        # https://www.ebu.co.uk/results/1026
+        ORDINAL => 84,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2021-10-09',
+            DATE_END => '2021-10-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2021,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2021-10-10',
+            DATE_END => '2021-10-10'
+          },
+        }
+      },
+      '2022' =>
+      {
+        # https://www.ebu.co.uk/results/975
+        ORDINAL => 85,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2022-10-08',
+            DATE_END => '2022-10-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2022-10-09',
+            DATE_END => '2022-10-09'
+          },
+        }
+      },
+      '2023' =>
+      {
+        # https://www.ebu.co.uk/results/1301
+        ORDINAL => 86,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2023-10-07',
+            DATE_END => '2023-10-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2023-10-08',
+            DATE_END => '2023-10-08'
+          },
+        }
+      },
+      '2024' =>
+      {
+        # https://www.ebu.co.uk/results/1468
+        ORDINAL => 87,
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2024-10-05',
+            DATE_END => '2024-10-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2024-10-06',
+            DATE_END => '2024-10-06'
+          },
+        }
+      },
+    }
+  },
+
+  'Camrose Trophy' => 
+  {
+    # https://www.bridgewebs.com/bgb/Camrose%20Winners.htm
+    # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_Past%20Camrose%20Teams.htm
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2002-03' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2002,
+            major => 'MATCH',
+            DATE_START => '2002-11-30',
+            DATE_END => '2002-12-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2003,
+            major => 'MATCH',
+            DATE_START => '2003-01-02',
+            DATE_END => '2003-01-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2003,
+            major => 'MATCH',
+            DATE_START => '2003-01-11',
+            DATE_END => '2003-01-12'
+          },
+          'C3' => 
+          {
+            YEAR => 2003,
+            major => 'MATCH',
+            DATE_START => '2003-02-01',
+            DATE_END => '2003-02-02'
+          },
+          'C4' => 
+          {
+            YEAR => 2003,
+            major => 'MATCH',
+            DATE_START => '2003-02-22',
+            DATE_END => '2003-02-23'
+          },
+        }
+      },
+      '2003-04' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2003,
+            major => 'ROUND|MATCH',
+            DATE_START => '2003-12-06',
+            DATE_END => '2003-12-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND|MATCH',
+            DATE_START => '2004-01-10',
+            DATE_END => '2004-01-11'
+          },
+          'C2' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND|MATCH',
+            DATE_START => '2004-02-07',
+            DATE_END => '2004-02-08'
+          },
+          'C3' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND|MATCH',
+            DATE_START => '2004-02-21',
+            DATE_END => '2004-02-22'
+          },
+          'C4' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND|MATCH',
+            DATE_START => '2004-03-06',
+            DATE_END => '2004-03-07'
+          },
+        }
+      },
+      '2005' =>
+      {
+        CITY => 'Ballymena',
+        COUNTRY => 'Northern Ireland',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            DATE_START => '2005-01-11',
+            DATE_END => '2005-01-20'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            major => 'ROUND|MATCH',
+            DATE_START => '2005-03-06',
+            DATE_END => '2005-03-07'
+          },
+          'C2' => 
+          {
+            YEAR => 2005,
+            WEEKEND => 2,
+            DATE_START => '2005-03-14',
+            DATE_END => '2005-03-17'
+          },
+          'C3' => 
+          {
+            YEAR => 2005,
+            DATE_START => '2005-03-25',
+            DATE_END => '2005-03-28'
+          },
+        }
+      },
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|MATCH',
+            DATE_START => '2006-01-07',
+            DATE_END => '2006-01-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|MATCH|SEGMENT',
+            DATE_START => '2006-03-03',
+            DATE_END => '2006-03-05'
+          },
+        }
+      },
+      '2007' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            major => 'ROUND|MATCH',
+            DATE_START => '2007-01-05',
+            DATE_END => '2007-01-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2007-03-04',
+            DATE_END => '2007-03-04'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2008-01-12',
+            DATE_END => '2008-01-13'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2009-03-06',
+            DATE_END => '2009-03-08'
+          }
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            DATE_START => '2010-01-08',
+            DATE_END => '2010-01-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2010-03-05',
+            DATE_END => '2010-03-07'
+          } 
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2011-01-07',
+            DATE_END => '2011-01-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2011-03-04',
+            DATE_END => '2011-03-06'
+          } 
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2012-01-06',
+            DATE_END => '2012-01-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2012-03-02',
+            DATE_END => '2012-03-04'
+          } 
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2013-01-04',
+            DATE_END => '2013-01-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2013-03-01',
+            DATE_END => '2013-03-03'
+          } 
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2014-01-10',
+            DATE_END => '2014-01-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2014-03-07',
+            DATE_END => '2014-03-09'
+          } 
+        }
+      },
+      '2015' =>
+      {
+        CITY => 'Edinburgh',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            ignore => 'MATCH',
+            DATE_START => '2015-01-09',
+            DATE_END => '2015-01-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-01-22',
+            DATE_END => '2015-01-25'
+          },
+          'C2' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2015-03-06',
+            DATE_END => '2015-03-08'
+          } 
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2016-01-08',
+            DATE_END => '2016-01-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            DATE_START => '2016-03-04',
+            DATE_END => '2016-03-06'
+          } 
+        }
+      },
+      '2017' =>
+      {
+        CITY => 'Edinburgh',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2017-01-06',
+            DATE_END => '2017-01-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            ignore => 'MATCH',
+            DATE_START => '2017-03-03',
+            DATE_END => '2017-03-05'
+          } 
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2018-01-05',
+            DATE_END => '2018-01-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2018-04-06',
+            DATE_END => '2018-04-08'
+          } 
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH|ROUND',
+            ignore => 'GROUP',
+            DATE_START => '2019-01-04',
+            DATE_END => '2019-01-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            ignore => 'GROUP',
+            DATE_START => '2019-03-01',
+            DATE_END => '2019-03-03'
+          } 
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            major => 'ROUND',
+            minor => 'MATCH',
+            DATE_START => '2020-01-10',
+            DATE_END => '2020-01-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'MATCH',
+            ignore => 'TABLE',
+            DATE_START => '2020-03-06',
+            DATE_END => '2020-03-08'
+          } 
+        }
+      },
+    }
+  },
+
+  'Commonwealth Nations Bridge Championships' => 
+  {
+    ZONE => 'Commonwealth',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        ORIGIN => 'International',
+        COUNTRY => 'Australia',
+        CITY => 'Melbourne',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2006-03-07',
+            DATE_END => '2006-03-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2006-03-07',
+            DATE_END => '2006-03-12'
+          },
+        }
+      },
+      '2010' =>
+      {
+        ORDINAL => 3,
+        ORIGIN => 'Transnational',
+        COUNTRY => 'India',
+        CITY => 'Delhi',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2010-10-24',
+            DATE_END => '2010-10-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-10-29',
+            DATE_END => '2010-10-29'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-10-29',
+            DATE_END => '2010-10-29'
+          },
+        }
+      },
+      '2014' =>
+      {
+        ORIGIN => 'Transnational',
+        COUNTRY => 'Scotland',
+        CITY => 'Glasgow',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'MATCH',
+            DATE_START => '2014-09-07',
+            DATE_END => '2014-09-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            minor => 'MATCH',
+            DATE_START => '2014-09-12',
+            DATE_END => '2014-09-12'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            minor => 'MATCH',
+            DATE_START => '2014-09-12',
+            DATE_END => '2014-09-12'
+          },
+          'C3' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Playoff',
+            major => 'SEGMENT',
+            minor => 'MATCH',
+            DATE_START => '2014-09-13',
+            DATE_END => '2014-09-13'
+          },
+          'C4' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            minor => 'MATCH',
+            DATE_START => '2014-09-13',
+            DATE_END => '2014-09-13'
+          },
+        }
+      },
+      '2018' =>
+      {
+        COUNTRY => 'Australia',
+        CITY => 'Gold Coast',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            DATE_START => '2018-02-14',
+            DATE_END => '2018-02-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-17',
+            DATE_END => '2018-02-17'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-17',
+            DATE_END => '2018-02-18'
+          },
+          'C3' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2018-02-18',
+            DATE_END => '2018-02-18'
+          },
+        }
+      },
+    }
+  },
+
+  'Corn Cairdis Match' => 
+  {
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            DATE_START => '2011-05-14',
+            DATE_END => '2011-05-15'
+          },
+        }
+      },
+    }
+  },
+
+  'Crockfords Cup' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'ROUND|MATCH',
+            DATE_START => '2018-09-01',
+            DATE_END => '2018-09-02'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2019-08-31',
+            DATE_END => '2019-09-01'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'ROUND|MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2023-09-23',
+            DATE_END => '2023-09-24'
+          },
+        }
+      },
+    }
+  },
+
+  'English Mixed Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2018,
+            major => 'ROUND|MATCH',
+            DATE_START => '2018-09-07',
+            DATE_END => '2018-09-09'
+          },
+          'C1' =>
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2018-12-08',
+            DATE_END => '2018-12-08'
+          },
+          'C2' =>
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2018-12-09',
+            DATE_END => '2018-12-09'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2020,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SEGMENT',
+            ignore => 'MATCH',
+            DATE_START => '2020-02-07',
+            DATE_END => '2020-02-08'
+          },
+          'C1' =>
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2020-02-09',
+            DATE_END => '2020-02-09'
+          },
+        }
+      },
+      '2021' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2021,
+            major => 'ROUND|MATCH',
+            DATE_START => '2021-12-10',
+            DATE_END => '2021-12-12'
+          },
+        }
+      },
+    }
+  },
+
+  'English Open Pair Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2018,
+            major => 'ROUND|MATCH|STANZA',
+            DATE_START => '2018-01-12',
+            DATE_END => '2018-01-15'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2019,
+            major => 'ROUND|MATCH',
+            ignore => 'PHASE',
+            DATE_START => '2019-11-01',
+            DATE_END => '2019-11-03'
+          },
+          'C1' =>
+          {
+            YEAR => 2019,
+            major => 'ROUND',
+            ignore => 'PHASE',
+            DATE_START => '2019-11-22',
+            DATE_END => '2019-11-24'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'ROUND|MATCH',
+            DATE_START => '2020-01-03',
+            DATE_END => '2020-01-06'
+          },
+        }
+      },
+      '2021' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2021,
+            major => 'ROUND|MATCH',
+            ignore => 'PHASE',
+            DATE_START => '2021-09-24',
+            DATE_END => '2021-09-26'
+          },
+          'C1' =>
+          {
+            YEAR => 2021,
+            major => 'ROUND|MATCH',
+            ignore => 'PHASE',
+            DATE_START => '2021-11-19',
+            DATE_END => '2021-11-22'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2024,
+            major => 'ROUND|MATCH|STANZA|SESSION',
+            ignore => 'TABLE',
+            DATE_START => '2024-01-12',
+            DATE_END => '2024-01-15'
+          },
+        }
+      },
+    }
+  },
+
+  'English Open Trials' => 
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006A' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT',
+            DATE_START => '2006-01-16',
+            DATE_END => '2006-01-19'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT|SET',
+            DATE_START => '2006-02-19',
+            DATE_END => '2006-02-19'
+          },
+        }
+      },
+      '2006B' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|STANZA',
+            DATE_START => '2006-09-11',
+            DATE_END => '2006-09-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|STANZA',
+            DATE_START => '2006-10-14',
+            DATE_END => '2006-10-15'
+          },
+        }
+      },
+      '2007A' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-09-16',
+            DATE_END => '2007-09-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-10-31',
+            DATE_END => '2007-10-31'
+          },
+        }
+      },
+      '2007B' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|SET',
+            DATE_START => '2007-11-25',
+            DATE_END => '2007-11-25'
+          },
+        }
+      },
+      '2008A' =>
+      {
+        CITY => 'Brighton',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-03-03',
+            DATE_END => '2008-03-03'
+          },
+        }
+      },
+      '2008B' =>
+      {
+        CITY => 'Brighton',
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH|ROUND',
+            DATE_START => '2008-08-27',
+            DATE_END => '2008-08-27'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-08-28',
+            DATE_END => '2008-08-28'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH|ROUND',
+            DATE_START => '2019-12-15',
+            DATE_END => '2019-12-15'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2020,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|SESSION',
+            DATE_START => '2020-03-14',
+            DATE_END => '2020-03-15'
+          },
+          'C1' => 
+          {
+            YEAR => 2020,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2020-03-16',
+            DATE_END => '2020-03-17'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            major => 'ROUND|SEGMENT',
+            DATE_START => '2022-12-17',
+            DATE_END => '2022-12-17'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH|ROUND|SESSION',
+            DATE_START => '2024-04-29',
+            DATE_END => '2024-04-29'
+          },
+        }
+      }
+    }
+  },
+
+  'English Premier League' => 
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-09-10',
+            DATE_END => '2008-09-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-11-05',
+            DATE_END => '2008-11-08'
+          },
+          'C2' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH|ROUND',
+            DATE_START => '2008-11-23',
+            DATE_END => '2008-11-23'
+          },
+        }
+      },
+      '2009' =>
+      {
+        # https://www.ebu.co.uk/results/283
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2009-10-03',
+            DATE_END => '2009-10-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2009-10-24',
+            DATE_END => '2009-10-24'
+          },
+          'C2' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2009-10-31',
+            DATE_END => '2009-11-01'
+          },
+          'C3' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2009-11-13',
+            DATE_END => '2009-11-15'
+          },
+        }
+      },
+      '2010' =>
+      {
+        # https://www.ebu.co.uk/results/224
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2010-09-11',
+            DATE_END => '2010-09-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2010-09-25',
+            DATE_END => '2010-09-26'
+          },
+          'C2' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2010-11-13',
+            DATE_END => '2010-11-14'
+          },
+        }
+      },
+      '2011' =>
+      {
+        # https://www.ebu.co.uk/results/166
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2011-09-24',
+            DATE_END => '2011-09-25'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2011-09-30',
+            DATE_END => '2011-10-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            minor => 'SEGMENT|SET',
+            DATE_START => '2011-11-11',
+            DATE_END => '2011-11-13'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.ebu.co.uk/results/105
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            minor => 'SEGMENT|SET',
+            DATE_START => '2012-09-22',
+            DATE_END => '2012-09-23'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND|STANZA',
+            DATE_START => '2012-10-27',
+            DATE_END => '2012-10-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2012-11-09',
+            DATE_END => '2012-11-11'
+          },
+        }
+      },
+      '2013' =>
+      {
+        # https://www.ebu.co.uk/results/5
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-10-12',
+            DATE_END => '2013-10-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-11-08',
+            DATE_END => '2013-11-10'
+          },
+        }
+      },
+      '2014' =>
+      {
+        # https://www.ebu.co.uk/results/48
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH|ROUND',
+            DATE_START => '2014-09-20',
+            DATE_END => '2014-09-21'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH|STANZA',
+            DATE_START => '2014-09-27',
+            DATE_END => '2014-09-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH',
+            DATE_START => '2014-11-07',
+            DATE_END => '2014-11-09'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.ebu.co.uk/results/428
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-09-12',
+            DATE_END => '2015-09-13'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-10-31',
+            DATE_END => '2015-11-01'
+          },
+          'C2' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH|ROUND',
+            DATE_START => '2015-11-06',
+            DATE_END => '2015-11-07'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            DATE_START => '2016-10-22',
+            DATE_END => '2016-10-23'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH|ROUND',
+            DATE_START => '2016-10-29',
+            DATE_END => '2016-10-30'
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH|ROUND',
+            DATE_START => '2016-11-05',
+            DATE_END => '2016-11-06'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH',
+            DATE_START => '2017-09-09',
+            DATE_END => '2017-09-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH',
+            DATE_START => '2017-09-23',
+            DATE_END => '2017-09-24'
+          },
+          'C2' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH|ROUND',
+            DATE_START => '2017-11-04',
+            DATE_END => '2017-11-05'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            DATE_START => '2018-09-15',
+            DATE_END => '2018-09-16'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH|ROUND',
+            DATE_START => '2018-10-27',
+            DATE_END => '2018-10-28'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH|ROUND',
+            DATE_START => '2018-11-03',
+            DATE_END => '2018-11-04'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH|SESSION|SET',
+            DATE_START => '2019-10-05',
+            DATE_END => '2019-10-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH|ROUND',
+            DATE_START => '2019-10-26',
+            DATE_END => '2019-10-27'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH|ROUND',
+            DATE_START => '2019-11-09',
+            DATE_END => '2019-11-10'
+          },
+        }
+      },
+      '2021' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2021,
+            major => 'MATCH',
+            DATE_START => '2021-09-11',
+            DATE_END => '2021-09-12'
+          },
+          'C1' => 
+          {
+            YEAR => 2021,
+            major => 'MATCH|ROUND',
+            DATE_START => '2021-10-16',
+            DATE_END => '2021-10-17'
+          },
+          'C2' => 
+          {
+            YEAR => 2021,
+            major => 'MATCH|ROUND',
+            DATE_START => '2021-11-06',
+            DATE_END => '2021-11-07'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            major => 'MATCH',
+            DATE_START => '2022-09-10',
+            DATE_END => '2022-09-11'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            major => 'MATCH|ROUND',
+            DATE_START => '2022-10-15',
+            DATE_END => '2022-10-16'
+          },
+          'C2' => 
+          {
+            YEAR => 2022,
+            major => 'MATCH|ROUND',
+            DATE_START => '2022-11-05',
+            DATE_END => '2022-11-06'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            major => 'MATCH',
+            DATE_START => '2023-09-09',
+            DATE_END => '2023-09-10'
+          },
+          'C1' => 
+          {
+            YEAR => 2023,
+            major => 'MATCH|ROUND',
+            DATE_START => '2023-10-14',
+            DATE_END => '2023-10-15'
+          },
+          'C2' => 
+          {
+            YEAR => 2023,
+            major => 'MATCH|ROUND',
+            DATE_START => '2023-11-04',
+            DATE_END => '2023-11-05'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH|SESSION',
+            DATE_START => '2024-09-07',
+            DATE_END => '2024-09-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH|ROUND',
+            DATE_START => '2024-09-28',
+            DATE_END => '2024-09-29'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH|ROUND',
+            DATE_START => '2024-11-23',
+            DATE_END => '2024-11-24'
+          },
+        }
+      },
+    }
+  },
+
+  'English Senior Trials' => 
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            major => 'ROUND',
+            DATE_START => '2004-09-05',
+            DATE_END => '2004-09-05'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.ebu.co.uk/results/100
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            DATE_START => '2012-12-15',
+            DATE_END => '2012-12-16'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-12-20',
+            DATE_END => '2013-12-22'
+          },
+        }
+      },
+      '2014A' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SEGMENT',
+            DATE_START => '2014-01-04',
+            DATE_END => '2014-01-05'
+          },
+        }
+      },
+      '2014B' =>
+      {
+        # https://www.ebu.co.uk/results/162
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH',
+            DATE_START => '2014-12-18',
+            DATE_END => '2014-12-21'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.ebu.co.uk/results/453
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2015-12-18',
+            DATE_END => '2015-12-20'
+          },
+        }
+      },
+      '2016A' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2016-02-05',
+            DATE_END => '2016-02-07'
+          },
+        }
+      },
+      '2016B' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH|ROUND',
+            DATE_START => '2016-12-17',
+            DATE_END => '2016-12-18'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH|ROUND',
+            DATE_START => '2017-12-16',
+            DATE_END => '2017-12-17'
+          },
+        }
+      },
+      '2018A' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Playoff',
+            major => 'SEGMENT|SESSION|STANZA',
+            DATE_START => '2018-03-10',
+            DATE_END => '2018-03-11'
+          },
+        }
+      },
+      '2018B' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            DATE_START => '2018-12-15',
+            DATE_END => '2018-12-16'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH',
+            DATE_START => '2019-12-14',
+            DATE_END => '2019-12-14'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2020,
+            major => 'MATCH|STANZA',
+            DATE_START => '2020-02-01',
+            DATE_END => '2020-02-02'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH',
+            DATE_START => '2024-03-08',
+            DATE_END => '2024-03-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'MATCH|SET|STANZA',
+            DATE_START => '2024-04-06',
+            DATE_END => '2024-04-07'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH|STANZA',
+            DATE_START => '2024-06-08',
+            DATE_END => '2024-06-09'
+          },
+        }
+      }
+    }
+  },
+
+  'English U28 Trials' => 
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U28',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-05-21',
+            DATE_END => '2008-05-21'
+          },
+        }
+      }
+    }
+  },
+
+  'English Women Pair Trials' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Pairs',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2010,
+            major => 'ROUND|SESSION',
+            DATE_START => '2010-01-22',
+            DATE_END => '2010-01-24'
+          },
+        }
+      },
+      '2011' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2011,
+            major => 'ROUND|MATCH',
+            DATE_START => '2011-01-21',
+            DATE_END => '2011-01-23'
+          },
+        }
+      },
+      '2012' =>
+      {
+        SCORING => 'MP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2012,
+            major => 'ROUND|SESSION',
+            DATE_START => '2012-01-13',
+            DATE_END => '2012-01-15'
+          },
+        }
+      },
+      '2013' =>
+      {
+        SCORING => 'MP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2013,
+            major => 'ROUND|SET',
+            DATE_START => '2013-01-25',
+            DATE_END => '2013-01-27'
+          },
+        }
+      },
+      '2014' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2014,
+            major => 'ROUND|SESSION',
+            DATE_START => '2014-01-24',
+            DATE_END => '2014-01-26'
+          },
+        }
+      },
+      '2015' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2015,
+            major => 'ROUND|SESSION',
+            DATE_START => '2015-01-23',
+            DATE_END => '2015-01-25'
+          },
+        }
+      },
+      '2016' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2016,
+            major => 'ROUND|SESSION|SET',
+            DATE_START => '2016-01-22',
+            DATE_END => '2016-01-24'
+          },
+        }
+      },
+      '2017' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2017,
+            major => 'ROUND|SESSION|MATCH',
+            DATE_START => '2017-01-27',
+            DATE_END => '2017-01-29'
+          },
+        }
+      },
+      '2018' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2018,
+            major => 'ROUND|MATCH',
+            DATE_START => '2018-01-26',
+            DATE_END => '2018-01-28'
+          },
+        }
+      },
+      '2019' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2019,
+            major => 'ROUND|MATCH|SET',
+            DATE_START => '2019-01-11',
+            DATE_END => '2019-01-13'
+          },
+          'C1' =>
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'MATCH',
+            DATE_START => '2019-02-02',
+            DATE_END => '2019-02-03'
+          },
+        }
+      },
+      '2020' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'C0' =>
+          {
+            YEAR => 2020,
+            major => 'ROUND|SESSION',
+            DATE_START => '2020-01-11',
+            DATE_END => '2020-01-12'
+          },
+          'C1' =>
+          {
+            YEAR => 2020,
+            major => 'ROUND|MATCH',
+            DATE_START => '2020-01-17',
+            DATE_END => '2020-01-20'
+          },
+          'C2' =>
+          {
+            YEAR => 2020,
+            major => 'ROUND|MATCH|STANZA',
+            DATE_START => '2020-01-25',
+            DATE_END => '2020-01-26'
+          },
+        }
+      },
+      '2022' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2022,
+            major => 'ROUND',
+            DATE_START => '2022-12-09',
+            DATE_END => '2022-12-11'
+          },
+        }
+      },
+      '2023' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2023,
+            major => 'ROUND',
+            DATE_START => '2023-12-08',
+            DATE_END => '2023-12-10'
+          },
+        }
+      },
+      '2024' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2024,
+            major => 'ROUND',
+            DATE_START => '2024-02-09',
+            DATE_END => '2024-02-11'
+          },
+        }
+      },
+    }
+  },
+
+  'English Women Team Trials' =>
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|STANZA',
+            DATE_START => '2006-10-17',
+            DATE_END => '2006-10-17'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            major => 'ROUND|STANZA',
+            DATE_START => '2006-11-13',
+            DATE_END => '2006-11-13'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-02-12',
+            DATE_END => '2008-02-12'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-01-05',
+            DATE_END => '2009-01-05'
+          },
+        }
+      },
+      '2010' =>
+      {
+        # https://www.ebu.co.uk/results/277
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'SESSION',
+            DATE_START => '2010-01-22',
+            DATE_END => '2010-01-24'
+          },
+        }
+      },
+      '2011' =>
+      {
+        # https://www.ebu.co.uk/results/217
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND|MATCH',
+            DATE_START => '2011-01-21',
+            DATE_END => '2011-01-23'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.ebu.co.uk/results/155
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'SESSION',
+            DATE_START => '2012-01-13',
+            DATE_END => '2012-01-15'
+          },
+        }
+      },
+      '2013' =>
+      {
+        # https://www.ebu.co.uk/results/94
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'SESSION|SET',
+            DATE_START => '2013-01-25',
+            DATE_END => '2013-01-27'
+          },
+        }
+      },
+      '2014' =>
+      {
+        # https://www.ebu.co.uk/results/17
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SESSION',
+            DATE_START => '2014-01-24',
+            DATE_END => '2014-01-26'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.ebu.co.uk/results/235
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'SESSION',
+            DATE_START => '2015-01-23',
+            DATE_END => '2015-01-25'
+          },
+        }
+      },
+      '2016' =>
+      {
+        # https://www.ebu.co.uk/results/461
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION|SET',
+            DATE_START => '2016-01-22',
+            DATE_END => '2016-01-24'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            minor => 'SESSION|SET|STANZA',
+            DATE_START => '2018-03-04',
+            DATE_END => '2018-03-05'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            major => 'SEGMENT|MATCH|ROUND',
+            DATE_START => '2022-12-16',
+            DATE_END => '2022-12-18'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            major => 'SESSION|SET',
+            DATE_START => '2024-03-02',
+            DATE_END => '2024-03-03'
+          },
+        }
+      },
+    }
+  },
+
+  'English Women Teams' => 
+  {
+    # https://www.ebu.co.uk/information-resources/whitelaw-cup-english-womens-teams-championship
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        # https://www.ebu.co.uk/results/116
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-09-04',
+            DATE_END => '2011-09-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-09-04',
+            DATE_END => '2011-09-04'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.ebu.co.uk/results/116
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|SET',
+            DATE_START => '2012-09-02',
+            DATE_END => '2012-09-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2012-09-02',
+            DATE_END => '2012-09-02'
+          },
+        }
+      }
+    }
+  },
+
+  'Garden Cities Teams' => 
+  {
+    # https://www.ebu.co.uk/competitions/garden-cities
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'MATCH',
+            DATE_START => '2014-06-14',
+            DATE_END => '2014-06-14'
+          },
+        }
+      }
+    }
+  },
+
+  'Glasgow Transnational Open Teams' => 
+  {
+    ORIGIN => 'Transnational',
+    ZONE => 'Europe',
+    COUNTRY => 'Scotland',
+    CITY => 'Glasgow',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2014-09-14',
+            DATE_END => '2014-09-14'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2014-09-14',
+            DATE_END => '2014-09-14'
+          },
+        }
+      },
+    }
+  },
+
+  'Higson Teams Cup' => 
+  {
+    # http://www.manchesterbridge.org.uk/cup.html
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'Regional',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SESSION',
+            minor => 'ROUND',
+            DATE_START => '2014-04-27',
+            DATE_END => '2014-04-27'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SESSION',
+            minor => 'ROUND',
+            DATE_START => '2015-04-26',
+            DATE_END => '2015-04-26'
+          },
+        }
+      }
+    }
+  },
+
+  'Hubert Phillips Bowl' =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2022-05-21',
+            DATE_END => '2022-05-21'
+          },
+        }
+      },
+    }
+  },
+
+  'Junior Camrose' => 
+  {
+    # https://www.bridgewebs.com/bgb/Junior%20Camrose%20Winners.htm
+    ORGANIZATION => 'BGB',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'U26',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            major => 'MATCH',
+            DATE_START => '2006-02-19',
+            DATE_END => '2006-02-19'
+          },
+        }
+      },
+      '2007' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-02-24',
+            DATE_END => '2007-02-24'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-03-03',
+            DATE_END => '2008-03-03'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-02-21',
+            DATE_END => '2009-02-22'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            DATE_START => '2010-02-20',
+            DATE_END => '2010-02-21'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SESSION',
+            DATE_START => '2011-02-19',
+            DATE_END => '2011-02-20'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            DATE_START => '2012-02-18',
+            DATE_END => '2012-02-19'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'SEGMENT|SET',
+            DATE_START => '2013-02-16',
+            DATE_END => '2013-02-17'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH',
+            DATE_START => '2014-02-22',
+            DATE_END => '2014-02-23'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-02-21',
+            DATE_END => '2015-02-22'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CITY => 'Edinburgh',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-02-19',
+            DATE_END => '2016-02-21'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'ROUND|MATCH',
+            DATE_START => '2017-02-17',
+            DATE_END => '2017-02-19'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'ROUND|MATCH',
+            DATE_START => '2018-02-16',
+            DATE_END => '2018-02-18'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            major => 'ROUND|MATCH',
+            DATE_START => '2019-02-15',
+            DATE_END => '2019-02-17'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2020,
+            major => 'ROUND|MATCH',
+            DATE_START => '2020-02-14',
+            DATE_END => '2020-02-16'
+          },
+        }
+      },
+    }
+  },
+
+  'Lady Milne Trophy' => 
+  {
+    # https://www.bridgewebs.com/bgb/Lady%20Milne%20Winners.htm
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            major => 'MATCH',
+            DATE_START => '2004-04-18',
+            DATE_END => '2004-04-18'
+          },
+        }
+      },
+      '2005' =>
+      {
+        # https://www.ebu.co.uk/results/582
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            major => 'MATCH',
+            DATE_START => '2005-04-15',
+            DATE_END => '2005-04-17'
+          },
+        }
+      },
+      '2006' =>
+      {
+        # https://www.ebu.co.uk/results/513
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            major => 'MATCH',
+            DATE_START => '2006-04-01',
+            DATE_END => '2006-04-03'
+          },
+        }
+      },
+      '2007' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-04-14',
+            DATE_END => '2007-04-16'
+          },
+        }
+      },
+      '2008' =>
+      {
+        # https://www.ebu.co.uk/results/363
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'ROUND',
+            DATE_START => '2008-04-12',
+            DATE_END => '2008-04-14'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2009-04-17',
+            DATE_END => '2009-04-19'
+          },
+        }
+      },
+      '2010' =>
+      {
+        # https://www.ebu.co.uk/results/277
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            DATE_START => '2010-04-17',
+            DATE_END => '2010-04-18'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            minor => 'MATCH',
+            DATE_START => '2011-04-15',
+            DATE_END => '2011-04-17'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2012-04-13',
+            DATE_END => '2012-04-15'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2013-04-12',
+            DATE_END => '2013-04-14'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            minor => 'MATCH',
+            DATE_START => '2014-04-11',
+            DATE_END => '2014-04-13'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.ebu.co.uk/results/353
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2015-04-17',
+            DATE_END => '2015-04-19'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2016-04-15',
+            DATE_END => '2016-04-17'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA|SESSION',
+            DATE_START => '2017-04-21',
+            DATE_END => '2017-04-23'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'MATCH',
+            ignore => 'GROUP',
+            DATE_START => '2018-04-13',
+            DATE_END => '2018-04-15'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH',
+            minor => 'SEGMENT|STANZA|SESSION',
+            DATE_START => '2019-04-12',
+            DATE_END => '2019-04-14'
+          },
+        }
+      },
+    }
+  },
+
+  'Lederer Memorial Trophy' => 
+  {
+    # https://lederertrophy.com/previous-winners/
+    ORIGIN => 'Invitational',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2004' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2004,
+            major => 'MATCH|ROUND',
+            DATE_START => '2004-10-16',
+            DATE_END => '2004-10-17'
+          },
+        }
+      },
+      '2005' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2005,
+            major => 'MATCH',
+            DATE_START => '2005-10-16',
+            DATE_END => '2005-10-17'
+          },
+        }
+      },
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            major => 'MATCH',
+            DATE_START => '2006-10-31',
+            DATE_END => '2006-10-31'
+          },
+        }
+      },
+      '2007' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'MATCH',
+            DATE_START => '2007-10-22',
+            DATE_END => '2007-10-22'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-11-05',
+            DATE_END => '2008-11-05'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-10-17',
+            DATE_END => '2009-10-18'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH|ROUND',
+            DATE_START => '2010-10-30',
+            DATE_END => '2010-10-31'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            DATE_START => '2011-11-19',
+            DATE_END => '2011-11-20'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            DATE_START => '2012-09-29',
+            DATE_END => '2012-09-30'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CLUB => 'Royal Air Force Club',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-10-26',
+            DATE_END => '2013-10-27'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-02-28',
+            DATE_END => '2015-03-01'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'MATCH',
+            DATE_START => '2016-02-27',
+            DATE_END => '2016-02-28'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'MATCH|ROUND',
+            DATE_START => '2017-02-25',
+            DATE_END => '2017-02-26'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            major => 'MATCH',
+            DATE_START => '2018-02-24',
+            DATE_END => '2018-02-25'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            major => 'MATCH',
+            DATE_START => '2019-02-23',
+            DATE_END => '2019-02-24'
+          },
+        }
+      },
+      '2020' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2020,
+            major => 'MATCH|ROUND',
+            DATE_START => '2020-02-22',
+            DATE_END => '2020-02-23'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            major => 'MATCH|ROUND',
+            DATE_START => '2022-02-26',
+            DATE_END => '2022-02-27'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            major => 'MATCH|ROUND',
+            DATE_START => '2023-02-25',
+            DATE_END => '2023-02-26'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            major => 'MATCH',
+            DATE_START => '2024-02-24',
+            DATE_END => '2024-02-25'
+          },
+        }
+      },
+    }
+  },
+
+  'Peggy Bayer Trophy' => 
+  {
+    # https://www.ebu.co.uk/internationals/peggy-bayer-trophy-home-internationals-history
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'U21',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            major => 'MATCH',
+            DATE_START => '2008-03-03',
+            DATE_END => '2008-03-03'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-02-22',
+            DATE_END => '2009-02-22'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND|SESSION',
+            DATE_START => '2011-02-20',
+            DATE_END => '2011-02-20'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CITY => 'Edinburgh',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            DATE_START => '2016-02-19',
+            DATE_END => '2016-02-21'
+          },
+        }
+      },
+    }
+  },
+
+  'Scottish Cup' => 
+  {
+    # https://www.sbu.org.uk/results/archived-results
+    ORGANIZATION => 'SBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'Scotland',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2006' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            DATE_START => '2006-05-06',
+            DATE_END => '2006-05-06'
+          },
+        }
+      },
+      '2007' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2007,
+            major => 'QUARTER',
+            DATE_START => '2007-05-30',
+            DATE_END => '2007-05-30'
+          },
+        }
+      },
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2008-05-21',
+            DATE_END => '2008-05-21'
+          },
+        }
+      },
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-05-16',
+            DATE_END => '2009-05-16'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2010-05-15',
+            DATE_END => '2010-05-15'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2011-05-14',
+            DATE_END => '2011-05-14'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2012-05-12',
+            DATE_END => '2012-05-12'
+          },
+        }
+      },
+      '2013A' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2013-05-11',
+            DATE_END => '2013-05-11'
+          },
+        }
+      },
+      '2013B' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-12-14',
+            DATE_END => '2013-12-14'
+          },
+        }
+      },
+      '2014-15' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2014-12-09',
+            DATE_END => '2014-12-09'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2014-12-13',
+            DATE_END => '2014-12-13'
+          },
+          'C2' => 
+          {
+            # Not sure what this is.
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'HALF|SEGMENT',
+            DATE_START => '2015-02-01',
+            DATE_END => '2015-02-01'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|QUARTER',
+            DATE_START => '2016-12-17',
+            DATE_END => '2016-12-17'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2018-03-10',
+            DATE_END => '2018-03-10'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT|QUARTER',
+            DATE_START => '2019-03-16',
+            DATE_END => '2019-03-16'
+          },
+        }
+      },
+      '2021' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            # The final for the year 2019!
+            YEAR => 2021,
+            STAGE => 'Final',
+            major => 'SEGMENT|QUARTER',
+            DATE_START => '2021-10-31',
+            DATE_END => '2021-10-31'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2023,
+            STAGE => 'Final',
+            major => 'SEGMENT|QUARTER',
+            DATE_START => '2023-12-16',
+            DATE_END => '2023-12-16'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT|QUARTER',
+            DATE_START => '2024-12-14',
+            DATE_END => '2024-12-14'
+          },
+        }
+      },
+    }
+  },
+
+  'Scottish National League' => 
+  {
+    # https://www.sbu.org.uk/results/archived-results
+    ORGANIZATION => 'SBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'Scotland',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2013-08-24',
+            DATE_END => '2013-08-24'
+          },
+        }
+      }
+    }
+  },
+
+  'Spring Foursomes' => 
+  {
+    ORGANIZATION => 'EBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2005' =>
+      {
+        # https://www.ebu.co.uk/results/576
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2005-05-02',
+            DATE_END => '2005-05-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2005,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2005-05-03',
+            DATE_END => '2005-05-03'
+          },
+        }
+      },
+      '2006' =>
+      {
+        # https://www.ebu.co.uk/results/505
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2006-04-28',
+            DATE_END => '2006-05-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2006,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2006-05-02',
+            DATE_END => '2006-05-02'
+          },
+        }
+      },
+      '2007' =>
+      {
+        # https://www.ebu.co.uk/results/413
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2007-05-04',
+            DATE_END => '2007-05-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2007,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2007-05-08',
+            DATE_END => '2007-05-08'
+          },
+        }
+      },
+      '2008' =>
+      {
+        # https://www.ebu.co.uk/results/637
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT|SET',
+            DATE_START => '2008-05-02',
+            DATE_END => '2008-05-06'
+          },
+        }
+      },
+      '2009' =>
+      {
+        # https://www.ebu.co.uk/results/314
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2009-05-01',
+            DATE_END => '2009-05-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2009,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2009-05-05',
+            DATE_END => '2009-05-05'
+          },
+        }
+      },
+      '2010' =>
+      {
+        # https://www.ebu.co.uk/results/256
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2010-04-30',
+            DATE_END => '2010-05-04'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-05-04',
+            DATE_END => '2010-05-04'
+          },
+        }
+      },
+      '2011' =>
+      {
+        # https://www.ebu.co.uk/results/202
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2011-04-29',
+            DATE_END => '2011-05-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-05-03',
+            DATE_END => '2011-05-03'
+          },
+        }
+      },
+      '2012' =>
+      {
+        # https://www.ebu.co.uk/results/135
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2012-05-04',
+            DATE_END => '2012-05-08'
+          },
+          'C1' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2012-05-08',
+            DATE_END => '2012-05-08'
+          },
+        }
+      },
+      '2013' =>
+      {
+        # https://www.ebu.co.uk/results/63
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT',
+            DATE_START => '2013-05-03',
+            DATE_END => '2013-05-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2013,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2013-05-07',
+            DATE_END => '2013-05-07'
+          },
+        }
+      },
+      '2014' =>
+      {
+        # https://www.ebu.co.uk/results/30
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2014,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2014-05-02',
+            DATE_END => '2014-05-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2014-05-06',
+            DATE_END => '2014-05-06'
+          },
+          'C2' => 
+          {
+            YEAR => 2014,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2014-05-06',
+            DATE_END => '2014-05-06'
+          },
+        }
+      },
+      '2015' =>
+      {
+        # https://www.ebu.co.uk/results/361
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-05-01',
+            DATE_END => '2015-05-05'
+          },
+          'C1' => 
+          {
+            YEAR => 2015,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2015-05-05',
+            DATE_END => '2015-05-05'
+          },
+        }
+      },
+      '2016' =>
+      {
+        # https://www.ebu.co.uk/results/492
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2016,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2016-04-29',
+            DATE_END => '2016-05-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Semifinal',
+            groupon => 'AUTO',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2016-05-03',
+            DATE_END => '2016-05-03'
+          },
+          'C2' => 
+          {
+            YEAR => 2016,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2016-05-03',
+            DATE_END => '2016-05-03'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2017-05-01',
+            DATE_END => '2017-05-01'
+          },
+          'C1' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2017-05-01',
+            DATE_END => '2017-05-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2017,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2017-05-02',
+            DATE_END => '2017-05-02'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2018-05-07',
+            DATE_END => '2018-05-07'
+          },
+          'C1' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2018-05-07',
+            DATE_END => '2018-05-08'
+          },
+          'C2' => 
+          {
+            YEAR => 2018,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2018-05-08',
+            DATE_END => '2018-05-08'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2019-05-06',
+            DATE_END => '2019-05-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2019-05-06',
+            DATE_END => '2019-05-06'
+          },
+          'C2' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2019-05-06',
+            DATE_END => '2019-05-07'
+          },
+          'C3' => 
+          {
+            YEAR => 2019,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2019-05-07',
+            DATE_END => '2019-05-07'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA',
+            DATE_START => '2022-05-02',
+            DATE_END => '2022-05-02'
+          },
+          'C1' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2022-05-02',
+            DATE_END => '2022-05-02'
+          },
+          'C2' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2022-05-02',
+            DATE_END => '2022-05-03'
+          },
+          'C3' => 
+          {
+            YEAR => 2022,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA',
+            DATE_START => '2022-05-03',
+            DATE_END => '2022-05-03'
+          },
+        }
+      },
+      '2024' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            minor => 'SEGMENT|STANZA|SET',
+            DATE_START => '2024-05-06',
+            DATE_END => '2024-05-06'
+          },
+          'C1' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Quarterfinal',
+            major => 'SEGMENT|STANZA|SET',
+            DATE_START => '2024-05-06',
+            DATE_END => '2024-05-06'
+          },
+          'C2' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Semifinal',
+            major => 'SEGMENT|STANZA|SET',
+            DATE_START => '2024-05-06',
+            DATE_END => '2024-05-07'
+          },
+          'C3' => 
+          {
+            YEAR => 2024,
+            STAGE => 'Final',
+            major => 'SEGMENT|STANZA|SESSION',
+            DATE_START => '2024-05-07',
+            DATE_END => '2024-05-07'
+          },
+        }
+      },
+    }
+  },
+
+  'Teltscher Trophy' => 
+  {
+    # https://www.bridgewebs.com/bgb/Past%20Teltscher%20Trophy%20Winners.htm
+    # https://www.sbu.org.uk/international/international-news/international-hall-of-fame/history/senior-camrose-teams
+    # https://www.bridgewebs.com/cgi-bin/bwor/bw.cgi?club=bgb&pid=docs_Past%20Teltscher%20Trophy%20Teams.htm
+    ORIGIN => 'International',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Seniors',
+
+    EDITIONS =>
+    {
+      '2009' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'MATCH',
+            DATE_START => '2009-05-29',
+            DATE_END => '2009-05-31'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'SESSION',
+            DATE_START => '2010-05-28',
+            DATE_END => '2010-05-30'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            DATE_START => '2011-05-27',
+            DATE_END => '2011-05-29'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'MATCH',
+            DATE_START => '2012-05-18',
+            DATE_END => '2012-05-20'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH|SESSION',
+            DATE_START => '2013-05-17',
+            DATE_END => '2013-05-19'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'MATCH',
+            DATE_START => '2014-05-16',
+            DATE_END => '2014-05-18'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'MATCH',
+            DATE_START => '2015-05-15',
+            DATE_END => '2015-05-17'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CITY => 'Edinburgh',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2016-05-20',
+            DATE_END => '2016-05-22'
+          },
+        }
+      },
+      '2017' =>
+      {
+        CITY => 'Belfast',
+        COUNTRY => 'Northern Ireland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND|MATCH',
+            DATE_START => '2017-05-19',
+            DATE_END => '2017-05-21'
+          },
+        }
+      },
+      '2018' =>
+      {
+        COUNTRY => 'Wales',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2018,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            DATE_START => '2018-05-18',
+            DATE_END => '2018-05-20'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CITY => 'Edinburgh',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2019,
+            MOVEMENT => 'Round-robin',
+            major => 'ROUND',
+            minor => 'MATCH',
+            DATE_START => '2019-04-05',
+            DATE_END => '2019-04-07'
+          },
+        }
+      },
+      '2020' =>
+      {
+        # https://bridgeresults.org/o/2020_teltscher_trophy/2020_teltscher_trophyr.asp
+        CITY => 'Online',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2020,
+            DATE_START => '2020-05-15',
+            DATE_END => '2020-05-17'
+          },
+        }
+      },
+      '2021' =>
+      {
+        # https://www.ebu.co.uk/results/807
+        CITY => 'Online',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2021,
+            DATE_START => '2021-04-16',
+            DATE_END => '2021-04-18'
+          },
+        }
+      },
+      '2022' =>
+      {
+        # https://www.ebu.co.uk/internationals/team/senior/teltscher-trophy-2022
+        CITY => 'Belfast',
+        COUNTRY => 'Northern Ireland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2022,
+            DATE_START => '2022-05-20',
+            DATE_END => '2022-05-22'
+          },
+        }
+      },
+      '2023' =>
+      {
+        # https://www.ebu.co.uk/internationals/team/senior/teltscher-trophy-2023
+        CITY => 'Newport',
+        COUNTRY => 'Wales',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2023,
+            DATE_START => '2023-05-19',
+            DATE_END => '2023-05-21'
+          },
+        }
+      },
+      '2024' =>
+      {
+        # https://www.ebu.co.uk/internationals/team/senior/teltscher-trophy-2024
+        CITY => 'Stirling',
+        COUNTRY => 'Scotland',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2024,
+            DATE_START => '2024-05-17',
+            DATE_END => '2024-05-19'
+          },
+        }
+      },
+    }
+  },
+
+  'TGR Auction Pairs' => 
+  {
+    # https://www.bridgewebs.com/tgrs/
+    ORIGIN => 'Transnational',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Pairs',
+    SCORING => 'MP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2010,
+            major => 'SESSION',
+            ignore => 'TABLE',
+            DATE_START => '2010-01-17',
+            DATE_END => '2010-01-17'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'SESSION',
+            ignore => 'TABLE',
+            DATE_START => '2011-01-15',
+            DATE_END => '2011-01-16'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'SESSION',
+            DATE_START => '2012-01-14',
+            DATE_END => '2012-01-15'
+          },
+        }
+      },
+      '2013' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'SESSION',
+            DATE_START => '2013-01-12',
+            DATE_END => '2013-01-13'
+          },
+        }
+      },
+      '2014' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2014,
+            major => 'SESSION',
+            DATE_START => '2014-01-11',
+            DATE_END => '2014-01-12'
+          },
+        }
+      },
+      '2015' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2015,
+            major => 'SESSION',
+            DATE_START => '2015-01-10',
+            DATE_END => '2015-01-11'
+          },
+        }
+      },
+      '2016' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2016,
+            major => 'SESSION',
+            DATE_START => '2016-01-09',
+            DATE_END => '2016-01-10'
+          },
+        }
+      }
+    }
+  },
+
+  'TGR Auction Teams' => 
+  {
+    # https://www.bridgewebs.com/tgrs/
+    ORIGIN => 'Transnational',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Qualifying',
+            major => 'ROUND',
+            DATE_START => '2011-09-03',
+            DATE_END => '2011-09-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-09-04',
+            DATE_END => '2011-09-04'
+          },
+        }
+      }
+    }
+  },
+
+  'TGR Super League' => 
+  {
+    # https://www.bridgewebs.com/tgrs/
+    ORIGIN => 'Regional',
+    ZONE => 'Europe',
+    COUNTRY => 'England',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2009-10' =>
+      {
+        CHAPTERS =>
+        {
+          'C00' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            minor => 'HALF',
+            DATE_START => '2009-09-16',
+            DATE_END => '2009-09-16'
+          },
+          'C01' => 
+          {
+            YEAR => 2009,
+            major => 'SEGMENT',
+            DATE_START => '2009-09-30',
+            DATE_END => '2009-09-30'
+          },
+          'C02' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-10-07',
+            DATE_END => '2009-10-07'
+          },
+          'C03' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-10-07',
+            DATE_START => '2009-10-14',
+            DATE_END => '2009-10-14'
+          },
+          'C04' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-10-28',
+            DATE_END => '2009-10-28'
+          },
+          'C05' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-11-04',
+            DATE_END => '2009-11-04'
+          },
+          'C06' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-11-10',
+            DATE_END => '2009-11-11'
+          },
+          'C07' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-11-18',
+            DATE_END => '2009-11-18'
+          },
+          'C08' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-12-09',
+            DATE_END => '2009-12-09'
+          },
+          'C09' => 
+          {
+            YEAR => 2010,
+            major => 'MATCH',
+            minor => 'SEGMENT',
+            DATE_START => '2010-01-20',
+            DATE_END => '2010-01-20'
+          },
+          'C10' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-01-27',
+            DATE_END => '2010-01-27'
+          },
+          'C11' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-02-03',
+            DATE_END => '2010-02-03'
+          },
+          'C12' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-02-17',
+            DATE_END => '2010-02-17'
+          },
+          'C13' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-03-03',
+            DATE_END => '2010-03-03'
+          },
+          'C14' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-03-24',
+            DATE_END => '2010-03-24'
+          },
+          'C15' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-04-14',
+            DATE_END => '2010-04-14'
+          },
+          'C16' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-04-28',
+            DATE_END => '2010-04-28'
+          },
+          'C17' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-05-12',
+            DATE_END => '2010-05-12'
+          },
+        }
+      },
+      '2010-11' =>
+      {
+        CHAPTERS =>
+        {
+          'C00' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-09-15',
+            DATE_END => '2010-09-15'
+          },
+          'C01' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-09-22',
+            DATE_END => '2010-09-22'
+          },
+          'C02' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            minor => 'SEGMENT',
+            DATE_START => '2010-09-29',
+            DATE_END => '2010-09-29'
+          },
+          'C03' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-10-27',
+            DATE_END => '2010-10-27'
+          },
+          'C04' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-11-03',
+            DATE_END => '2010-11-03'
+          },
+          'C05' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-11-10',
+            DATE_END => '2010-11-10'
+          },
+          'C06' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-11-17',
+            DATE_END => '2010-11-17'
+          },
+          'C07' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-12-01',
+            DATE_END => '2010-12-01'
+          },
+          'C08' => 
+          {
+            YEAR => 2010,
+            major => 'ROUND',
+            DATE_START => '2010-12-15',
+            DATE_END => '2010-12-15'
+          },
+          'C09' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-02-09',
+            DATE_END => '2011-02-09'
+          },
+          'C10' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-02-23',
+            DATE_END => '2011-02-23'
+          },
+          'C11' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-03-02',
+            DATE_END => '2011-03-02'
+          },
+          'C12' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-03-16',
+            DATE_END => '2011-03-16'
+          },
+          'C13' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-03-23',
+            DATE_END => '2011-03-23'
+          },
+          'C14' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-04-06',
+            DATE_END => '2011-04-06'
+          },
+          'C15' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-04-27',
+            DATE_END => '2011-04-27'
+          },
+          'C16' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-05-11',
+            DATE_END => '2011-05-11'
+          },
+          'C17' => 
+          {
+            YEAR => 2011,
+            major => 'ROUND',
+            DATE_START => '2011-06-01',
+            DATE_END => '2011-06-01'
+          },
+          'C18' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            DATE_START => '2011-06-08',
+            DATE_END => '2011-06-08'
+          },
+        }
+      }
+    }
+  },
+
+  'Welsh Invitational Pairs' => 
+  {
+    # https://www.bridgewebs.com/tgrs/
+    ORGANIZATION => 'WBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'Wales',
+    FORM => 'Pairs',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2009' =>
+      {
+        SCORING => 'MP',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2009,
+            major => 'ROUND',
+            DATE_START => '2009-09-20',
+            DATE_END => '2009-09-20'
+          },
+        }
+      },
+      '2017' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2017,
+            major => 'SESSION',
+            DATE_START => '2017-07-22',
+            DATE_END => '2017-07-23'
+          },
+        }
+      }
+    }
+  },
+
+  'Welsh Open Trials' => 
+  {
+    # https://welshbridgeunion.org/archive-test
+    ORGANIZATION => 'WBU',
+    ORIGIN => 'National',
+    ZONE => 'Europe',
+    COUNTRY => 'Wales',
+    FORM => 'Pairs',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2011' =>
+      {
+        SCORING => 'MP',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            major => 'MATCH',
+            DATE_START => '2011-10-15',
+            DATE_END => '2011-10-16'
+          },
+        }
+      },
+      '2012' =>
+      {
+        SCORING => 'IMP',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            major => 'ROUND|MATCH',
+            DATE_START => '2012-10-20',
+            DATE_END => '2012-10-21'
+          },
+        }
+      },
+      '2013' =>
+      {
+        SCORING => 'MP',
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2013,
+            major => 'MATCH',
+            DATE_START => '2013-10-19',
+            DATE_END => '2013-10-20'
+          },
+        }
+      },
+    }
+  },
+
+  'Young Chelsea Knock-out' => 
+  {
+    # https://www.bridgewebs.com/cgi-bin/bwoq/bw.cgi?club=youngchelsea&pid=display_page12
+    ORIGIN => 'Regional',
+    ZONE => 'Europe',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Open',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2008' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2008,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2008-07-16',
+            DATE_END => '2008-07-16'
+          },
+        }
+      },
+      '2010' =>
+      {
+        CHAPTERS =>
+        {
+          'C0' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2010-01-03',
+            DATE_END => '2010-01-03'
+          },
+          'C1' => 
+          {
+            YEAR => 2010,
+            STAGE => 'Final',
+            major => 'SEGMENT|SESSION',
+            DATE_START => '2010-09-19',
+            DATE_END => '2010-09-19'
+          },
+        }
+      },
+      '2011' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2011,
+            STAGE => 'Final',
+            major => 'SEGMENT',
+            DATE_START => '2011-08-07',
+            DATE_END => '2011-08-07'
+          },
+        }
+      },
+      '2012' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' => 
+          {
+            YEAR => 2012,
+            STAGE => 'Final',
+            major => 'SEGMENT|ROUND',
+            DATE_START => '2012-08-05',
+            DATE_END => '2012-08-05'
+          },
+        }
+      }
+    },
+  },
+
+  "Young Chelsea Women's Swiss Teams" =>
+  {
+    %GLOBAL,
+    ORIGIN => 'National',
+    FORM => 'Teams',
+    SCORING => 'IMP',
+    GENDER => 'Women',
+    AGE => 'Open',
+
+    EDITIONS =>
+    {
+      '2017' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2017,
+            major => 'ROUND|MATCH',
+            DATE_START => '2017-09-16',
+            DATE_END => '2017-09-17'
+          },
+        }
+      },
+      '2018' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2018,
+            major => 'ROUND|MATCH',
+            DATE_START => '2018-11-09',
+            DATE_END => '2018-11-11'
+          },
+        }
+      },
+      '2019' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2019,
+            major => 'ROUND|MATCH',
+            DATE_START => '2019-11-23',
+            DATE_END => '2019-11-24'
+          },
+        }
+      },
+      '2022' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2022,
+            major => 'ROUND|MATCH',
+            DATE_START => '2022-11-19',
+            DATE_END => '2022-11-20'
+          },
+        }
+      },
+      '2023' =>
+      {
+        CHAPTERS =>
+        {
+          'SINGLE' =>
+          {
+            YEAR => 2023,
+            major => 'ROUND|MATCH',
+            DATE_START => '2023-11-18',
+            DATE_END => '2023-11-19'
+          },
+        }
+      },
+    }
+  },
+
+);
+
+
+sub set_links
+{
+  my ($method) = @_;
+
+  $method->(\%MEETS_UK, \%TOURNAMENTS_UK, 'United Kingdom');
+}
+
+1;
